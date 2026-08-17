@@ -1,0 +1,17 @@
+.component {
+	color: var(--wpe--footer--color);
+	background: var(--wpe--footer--background-color);
+	padding-top: var(--wpe--section--padding-y);
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+// The menu ul is an inline-flex pill, so centre it within the footer.
+.nav {
+	text-align: center;
+}
+
+.copyright {
+	margin: 2rem 0;
+	font-size: 0.8rem;
+	text-align: center;
+}

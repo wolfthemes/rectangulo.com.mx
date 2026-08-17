@@ -1,0 +1,62 @@
+// Base styles
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: var(--wpe--main--background-color);
+	color: var(--wpe--main--color);
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+	font-weight: var(--wpe--font-weight--medium);
+	font-size: fs(base);
+	line-height: var(--wpe--line-height--body);
+}
+
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+html.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+html.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+html.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+html.lenis.lenis-smooth iframe {
+	pointer-events: none;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	background-color: var(--wpe--code--background-color);
+	color: var(--wpe--code--color);
+	padding: 0.25rem 0.5rem;
+	border-radius: 4px;
+	white-space: nowrap;
+	margin: 0 0 1rem;
+	display: inline-block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--wpe--heading--color);
+}
+
+a {
+	color: var(--wpe--link--color);
+}

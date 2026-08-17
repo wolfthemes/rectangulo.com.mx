@@ -1,0 +1,57 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	color: var(--wpe--header--color);
+	background-color: var(--wpe--header--background-color);
+	position: relative;
+	z-index: 2; // Pull dropdown menus to the foreground to sit above <Main />.
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 1.5rem 0;
+	gap: 1rem;
+}
+
+.brand {
+	display: flex;
+	align-items: center;
+}
+
+.title {
+	font-size: 1.1rem;
+	font-weight: fw(semibold);
+	text-decoration: none;
+	color: var(--wpe--header--color);
+}
+
+.nav-toggle {
+	display: block;
+	background: none;
+	border: none;
+	color: var(--wpe--header--color);
+	font-size: 1.5rem;
+	cursor: pointer;
+
+	@media (min-width: $breakpoint-small) {
+		display: none;
+	}
+}
+
+.primary-navigation {
+	display: none;
+	width: 100%;
+
+	&.show {
+		display: block;
+	}
+
+	@media (min-width: $breakpoint-small) {
+		display: block;
+		width: auto;
+	}
+}
