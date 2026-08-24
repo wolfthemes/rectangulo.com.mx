@@ -1,5 +1,13 @@
 // Base styles
 
+@font-face {
+	font-family: 'StretchPro';
+	src: url('/fonts/StretchPro.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 *,
 *::before,
 *::after {
@@ -55,6 +63,7 @@ h4,
 h5,
 h6 {
 	color: var(--wpe--heading--color);
+	font-family: var(--wpe--font-family--display);
 }
 
 a {
