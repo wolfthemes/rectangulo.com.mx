@@ -6,7 +6,10 @@
 }
 
 .heading {
+	width: 100%;
 	margin: 0 0 2.5rem;
+	line-height: 0.95;
+	font-size: clamp(2.5rem, 9vw, 6rem);
 }
 
 .columns {

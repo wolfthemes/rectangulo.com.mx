@@ -20,18 +20,13 @@ export default function AboutHero() {
 						width={1600}
 						height={2048}
 					/>
-					<Heading level="h1" className={cx(['heading', 'is-animated-heading'])}>
+					<Heading level="h1" className={cx(['heading', 'is-animated-chars'])}>
 						Sin límites
 						<br />
 						geográficos
 					</Heading>
-					<img
-						className={cx('rightImage')}
-						src="/images/Captura-de-pantalla-2025-12-23-200136-1024x283.webp"
-						alt=""
-					/>
 				</div>
-				<p className={cx(['body', 'is-animated-heading'])}>
+				<p className={cx(['body', 'is-animated-lines'])}>
 					Nuestro trabajo ha trascendido fronteras y nos ha permitido contar historias en
 					distintos territorios, consolidándonos como una productora con alcance nacional e
 					internacional. Contamos con la capacidad operativa para gestionar proyectos

@@ -24,10 +24,43 @@
 	transform: translateY(0);
 }
 
+// Same idea, letter by letter with a blur+opacity reveal instead of a
+// slide — for the one or two showcase headings that want something more
+// dramatic than the plain word fade above.
+.is-animated-chars.is-split .char {
+	display: inline-block;
+	opacity: 0;
+	filter: blur(8px);
+	transition: opacity 0.5s ease-out, filter 0.5s ease-out;
+	transition-delay: calc(var(--char-index, 0) * 25ms);
+}
+
+.is-animated-chars.is-split.is-in-view .char {
+	opacity: 1;
+	filter: blur(0);
+}
+
+// Same idea again, but per line — for paragraphs rather than headings.
+.is-animated-lines.is-split .line {
+	display: block;
+	opacity: 0;
+	transform: translateY(0.8em);
+	transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+	transition-delay: calc(var(--line-index, 0) * 90ms);
+}
+
+.is-animated-lines.is-split.is-in-view .line {
+	opacity: 1;
+	transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
-	.is-animated-heading .word {
+	.is-animated-heading .word,
+	.is-animated-chars .char,
+	.is-animated-lines .line {
 		opacity: 1;
 		transform: none;
+		filter: none;
 		transition: none;
 	}
 }

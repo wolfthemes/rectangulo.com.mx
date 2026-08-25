@@ -24,8 +24,10 @@
 	--wpe--color--neutral: rgba(255, 255, 255, 0.16);
 	--wpe--color--accent: #d91f2d;
 
-	// Display font (headlines) — see _base.scss @font-face.
+	// Display font (headlines, uppercase) — see _base.scss @font-face.
 	--wpe--font-family--display: 'StretchPro', -apple-system, BlinkMacSystemFont, sans-serif;
+	// Body font — see _base.scss for the Google Fonts import.
+	--wpe--font-family--body: 'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
 
 	// Color Assignments.
 	--wpe--color--title: var(--wpe--color--white);

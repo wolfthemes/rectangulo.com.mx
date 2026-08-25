@@ -58,6 +58,8 @@
 		line-height: 1;
 		white-space: nowrap;
 		text-align: center;
+		text-transform: uppercase;
+		font-weight: fw(bold);
 
 		// Remove link underline when component is inside header or footer.
 		header &,

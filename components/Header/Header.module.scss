@@ -23,10 +23,21 @@
 }
 
 .title {
+	display: block;
 	font-size: 1.1rem;
 	font-weight: fw(semibold);
 	text-decoration: none;
 	color: var(--wpe--header--color);
+}
+
+.logo {
+	display: block;
+	height: 1.75rem;
+	width: auto;
+
+	// The source SVG is a fixed dark fill (#171717) — invert it to white for
+	// this site's dark header rather than maintaining a recolored copy.
+	filter: brightness(0) invert(1);
 }
 
 .nav-toggle {

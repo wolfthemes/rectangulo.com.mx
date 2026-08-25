@@ -38,7 +38,7 @@ export default function Footer({ title, menuItems }) {
 						<h2 className={cx('heading')}>Follow us</h2>
 						{SOCIAL_LINKS.map(({ label, href }) => (
 							<a key={label} className={cx('link')} href={href} target="_blank" rel="noreferrer">
-								{label}
+								{label} <span aria-hidden="true">↗</span>
 							</a>
 						))}
 					</div>

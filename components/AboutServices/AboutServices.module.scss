@@ -3,7 +3,7 @@
 
 .component {
 	background-color: $c-accent;
-	color: $c-ink;
+	color: $c-base;
 	padding-top: var(--wpe--section--padding-y);
 	padding-bottom: var(--wpe--section--padding-y);
 }
@@ -31,9 +31,8 @@
 }
 
 .heading {
-	// h1-h6 set their own color from --wpe--heading--color (white, for the
-	// page's dark default) — override it back to this section's ink.
-	color: $c-ink;
+	// h1-h6 already resolve to white via --wpe--heading--color, which now
+	// matches this section's own (white-on-red) text color too.
 	text-align: center;
 	font-size: fs(xl);
 	margin: 0 0 clamp(2rem, 5vw, 3.5rem);

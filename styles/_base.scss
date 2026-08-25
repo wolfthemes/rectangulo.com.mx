@@ -1,5 +1,7 @@
 // Base styles
 
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap');
+
 @font-face {
 	font-family: 'StretchPro';
 	src:
@@ -20,7 +22,7 @@ body {
 	margin: 0;
 	background-color: var(--wpe--main--background-color);
 	color: var(--wpe--main--color);
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+	font-family: var(--wpe--font-family--body);
 	font-weight: var(--wpe--font-weight--medium);
 	font-size: fs(base);
 	line-height: var(--wpe--line-height--body);
@@ -66,6 +68,7 @@ h5,
 h6 {
 	color: var(--wpe--heading--color);
 	font-family: var(--wpe--font-family--display);
+	text-transform: uppercase;
 }
 
 a {

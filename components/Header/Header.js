@@ -16,7 +16,10 @@ export default function Header({ title = 'Rectángulo', menuItems }) {
 				<div className={cx('navbar')}>
 					<div className={cx('brand')}>
 						<Link legacyBehavior href="/">
-							<a className={cx('title')}>{title}</a>
+							<a className={cx('title')}>
+								{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
+								<img className={cx('logo')} src="/images/logo.svg" alt={title} />
+							</a>
 						</Link>
 					</div>
 					<button
