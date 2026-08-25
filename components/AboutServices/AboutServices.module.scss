@@ -1,0 +1,67 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	background-color: $c-accent;
+	color: $c-ink;
+	padding-top: var(--wpe--section--padding-y);
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+.quoteRow {
+	display: grid;
+	gap: 1.5rem;
+	margin-bottom: clamp(3rem, 6vw, 5rem);
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: 1.4fr 1fr;
+		gap: 3rem;
+	}
+}
+
+.quote {
+	margin: 0;
+	font-size: fs(lg);
+	line-height: 1.4;
+}
+
+.attribution {
+	margin: 0;
+	font-weight: fw(semibold);
+}
+
+.heading {
+	// h1-h6 set their own color from --wpe--heading--color (white, for the
+	// page's dark default) — override it back to this section's ink.
+	color: $c-ink;
+	text-align: center;
+	font-size: fs(xl);
+	margin: 0 0 clamp(2rem, 5vw, 3.5rem);
+}
+
+.services {
+	list-style: none;
+	display: grid;
+	gap: 2rem;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+.serviceTitle {
+	font-weight: fw(bold);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	font-size: fs(sm);
+	margin: 0 0 0.4rem;
+}
+
+.serviceItems {
+	font-size: fs(xxs);
+	margin: 0;
+	opacity: 0.8;
+}

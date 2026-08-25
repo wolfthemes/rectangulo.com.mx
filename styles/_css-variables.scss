@@ -14,33 +14,37 @@
 
 :root {
 	// Color Definitions.
-	--wpe--color--black: #171717;
+	// Dark skin by default — "black"/"white" keep their names but now mean
+	// "page ink" / "page background" the other way round. `offwhite` is
+	// repointed to a dark elevated surface (cards, dropdowns, alt sections)
+	// since nothing in this file used its literal value directly.
+	--wpe--color--black: #0d0d0d;
 	--wpe--color--white: #fff;
-	--wpe--color--offwhite: #f7f7f7;
-	--wpe--color--neutral: rgba(175, 184, 193, 0.2);
+	--wpe--color--offwhite: #1c1c1c;
+	--wpe--color--neutral: rgba(255, 255, 255, 0.16);
 	--wpe--color--accent: #d91f2d;
 
 	// Display font (headlines) — see _base.scss @font-face.
 	--wpe--font-family--display: 'StretchPro', -apple-system, BlinkMacSystemFont, sans-serif;
 
 	// Color Assignments.
-	--wpe--color--title: var(--wpe--color--black);
+	--wpe--color--title: var(--wpe--color--white);
 	--wpe--link--color: var(--wpe--color--accent);
-	--wpe--code--color: var(--wpe--color--black);
+	--wpe--code--color: var(--wpe--color--white);
 	--wpe--code--background-color: var(--wpe--color--neutral);
-	--wpe--header--color: var(--wpe--color--black);
-	--wpe--header--background-color: var(--wpe--color--white);
-	--wpe--navigation-menu--color: var(--wpe--color--black);
+	--wpe--header--color: var(--wpe--color--white);
+	--wpe--header--background-color: var(--wpe--color--black);
+	--wpe--navigation-menu--color: var(--wpe--color--white);
 	--wpe--navigation-menu--color--hover: var(--wpe--color--accent);
 	--wpe--navigation-menu--background-color: transparent;
-	--wpe--dropdown--background-color: var(--wpe--color--white);
-	--wpe--main--color: var(--wpe--color--black);
-	--wpe--main--background-color: var(--wpe--color--white);
-	--wpe--footer--color: var(--wpe--color--black);
-	--wpe--footer--background-color: var(--wpe--color--offwhite);
-	--wpe--heading--color: var(--wpe--color--black);
+	--wpe--dropdown--background-color: var(--wpe--color--offwhite);
+	--wpe--main--color: var(--wpe--color--white);
+	--wpe--main--background-color: var(--wpe--color--black);
+	--wpe--footer--color: var(--wpe--color--white);
+	--wpe--footer--background-color: var(--wpe--color--black);
+	--wpe--heading--color: var(--wpe--color--white);
 	--wpe--border--light: 1px solid var(--wpe--color--neutral);
-	--wpe--border--extra-light: 1px solid var(--wpe--color--offwhite);
+	--wpe--border--extra-light: 1px solid rgba(255, 255, 255, 0.08);
 
 	// Type — weights.
 	--wpe--font-weight--light: 300;

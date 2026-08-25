@@ -4,6 +4,34 @@
 	text-align: center;
 }
 
+// Scroll-reveal heading, word by word via SplitType (lib/animate-headings.js).
+// Attach via the block editor's "Additional CSS class(es)" field too (e.g. on
+// a Heading block) — same class, same JS re-scans the DOM either way.
+// Deliberately NOT hidden by default: `.is-animated-heading` alone renders as
+// plain, fully visible text. Only `.word` children — which only exist once
+// SplitType has run and added `.is-split` — start hidden. That way a JS
+// failure or slow load never leaves heading text invisible.
+.is-animated-heading.is-split .word {
+	display: inline-block;
+	opacity: 0;
+	transform: translateY(0.6em);
+	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+	transition-delay: calc(var(--word-index, 0) * 60ms);
+}
+
+.is-animated-heading.is-split.is-in-view .word {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-animated-heading .word {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
 .sr-only {
 	position: absolute;
 	width: 1px;

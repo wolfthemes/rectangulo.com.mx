@@ -1,0 +1,43 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+.heading {
+	margin: 0 0 2.5rem;
+}
+
+.columns {
+	display: grid;
+	gap: 2.5rem;
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: 1.2fr 1fr;
+		gap: 4rem;
+	}
+}
+
+.diagram {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+	margin-bottom: 1.5rem;
+}
+
+.stageHeading {
+	font-size: fs(lg);
+	margin: 0 0 0.75rem;
+}
+
+.amenities {
+	font-size: fs(sm);
+	opacity: 0.75;
+}
+
+.description {
+	font-size: fs(md);
+	opacity: 0.9;
+}

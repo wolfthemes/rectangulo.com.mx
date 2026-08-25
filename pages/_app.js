@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { FaustProvider } from '@faustwp/core';
 import { initSmoothScroll, resizeSmoothScroll } from '../lib/scroll';
+import { observeAnimatedHeadings } from '../lib/animate-headings';
 import '@faustwp/core/dist/css/toolbar.css';
 import '../styles/global.scss';
 
@@ -16,6 +17,7 @@ export default function MyApp({ Component, pageProps }) {
 
 	useEffect(() => {
 		resizeSmoothScroll();
+		observeAnimatedHeadings();
 	}, [router.asPath]);
 
 	return (

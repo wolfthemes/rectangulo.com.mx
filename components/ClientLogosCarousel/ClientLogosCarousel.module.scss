@@ -1,0 +1,47 @@
+$speed: 32s;
+
+.component {
+	display: flex;
+	width: 100%;
+	overflow: hidden;
+
+	// Fade the edges so logos scroll in/out instead of clipping hard.
+	mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+
+	&:hover .track {
+		animation-play-state: paused;
+	}
+}
+
+.track {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	gap: clamp(2.5rem, 6vw, 5rem);
+	padding-right: clamp(2.5rem, 6vw, 5rem);
+	animation: scroll $speed linear infinite;
+
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
+}
+
+.logo {
+	height: clamp(2.25rem, 5vw, 3.75rem);
+	width: auto;
+	max-width: none;
+	object-fit: contain;
+	filter: grayscale(1) brightness(0) invert(1);
+	opacity: 0.7;
+}
+
+@keyframes scroll {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		// Exactly one track's width, since the component renders two back-to-back.
+		transform: translateX(-100%);
+	}
+}

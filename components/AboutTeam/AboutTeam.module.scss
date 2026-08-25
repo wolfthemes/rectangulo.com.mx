@@ -1,0 +1,65 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	background-color: $c-accent;
+	color: $c-ink;
+	padding-top: var(--wpe--section--padding-y);
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+.grid {
+	display: grid;
+	gap: 2.5rem;
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: 1fr 1.4fr 1.4fr;
+		gap: 3rem;
+	}
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.heading {
+	font-weight: fw(bold);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	font-size: fs(sm);
+	margin: 0 0 0.5rem;
+}
+
+.member {
+	margin-bottom: 1.25rem;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.memberName {
+	font-weight: fw(bold);
+	margin: 0;
+}
+
+.memberRole {
+	margin: 0 0 0.25rem;
+	opacity: 0.75;
+}
+
+.cta {
+	margin: 0 0 0.5rem;
+}
+
+.link {
+	color: inherit;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		text-decoration: underline;
+	}
+}

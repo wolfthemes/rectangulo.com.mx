@@ -1,3 +1,6 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
 .component {
 	color: var(--wpe--footer--color);
 	background: var(--wpe--footer--background-color);
@@ -5,13 +8,81 @@
 	padding-bottom: var(--wpe--section--padding-y);
 }
 
-// The menu ul is an inline-flex pill, so centre it within the footer.
-.nav {
-	text-align: center;
+.top {
+	display: grid;
+	gap: 3rem;
+	padding-bottom: 3rem;
+	border-bottom: var(--wpe--border--extra-light);
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: 2fr 1fr 1fr;
+		gap: 2rem;
+	}
 }
 
-.copyright {
-	margin: 2rem 0;
-	font-size: 0.8rem;
-	text-align: center;
+// Big stacked site nav, e.g. "WORK / ABOUT / CONTACT" in giant faint type.
+.nav {
+	ul {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0;
+	}
+
+	li {
+		width: auto;
+	}
+
+	a {
+		padding: 0;
+		text-align: left;
+		font-family: var(--wpe--font-family--display);
+		font-size: clamp(2.5rem, 8vw, 5rem);
+		line-height: 1.05;
+		text-transform: uppercase;
+		color: var(--wpe--color--neutral);
+
+		&:hover,
+		&:focus {
+			color: var(--wpe--navigation-menu--color--hover);
+		}
+	}
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.heading {
+	font-size: fs(sm);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: $c-accent;
+	margin: 0 0 0.5rem;
+}
+
+.link {
+	color: inherit;
+	text-decoration: none;
+
+	&:hover,
+	&:focus {
+		color: $c-accent;
+	}
+}
+
+.bottom {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.5rem;
+	padding-top: 2rem;
+	font-size: fs(xxs);
+	opacity: 0.6;
+}
+
+.copyright,
+.credit {
+	margin: 0;
 }

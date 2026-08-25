@@ -1,3 +1,9 @@
+export { AboutGallery } from './AboutGallery';
+export { AboutHero } from './AboutHero';
+export { AboutInstalaciones } from './AboutInstalaciones';
+export { AboutServices } from './AboutServices';
+export { AboutTeam } from './AboutTeam';
+export { ClientLogosCarousel } from './ClientLogosCarousel';
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
 export { EntryHeader } from './EntryHeader';
@@ -8,6 +14,7 @@ export { Header } from './Header';
 export { Heading } from './Heading';
 export { Main } from './Main';
 export { NavigationMenu } from './NavigationMenu';
+export { ParallaxSection } from './ParallaxSection';
 export { Post } from './Post';
 export { PostInfo } from './PostInfo';
 export { SEO } from './SEO';

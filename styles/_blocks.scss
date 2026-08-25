@@ -18,3 +18,63 @@
 // for the hand-rolled block content rules), so we don't need core block CSS
 // parity here — dropping it removes a fragile upstream dependency instead of
 // pinning package versions around a WordPress packaging bug.
+
+@import 'styles/tokens';
+
+// Editor-facing section/layout classes. Applied in wp-admin via a block's
+// "Additional CSS class(es)" field (Group/Cover/Columns/Heading etc.) —
+// there's no custom block registration behind these, just hooks for editors
+// composing landing-style pages (About, etc.) out of core blocks.
+
+// Break a Group/Cover out to full viewport width — @wordpress/block-library's
+// own .alignfull isn't available here (see note above), so it's reimplemented
+// minimally for the one case this project needs.
+.alignfull {
+	width: 100vw;
+	max-width: 100vw;
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
+
+.alignwide {
+	width: 100vw;
+	max-width: var(--wpe--container--max-width);
+	margin-left: 50%;
+	transform: translateX(-50%);
+}
+
+// Full-bleed accent band (red section in the reference design — quote,
+// "how we can help", etc.). Pair with .alignfull.
+.section--accent {
+	background-color: var(--wpe--color--accent);
+	color: var(--wpe--color--black);
+	padding-top: var(--wpe--section--padding-y);
+	padding-bottom: var(--wpe--section--padding-y);
+
+	// Headings/links inherit the section's ink instead of the page default.
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	a {
+		color: inherit;
+	}
+}
+
+// Elevated dark surface (stat panels, alternating sections).
+.section--surface {
+	background-color: var(--wpe--color--offwhite);
+	padding-top: var(--wpe--section--padding-y);
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+// Big stat number, e.g. "192 M³" — pair a Heading block set to this class
+// with a Paragraph underneath for the label.
+.stat-figure {
+	color: var(--wpe--color--accent);
+	font-size: var(--wpe--font-size--hero);
+	line-height: 1;
+	margin: 0;
+}
