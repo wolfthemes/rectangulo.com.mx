@@ -5,6 +5,7 @@ import frontPage from './front-page';
 import page from './page';
 import single from './single';
 import singleWork from './single-work';
+import singleVideo from './single-video';
 
 export default {
 	category,
@@ -14,4 +15,5 @@ export default {
 	page,
 	single,
 	'single-work': singleWork,
+	'single-video': singleVideo,
 };

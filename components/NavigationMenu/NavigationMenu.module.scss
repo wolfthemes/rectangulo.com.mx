@@ -61,7 +61,12 @@
 		text-transform: uppercase;
 		font-family: var(--wpe--font-family--display);
 		font-weight: fw(bold);
-		font-size: fs(sm);
+
+		// Top nav — kept small. The footer nav is a completely separate
+		// treatment (giant display type, own hover), see `footer &` below —
+		// deliberately not sharing this size/color so the two never end up
+		// fighting over which file's same-specificity rule wins.
+		font-size: fs(xs);
 
 		// Remove link underline when component is inside header or footer.
 		header &,
@@ -97,6 +102,44 @@
 	@media (prefers-reduced-motion: reduce) {
 		.label {
 			transition: none;
+		}
+	}
+
+	// Footer nav: giant stacked display type ("WORK / ABOUT / CONTACT"),
+	// entirely separate from the header's small sweep-reveal above — reset
+	// the gradient-clip trick and swap in a plain white/0.5-opacity label,
+	// full opacity on hover. No red, no curtain — just opacity.
+	footer & {
+		li {
+			width: auto;
+		}
+
+		a {
+			width: auto;
+			padding: 0.1rem 0;
+			text-align: left;
+            font-size: fs(lg);
+			line-height: 1.05;
+		}
+
+		.label {
+			background-image: none;
+			background-clip: unset;
+			color: var(--wpe--color--white);
+			opacity: 0.5;
+			transition: opacity 0.3s ease;
+		}
+
+		a:hover .label,
+		a:focus .label,
+		.active > a .label {
+			opacity: 1;
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			.label {
+				transition: none;
+			}
 		}
 	}
 

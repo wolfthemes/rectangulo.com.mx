@@ -21,3 +21,4 @@ export { Post } from './Post';
 export { PostInfo } from './PostInfo';
 export { SEO } from './SEO';
 export { SkipNavigationLink } from './SkipNavigationLink';
+export { VideoGrid } from './VideoGrid';

@@ -1,0 +1,27 @@
+@import 'styles/tokens';
+
+.title {
+	margin: clamp(4rem, 8vw, 7rem) 0 0.5rem;
+	font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.type {
+	margin: 0 0 1.5rem;
+	color: $c-accent;
+	font-size: fs(sm);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.player {
+	display: block;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	border: 0;
+}
+
+.image {
+	display: block;
+	width: 100%;
+	height: auto;
+}

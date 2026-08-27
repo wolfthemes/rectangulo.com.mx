@@ -1,0 +1,133 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	// Reserves roughly one row's height while `videos` is still loading (the
+	// grid itself isn't rendered yet then) — same as PortfolioGrid.
+	min-height: 32rem;
+	padding-top: clamp(4rem, 8vw, 7rem);
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+.grid {
+	display: grid;
+	gap: 1.5rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	@media (min-width: $breakpoint-extra-small) {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+
+	@media (min-width: $breakpoint-medium) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.card {
+	position: relative;
+}
+
+.trigger {
+	display: block;
+	position: relative;
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+	color: inherit;
+	font: inherit;
+	text-align: left;
+}
+
+.image,
+.preview {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.preview {
+	opacity: 0;
+	transition: opacity 0.3s ease-out;
+}
+
+.trigger:hover .preview,
+.trigger:focus-visible .preview {
+	opacity: 1;
+}
+
+// Title: hidden until hover, then fades/slides up (own transition, not the
+// scroll-triggered .is-animated-item one on the card itself) and its inner
+// track starts marquee-scrolling. `overflow: hidden` on the wrap is what
+// clips the marquee track — see ClientLogosCarousel for the same
+// duplicated-track technique.
+.titleWrap {
+	position: absolute;
+	inset: auto 0 0;
+	overflow: hidden;
+	padding: 1.25rem 0;
+	background: linear-gradient(to top, rgb(0 0 0 / 60%), transparent);
+	opacity: 0;
+	transform: translateY(1em);
+	transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.trigger:hover .titleWrap,
+.trigger:focus-visible .titleWrap {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.marquee {
+	display: flex;
+	width: max-content;
+	flex-shrink: 0;
+	animation: marquee 12s linear infinite;
+	animation-play-state: paused;
+
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
+}
+
+.trigger:hover .marquee,
+.trigger:focus-visible .marquee {
+	animation-play-state: running;
+}
+
+.title {
+	flex-shrink: 0;
+	padding-right: 1.5em;
+	color: $c-base;
+	font-family: var(--wpe--font-family--secondary);
+	font-size: fs(lg);
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		// Exactly one title's width (including its trailing padding), since
+		// the track renders the title twice back-to-back.
+		transform: translateX(-50%);
+	}
+}
+
+.youtube {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 16 / 9;
+	border: 0;
+}

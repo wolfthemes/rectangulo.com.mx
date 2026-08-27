@@ -20,31 +20,16 @@
 	}
 }
 
-// Big stacked site nav, e.g. "WORK / ABOUT / CONTACT" in giant faint type.
+// Big stacked site nav, e.g. "WORK / ABOUT / CONTACT" — layout only, the
+// type size/color/hover (giant display type, red curtain reveal) live in
+// NavigationMenu.module.scss's `footer &` scope, not here, so there's a
+// single source of truth instead of two files' same-specificity rules
+// racing each other.
 .nav {
 	ul {
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 0;
-	}
-
-	li {
-		width: auto;
-	}
-
-	a {
-		padding: 0;
-		text-align: left;
-		font-family: var(--wpe--font-family--display);
-		font-size: clamp(2.5rem, 8vw, 5rem);
-		line-height: 1.05;
-		text-transform: uppercase;
-		color: var(--wpe--color--neutral);
-
-		&:hover,
-		&:focus {
-			color: var(--wpe--navigation-menu--color--hover);
-		}
 	}
 }
 
