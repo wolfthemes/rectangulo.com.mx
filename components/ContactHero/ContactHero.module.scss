@@ -10,6 +10,7 @@
 	padding-top: clamp(4rem, 10vw, 8rem);
 	padding-bottom: clamp(4rem, 10vw, 8rem);
 	margin-bottom: 4rem;
+	text-align: center;
 }
 
 .heading {
@@ -19,9 +20,21 @@
 	font-size: clamp(2.75rem, 10vw, 7rem);
 }
 
+.wordmark {
+	margin: 1.5rem 0 0;
+	font-family: var(--wpe--font-family--display);
+	color: $c-ink;
+	font-size: clamp(1.25rem, 3vw, 2rem);
+	// No letter-spacing: it disables StretchPro's calt/liga substitution,
+	// which is what merges the doubled letters into the brand's ambigram
+	// shapes (see the "REECTANGULOO"/"INSTAALACIONEE" trick).
+	text-transform: uppercase;
+}
+
 .details {
 	display: grid;
 	gap: 2.5rem;
+	text-align: center;
 
 	@media (min-width: $breakpoint-small) {
 		grid-template-columns: repeat(3, 1fr);
@@ -38,6 +51,8 @@
 
 .value {
 	display: block;
-	font-size: fs(lg);
+	color: $c-base;
+	font-size: fs(md);
+	text-decoration: none;
 	word-break: break-word;
 }

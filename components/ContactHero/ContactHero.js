@@ -23,6 +23,8 @@ export default function ContactHero() {
 						<br />
 						juntos
 					</Heading>
+					{/* Wordmark, doubled letters per the StretchPro brand trick. */}
+					<p className={cx('wordmark')}>Reectanguloo</p>
 				</Container>
 			</div>
 			<Container>
