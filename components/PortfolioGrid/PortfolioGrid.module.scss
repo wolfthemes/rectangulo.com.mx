@@ -1,0 +1,74 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	// Reserves roughly one row's height while `works` is still loading (the
+	// grid itself isn't rendered yet then) so the footer doesn't jump up and
+	// back down once real posts arrive.
+	min-height: 32rem;
+	padding-top: clamp(4rem, 8vw, 7rem);
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+.grid {
+	display: grid;
+	gap: 1.5rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+}
+
+.link {
+	display: flex;
+	flex-direction: column;
+	color: inherit;
+	text-decoration: none;
+}
+
+.image {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+}
+
+.caption {
+	padding: 1.25rem 1.5rem;
+	color: $c-base;
+}
+
+.client {
+	margin: 0 0 0.25rem;
+	font-size: fs(xxs);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	opacity: 0.75;
+}
+
+.title {
+	margin: 0 0 0.5rem;
+	font-family: var(--wpe--font-family--secondary);
+	font-size: fs(md);
+	text-transform: uppercase;
+}
+
+.excerpt {
+	margin: 0 0 0.75rem;
+	font-size: fs(xs);
+	opacity: 0.85;
+}
+
+.year {
+	margin: 0;
+	font-size: fs(xs);
+	opacity: 0.75;
+}

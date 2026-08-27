@@ -16,6 +16,7 @@ export { Heading } from './Heading';
 export { Main } from './Main';
 export { NavigationMenu } from './NavigationMenu';
 export { ParallaxSection } from './ParallaxSection';
+export { PortfolioGrid } from './PortfolioGrid';
 export { Post } from './Post';
 export { PostInfo } from './PostInfo';
 export { SEO } from './SEO';
