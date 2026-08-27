@@ -1,1 +1,1 @@
-export { default } from './VideoGrid';
+export { default as VideoGrid } from './VideoGrid';

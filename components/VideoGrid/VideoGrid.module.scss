@@ -107,7 +107,7 @@
 	flex-shrink: 0;
 	padding-right: 1.5em;
 	color: $c-base;
-	font-family: var(--wpe--font-family--secondary);
+	font-family: var(--wpe--font-family--display);
 	font-size: fs(lg);
 	text-transform: uppercase;
 	white-space: nowrap;
@@ -125,9 +125,51 @@
 	}
 }
 
-.youtube {
+// Invisible, unclickable stand-in for "the viewport" as a real DOM element —
+// Flip.fit only accepts an element as its target (it reads the target's own
+// getBoundingClientRect()), not a plain rect. See VideoGrid.js.
+.viewportSizer {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	visibility: hidden;
+}
+
+// Expanded frame — position/size are driven entirely by GSAP's Flip.fit
+// (see VideoGrid.js), starting pinned to the clicked card's rect via
+// `top`/`left`/`width`/`height` here as the pre-JS/no-JS fallback, not by
+// this file. `position: fixed` takes it out of the grid's document flow so
+// the Flip transform math is relative to the viewport, not a scrolled ancestor.
+.frame {
+	position: fixed;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
-	aspect-ratio: 16 / 9;
+	z-index: 100;
+	overflow: hidden;
+	background: $c-ink;
+}
+
+.media {
+	width: 100%;
+	height: 100%;
 	border: 0;
+	object-fit: contain;
+}
+
+.close {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	z-index: 1;
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 0;
+	border-radius: 50%;
+	background: rgb(0 0 0 / 50%);
+	color: $c-base;
+	font-size: fs(lg);
+	line-height: 1;
+	cursor: pointer;
 }

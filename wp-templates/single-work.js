@@ -5,6 +5,7 @@ import { Container, Footer, Header, Heading, Main, NavigationMenu, SEO } from '.
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { FeaturedImage } from '../components/FeaturedImage';
+import { youtubeId } from '../lib/youtube';
 import styles from './single-work.module.scss';
 
 const GET_LAYOUT_QUERY = gql`
@@ -43,6 +44,7 @@ const GET_WORK_QUERY = gql`
 			workAlcance
 			workFormato
 			workResultado
+			workVideoUrl
 			workTypes {
 				nodes {
 					name
@@ -74,17 +76,21 @@ function metaRows(work) {
 }
 
 export default function Component(props) {
+	// Hooks must run unconditionally on every render (rules-of-hooks) — the
+	// `?? {}` covers the render(s) before FaustContext has this query's
+	// result yet (e.g. props.loading, or a Link prefetch racing the fetch).
+	const { work } = useFaustQuery(GET_WORK_QUERY) ?? {};
+	const { generalSettings, headerMenuItems, footerMenuItems } = useFaustQuery(GET_LAYOUT_QUERY) ?? {};
+
 	if (props.loading) {
 		return <>Loading...</>;
 	}
 
-	const { work } = useFaustQuery(GET_WORK_QUERY);
-	const { generalSettings, headerMenuItems, footerMenuItems } = useFaustQuery(GET_LAYOUT_QUERY);
-
 	const { title: siteTitle, description: siteDescription } = generalSettings ?? {};
 	const primaryMenu = headerMenuItems?.nodes ?? [];
 	const footerMenu = footerMenuItems?.nodes ?? [];
-	const { title, featuredImage } = work ?? {};
+	const { title, featuredImage, workVideoUrl } = work ?? {};
+	const ytId = youtubeId(workVideoUrl);
 
 	return (
 		<>
@@ -95,30 +101,50 @@ export default function Component(props) {
 					<Heading level="h1" className={styles.title}>
 						{title}
 					</Heading>
-					{featuredImage?.node?.sourceUrl && (
-						<img
-							className={styles.image}
-							src={featuredImage.node.sourceUrl}
-							alt={featuredImage.node.altText || title}
-						/>
-					)}
-					<dl className={styles.meta}>
-						{metaRows(work).map(([label, value]) => (
-							<div className={styles.row} key={label}>
-								<dt className={styles.label}>{label}</dt>
-								<dd className={styles.value}>
-									{Array.isArray(value)
-										? value.map((term, index) => (
-												<span key={term.uri}>
-													{index > 0 && ', '}
-													<Link href={term.uri}>{term.name}</Link>
-												</span>
-											))
-										: value}
-								</dd>
-							</div>
-						))}
-					</dl>
+					<div className={styles.hero}>
+						<dl className={styles.meta}>
+							{metaRows(work).map(([label, value]) => (
+								<div className={styles.row} key={label}>
+									<dt className={styles.label}>{label}</dt>
+									<dd className={styles.value}>
+										{Array.isArray(value)
+											? value.map((term, index) => (
+													<span key={term.uri}>
+														{index > 0 && ', '}
+														<Link className={styles.serviceLink} href={term.uri}>
+															{term.name}
+														</Link>
+													</span>
+												))
+											: value}
+									</dd>
+								</div>
+							))}
+						</dl>
+						<div className={styles.media}>
+							{workVideoUrl ? (
+								ytId ? (
+									<iframe
+										className={styles.player}
+										src={`https://www.youtube.com/embed/${ytId}`}
+										title={title}
+										allow="autoplay; encrypted-media; picture-in-picture"
+										allowFullScreen
+									/>
+								) : (
+									<video className={styles.player} src={workVideoUrl} controls playsInline poster={featuredImage?.node?.sourceUrl} />
+								)
+							) : (
+								featuredImage?.node?.sourceUrl && (
+									<img
+										className={styles.image}
+										src={featuredImage.node.sourceUrl}
+										alt={featuredImage.node.altText || title}
+									/>
+								)
+							)}
+						</div>
+					</div>
 				</Container>
 			</Main>
 			<Footer title={siteTitle} menuItems={footerMenu} />

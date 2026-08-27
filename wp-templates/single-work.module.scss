@@ -1,3 +1,4 @@
+@import 'styles/breakpoints';
 @import 'styles/tokens';
 
 .title {
@@ -5,28 +6,59 @@
 	font-size: clamp(2rem, 6vw, 4rem);
 }
 
-.image {
+.hero {
+	display: grid;
+	gap: 2rem;
+	align-items: start;
+
+	// Media first on mobile (default DOM order), meta below it.
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+		gap: 4rem;
+
+		// Meta on the left, media on the right, regardless of DOM order.
+		.meta {
+			order: 1;
+		}
+
+		.media {
+			order: 2;
+		}
+	}
+}
+
+.media {
+	display: block;
+}
+
+.image,
+.player {
 	display: block;
 	width: 100%;
 	height: auto;
 }
 
+.player {
+	aspect-ratio: 16 / 9;
+	border: 0;
+}
+
 .meta {
-	margin: 2rem 0;
+	margin: 0;
 	padding: 0;
 }
 
 .row {
 	display: flex;
 	gap: 1rem;
-	padding: 0.75rem 0;
+	padding: 0.6rem 0;
 	border-bottom: var(--wpe--border--light);
 }
 
 .label {
-	flex: 0 0 8rem;
+	flex: 0 0 7rem;
 	color: $c-accent;
-	font-size: fs(sm);
+	font-size: fs(xxs);
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
 }
@@ -34,5 +66,11 @@
 .value {
 	margin: 0;
 	flex: 1 1 auto;
+	font-size: fs(xs);
 	white-space: pre-line;
+}
+
+.serviceLink {
+	color: $c-base;
+	text-decoration: none;
 }

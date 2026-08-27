@@ -31,7 +31,7 @@ export default function VideosPage() {
 
 	return (
 		<>
-			<SEO title={`Videos — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={`Motion — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<VideoGrid videos={videos} />
