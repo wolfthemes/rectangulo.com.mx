@@ -15,9 +15,14 @@
 
 .heading {
 	margin: 0;
+	// Dossier reference uses Gotham Black here, not StretchPro — StretchPro
+	// is reserved for the "RECTANGULO" wordmark/logo below it.
+	font-family: var(--wpe--font-family--body);
+	font-weight: 900;
 	color: $c-ink;
 	line-height: 0.95;
 	font-size: clamp(2.75rem, 10vw, 7rem);
+	letter-spacing: -0.02em;
 }
 
 .wordmark {
