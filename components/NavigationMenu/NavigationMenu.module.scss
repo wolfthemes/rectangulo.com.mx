@@ -59,7 +59,9 @@
 		white-space: nowrap;
 		text-align: center;
 		text-transform: uppercase;
+		font-family: var(--wpe--font-family--display);
 		font-weight: fw(bold);
+		font-size: fs(sm);
 
 		// Remove link underline when component is inside header or footer.
 		header &,
@@ -68,65 +70,33 @@
 		}
 	}
 
-	// Mask reveal (ref: wolfthemes Overable's .link__mask, same mechanic as the
-	// amla-frontend sibling). .label-mask is a clip window sitting one width to
-	// the left; .label-mask-inner holds the accent clone, offset one width to
-	// the right inside it. On hover both slide to 0 — since they cancel out,
-	// the clone stays fixed over the original while the clip window sweeps
-	// across, unmasking the red left-to-right.
+	// Sweep reveal: a hard-stop two-tone gradient clipped to the text, swept
+	// across via background-position. One glyph render only (no stacked
+	// duplicate text layers like a translateX mask-and-clone), so there's no
+	// anti-aliasing seam/halo between the base and hover color.
 	.label {
-		position: relative;
 		display: inline-block;
-		vertical-align: top;
+		background-image: linear-gradient(
+			to right,
+			var(--wpe--navigation-menu--color--hover) 50%,
+			var(--wpe--navigation-menu--color) 50%
+		);
+		background-size: 200% 100%;
+		background-position: 100% 0;
+		background-clip: text; // autoprefixed (-webkit-) by Next's build pipeline
+		color: transparent;
+		transition: background-position 0.4s ease;
 	}
 
-	.label-text {
-		display: block;
+	a:hover .label,
+	a:focus .label,
+	.active > a .label {
+		background-position: 0 0;
 	}
 
-	.label-mask {
-		position: absolute;
-		inset: 0;
-		overflow: hidden;
-		transform: translateX(-100%);
-		transition: transform 0.4s ease;
-		pointer-events: none;
-		user-select: none;
-	}
-
-	.label-mask-inner {
-		display: block;
-		white-space: nowrap;
-		color: var(--wpe--navigation-menu--color--hover);
-		transform: translateX(100%);
-		transition: transform 0.4s ease;
-	}
-
-	a:hover .label-mask,
-	a:focus .label-mask,
-	.active > a .label-mask,
-	a:hover .label-mask-inner,
-	a:focus .label-mask-inner,
-	.active > a .label-mask-inner {
-		transform: translateX(0);
-	}
-
-	// Skip the slide for users who don't want motion; plain fade instead.
 	@media (prefers-reduced-motion: reduce) {
-		.label-mask {
-			transform: none;
-			opacity: 0;
-			transition: opacity 0.2s ease;
-		}
-
-		.label-mask-inner {
-			transform: none;
-		}
-
-		a:hover .label-mask,
-		a:focus .label-mask,
-		.active > a .label-mask {
-			opacity: 1;
+		.label {
+			transition: none;
 		}
 	}
 

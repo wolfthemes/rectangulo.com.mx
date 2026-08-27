@@ -52,16 +52,10 @@ export default function NavigationMenu({ menuItems, className, onItemClick }) {
 								rel={target === '_blank' ? 'noopener noreferrer' : undefined}
 								onClick={(event) => onItemClick?.(item, event)}
 							>
-								{/* Mask reveal (ref: wolfthemes Overable's .link__mask, also used
-								    in the amla-frontend sibling). Two-layer counter-slide: the clip
-								    (.label-mask) moves -100%->0 while its inner clone moves 100%->0,
-								    so the accent clone is unmasked left-to-right in place. */}
-								<span className={cx('label')}>
-									<span className={cx('label-text')}>{label ?? ''}</span>
-									<span aria-hidden="true" className={cx('label-mask')}>
-										<span className={cx('label-mask-inner')}>{label ?? ''}</span>
-									</span>
-								</span>
+								{/* Sweep reveal: a two-tone gradient clipped to the text, swept
+								    across on hover. Single glyph render (no stacked duplicate text
+								    layers), so there's no anti-aliasing seam between colors. */}
+								<span className={cx('label')}>{label ?? ''}</span>
 							</Link>
 							{children.length ? renderMenu(children) : null}
 						</li>
