@@ -18,16 +18,22 @@
 	// "page ink" / "page background" the other way round. `offwhite` is
 	// repointed to a dark elevated surface (cards, dropdowns, alt sections)
 	// since nothing in this file used its literal value directly.
-	--wpe--color--black: #0d0d0d;
+	--wpe--color--black: #000;
 	--wpe--color--white: #fff;
 	--wpe--color--offwhite: #1c1c1c;
 	--wpe--color--neutral: rgba(255, 255, 255, 0.16);
-	--wpe--color--accent: #d91f2d;
+	--wpe--color--slate: #414550;
+	// Brand red — 3 approved shades (brightest to darkest).
+	--wpe--color--accent: #ec233c;
+	--wpe--color--accent--mid: #d60429;
+	--wpe--color--accent--dark: #9a0a00;
 
 	// Display font (headlines, uppercase) — see _base.scss @font-face.
 	--wpe--font-family--display: 'StretchPro', -apple-system, BlinkMacSystemFont, sans-serif;
-	// Body font — see _base.scss for the Google Fonts import.
-	--wpe--font-family--body: 'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
+	// Body font — see _base.scss @font-face.
+	--wpe--font-family--body: 'Gotham', -apple-system, BlinkMacSystemFont, sans-serif;
+	// Secondary heading font (h2–h6) — see _base.scss @font-face.
+	--wpe--font-family--secondary: 'BBH Sans Bartle', -apple-system, BlinkMacSystemFont, sans-serif;
 
 	// Color Assignments.
 	--wpe--color--title: var(--wpe--color--white);

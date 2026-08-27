@@ -46,7 +46,7 @@ export default function Footer({ title, menuItems }) {
 
 				<div className={cx('bottom')}>
 					<p className={cx('copyright')}>{`${title} © ${year}. Powered by Headless WordPress.`}</p>
-					<p className={cx('credit')}>Made by Rectángulo</p>
+					<p className={cx('credit')}>Made by <a href="https://constantin.saguin.com" target="_blank">constantin.saguin</a></p>
 				</div>
 			</Container>
 		</footer>

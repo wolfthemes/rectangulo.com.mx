@@ -1,12 +1,58 @@
 // Base styles
 
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap');
-
 @font-face {
 	font-family: 'StretchPro';
 	src:
 		url('/fonts/stretch-pro.regular.ttf') format('truetype'),
 		url('/fonts/StretchPro.otf') format('opentype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Gotham';
+	src: url('/fonts/Gotham/GothamLight.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Gotham';
+	src: url('/fonts/Gotham/GothamMedium.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Gotham';
+	src: url('/fonts/Gotham/GothamMediumItalic.ttf') format('truetype');
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Gotham';
+	src: url('/fonts/Gotham/Gotham-Bold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Gotham';
+	src: url('/fonts/Gotham/Gotham-Black.otf') format('opentype');
+	font-weight: 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'BBH Sans Bartle';
+	src: url('/fonts/BBHSSansBartie/BBHSansBartle-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
@@ -69,6 +115,14 @@ h6 {
 	color: var(--wpe--heading--color);
 	font-family: var(--wpe--font-family--display);
 	text-transform: uppercase;
+	font-weight: fw(medium);
+}
+
+// Small supporting text set in the secondary brand font — eyebrows/kickers,
+// subtitles, meta lines (dates, categories, credits). Headings stay on
+// StretchPro; this is for text next to/under them.
+.u-secondary-text {
+	font-family: var(--wpe--font-family--secondary);
 }
 
 a {

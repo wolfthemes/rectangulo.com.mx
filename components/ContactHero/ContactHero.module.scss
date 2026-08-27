@@ -1,0 +1,43 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	padding-bottom: var(--wpe--section--padding-y);
+}
+
+.band {
+	background-color: $c-accent;
+	padding-top: clamp(4rem, 10vw, 8rem);
+	padding-bottom: clamp(4rem, 10vw, 8rem);
+	margin-bottom: 4rem;
+}
+
+.heading {
+	margin: 0;
+	color: $c-ink;
+	line-height: 0.95;
+	font-size: clamp(2.75rem, 10vw, 7rem);
+}
+
+.details {
+	display: grid;
+	gap: 2.5rem;
+
+	@media (min-width: $breakpoint-small) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+.label {
+	margin: 0 0 0.5rem;
+	color: $c-accent;
+	font-size: fs(sm);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.value {
+	display: block;
+	font-size: fs(lg);
+	word-break: break-word;
+}
