@@ -1,6 +1,8 @@
 const { withFaust, getWpHostname } = require('@faustwp/core');
 const { createSecureHeaders } = require('next-secure-headers');
 
+const wordpressUrl = new URL(process.env.NEXT_PUBLIC_WORDPRESS_URL);
+
 /**
  * @type {import('next').NextConfig}
  **/
@@ -19,7 +21,14 @@ module.exports = withFaust({
 		includePaths: ['node_modules'],
 	},
 	images: {
-		domains: [getWpHostname()],
+		remotePatterns: [
+			{
+				protocol: wordpressUrl.protocol.replace(':', ''),
+				hostname: getWpHostname(),
+				port: wordpressUrl.port,
+				pathname: '/wp-content/uploads/**',
+			},
+		],
 	},
 	i18n: {
 		locales: ['en'],

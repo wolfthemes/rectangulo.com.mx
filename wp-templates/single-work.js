@@ -6,6 +6,7 @@ import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { FeaturedImage } from '../components/FeaturedImage';
 import { youtubeId } from '../lib/youtube';
+import { getSafeHttpUrl } from '../utils/urls';
 import styles from './single-work.module.scss';
 
 const GET_LAYOUT_QUERY = gql`
@@ -80,7 +81,8 @@ export default function Component(props) {
 	// `?? {}` covers the render(s) before FaustContext has this query's
 	// result yet (e.g. props.loading, or a Link prefetch racing the fetch).
 	const { work } = useFaustQuery(GET_WORK_QUERY) ?? {};
-	const { generalSettings, headerMenuItems, footerMenuItems } = useFaustQuery(GET_LAYOUT_QUERY) ?? {};
+	const { generalSettings, headerMenuItems, footerMenuItems } =
+		useFaustQuery(GET_LAYOUT_QUERY) ?? {};
 
 	if (props.loading) {
 		return <>Loading...</>;
@@ -91,10 +93,15 @@ export default function Component(props) {
 	const footerMenu = footerMenuItems?.nodes ?? [];
 	const { title, featuredImage, workVideoUrl } = work ?? {};
 	const ytId = youtubeId(workVideoUrl);
+	const safeWorkVideoUrl = getSafeHttpUrl(workVideoUrl);
 
 	return (
 		<>
-			<SEO title={title ? `${title} — ${siteTitle}` : siteTitle} description={siteDescription} imageUrl={featuredImage?.node?.sourceUrl} />
+			<SEO
+				title={title ? `${title} — ${siteTitle}` : siteTitle}
+				description={siteDescription}
+				imageUrl={featuredImage?.node?.sourceUrl}
+			/>
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<Container>
@@ -132,7 +139,13 @@ export default function Component(props) {
 										allowFullScreen
 									/>
 								) : (
-									<video className={styles.player} src={workVideoUrl} controls playsInline poster={featuredImage?.node?.sourceUrl} />
+									<video
+										className={styles.player}
+										src={safeWorkVideoUrl}
+										controls
+										playsInline
+										poster={featuredImage?.node?.sourceUrl}
+									/>
 								)
 							) : (
 								featuredImage?.node?.sourceUrl && (

@@ -19,6 +19,7 @@ export { ParallaxSection } from './ParallaxSection';
 export { PortfolioGrid } from './PortfolioGrid';
 export { Post } from './Post';
 export { PostInfo } from './PostInfo';
+export { SafeHtml } from './SafeHtml';
 export { SEO } from './SEO';
 export { SkipNavigationLink } from './SkipNavigationLink';
 export { VideoGrid } from './VideoGrid';

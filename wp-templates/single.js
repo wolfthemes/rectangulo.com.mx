@@ -52,15 +52,20 @@ const GET_POST_QUERY = gql`
 `;
 
 export default function Component(props) {
+	// Hooks must run unconditionally and in a stable order, so they precede
+	// the loading early-return. useFaustQuery can return undefined before its
+	// data lands in the Apollo cache (e.g. client-side nav/hydration timing),
+	// so default to {} to avoid destructuring undefined.
+	const { post } = useFaustQuery(GET_POST_QUERY) ?? {};
+	const { generalSettings, headerMenuItems, footerMenuItems } =
+		useFaustQuery(GET_LAYOUT_QUERY) ?? {};
+
 	// Loading state for previews
 	if (props.loading) {
 		return <>Loading...</>;
 	}
 
-	const { post } = useFaustQuery(GET_POST_QUERY);
-	const { generalSettings, headerMenuItems, footerMenuItems } = useFaustQuery(GET_LAYOUT_QUERY);
-
-	const { title: siteTitle, description: siteDescription } = generalSettings;
+	const { title: siteTitle, description: siteDescription } = generalSettings ?? {};
 	const primaryMenu = headerMenuItems?.nodes ?? [];
 	const footerMenu = footerMenuItems?.nodes ?? [];
 	const { title, content, featuredImage, date, author } = post ?? {};

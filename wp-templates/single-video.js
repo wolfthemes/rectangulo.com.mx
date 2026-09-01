@@ -5,6 +5,7 @@ import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { FeaturedImage } from '../components/FeaturedImage';
 import { youtubeId } from '../lib/youtube';
+import { getSafeHttpUrl } from '../utils/urls';
 import styles from './single-video.module.scss';
 
 const GET_LAYOUT_QUERY = gql`
@@ -50,23 +51,33 @@ const GET_VIDEO_QUERY = gql`
 `;
 
 export default function Component(props) {
+	// Hooks must run unconditionally and in a stable order, so they precede
+	// the loading early-return. useFaustQuery can return undefined before its
+	// data lands in the Apollo cache (e.g. client-side nav/hydration timing),
+	// so default to {} to avoid destructuring undefined.
+	const { video } = useFaustQuery(GET_VIDEO_QUERY) ?? {};
+	const { generalSettings, headerMenuItems, footerMenuItems } =
+		useFaustQuery(GET_LAYOUT_QUERY) ?? {};
+
 	if (props.loading) {
 		return <>Loading...</>;
 	}
-
-	const { video } = useFaustQuery(GET_VIDEO_QUERY);
-	const { generalSettings, headerMenuItems, footerMenuItems } = useFaustQuery(GET_LAYOUT_QUERY);
 
 	const { title: siteTitle, description: siteDescription } = generalSettings ?? {};
 	const primaryMenu = headerMenuItems?.nodes ?? [];
 	const footerMenu = footerMenuItems?.nodes ?? [];
 	const { title, featuredImage, videoFullUrl, videoTypes } = video ?? {};
 	const ytId = youtubeId(videoFullUrl);
+	const safeVideoFullUrl = getSafeHttpUrl(videoFullUrl);
 	const type = videoTypes?.nodes?.map((node) => node.name).join(', ');
 
 	return (
 		<>
-			<SEO title={title ? `${title} — ${siteTitle}` : siteTitle} description={siteDescription} imageUrl={featuredImage?.node?.sourceUrl} />
+			<SEO
+				title={title ? `${title} — ${siteTitle}` : siteTitle}
+				description={siteDescription}
+				imageUrl={featuredImage?.node?.sourceUrl}
+			/>
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<Container>
@@ -84,10 +95,20 @@ export default function Component(props) {
 								allowFullScreen
 							/>
 						) : (
-							<video className={styles.player} src={videoFullUrl} controls playsInline poster={featuredImage?.node?.sourceUrl} />
+							<video
+								className={styles.player}
+								src={safeVideoFullUrl}
+								controls
+								playsInline
+								poster={featuredImage?.node?.sourceUrl}
+							/>
 						))}
 					{!videoFullUrl && featuredImage?.node?.sourceUrl && (
-						<img className={styles.image} src={featuredImage.node.sourceUrl} alt={featuredImage.node.altText || title} />
+						<img
+							className={styles.image}
+							src={featuredImage.node.sourceUrl}
+							alt={featuredImage.node.altText || title}
+						/>
 					)}
 				</Container>
 			</Main>

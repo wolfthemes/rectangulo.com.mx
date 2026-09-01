@@ -6,6 +6,7 @@ import { Container } from '../Container';
 import { observeItemsInView } from '../../lib/animate-headings';
 import { getLenis } from '../../lib/scroll';
 import { youtubeId } from '../../lib/youtube';
+import { getSafeHttpUrl } from '../../utils/urls';
 import styles from './VideoGrid.module.scss';
 
 if (typeof window !== 'undefined') gsap.registerPlugin(Flip);
@@ -16,7 +17,11 @@ const EASE = 'power3.inOut';
 const DURATION = 0.6;
 
 function Card({ video, index, onOpen, imgRef }) {
-	const { title, preview } = video;
+	const { title } = video;
+	// Self-hosted file preview, rendered directly as a <video> src — the
+	// YouTube/Vimeo case below builds its iframe src from an extracted id,
+	// not the raw URL, so it doesn't need this.
+	const preview = getSafeHttpUrl(video.preview);
 	const [hovered, setHovered] = useState(false);
 	const videoRef = useRef(null);
 
@@ -120,7 +125,7 @@ const Frame = forwardRef(function Frame({ video, cardEl, viewportEl, onClose }, 
 				<video
 					ref={videoRef}
 					className={cx('media')}
-					src={video.full}
+					src={getSafeHttpUrl(video.full)}
 					controls
 					playsInline
 					poster={video.image}
@@ -135,6 +140,12 @@ const Frame = forwardRef(function Frame({ video, cardEl, viewportEl, onClose }, 
 export default function VideoGrid({ videos }) {
 	const [openIndex, setOpenIndex] = useState(null);
 	const [closing, setClosing] = useState(false);
+	// The DOM nodes Frame flips onto, captured at open time rather than read
+	// from .current during render (refs must only be read in an effect/event
+	// handler, not render). Capturing the node itself — not its rect — is
+	// still "live": the card stays in place underneath the frame either way,
+	// so its current layout is whatever Frame reads when it measures.
+	const [frameTarget, setFrameTarget] = useState(null);
 	const imgRefs = useRef([]);
 	const viewportRef = useRef(null);
 	const frameRef = useRef(null);
@@ -148,6 +159,7 @@ export default function VideoGrid({ videos }) {
 		// place underneath it either way, so its live rect is always valid.
 		getLenis()?.stop();
 		document.documentElement.style.overflow = 'hidden';
+		setFrameTarget({ cardEl: imgRefs.current[index], viewportEl: viewportRef.current });
 		setOpenIndex(index);
 	}
 
@@ -158,6 +170,7 @@ export default function VideoGrid({ videos }) {
 			getLenis()?.start();
 			document.documentElement.style.overflow = '';
 			setOpenIndex(null);
+			setFrameTarget(null);
 			setClosing(false);
 		});
 	}
@@ -190,12 +203,12 @@ export default function VideoGrid({ videos }) {
 				)}
 			</Container>
 			<div ref={viewportRef} className={cx('viewportSizer')} aria-hidden="true" />
-			{openIndex !== null && (
+			{openIndex !== null && frameTarget && (
 				<Frame
 					ref={frameRef}
 					video={videos[openIndex]}
-					cardEl={imgRefs.current[openIndex]}
-					viewportEl={viewportRef.current}
+					cardEl={frameTarget.cardEl}
+					viewportEl={frameTarget.viewportEl}
 					onClose={handleClose}
 				/>
 			)}
