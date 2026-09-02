@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
+import { WorkItemMedia } from '../WorkItemMedia';
 import { observeItemsInView } from '../../lib/animate-headings';
 import styles from './PortfolioGrid.module.scss';
 
@@ -61,15 +62,15 @@ export default function PortfolioGrid({ works }) {
 	const projects = !works
 		? null
 		: works.length
-			? works.map(({ title, excerpt, workYear, slug, featuredImage }) => ({
-					title,
+			? works.map((work) => ({
+					title: work.title,
 					// WP excerpts come through as HTML (auto-generated <p>…</p>) — strip
 					// tags rather than dangerouslySetInnerHTML for a one-line caption.
-					excerpt: (excerpt ?? '').replace(/<[^>]+>/g, ''),
-					year: workYear,
-					image: featuredImage?.node?.sourceUrl,
-					color: colorFor(slug),
-					href: `/work/${slug}`,
+					excerpt: (work.excerpt ?? '').replace(/<[^>]+>/g, ''),
+					year: work.workYear,
+					color: colorFor(work.slug),
+					href: `/work/${work.slug}`,
+					work,
 				}))
 			: PLACEHOLDER_PROJECTS;
 
@@ -82,10 +83,16 @@ export default function PortfolioGrid({ works }) {
 			<Container>
 				{projects && (
 					<ul className={cx('grid')}>
-						{projects.map(({ title, excerpt, year, image, color, href }, index) => {
+						{projects.map(({ title, excerpt, year, image, color, href, work }, index) => {
 							const card = (
 								<>
-									<img className={cx('image')} src={image} alt={title} loading="lazy" />
+									<div className={cx('image')}>
+										{work ? (
+											<WorkItemMedia work={work} />
+										) : (
+											<img className={cx('fallback')} src={image} alt={title} loading="lazy" />
+										)}
+									</div>
 									<div className={cx('caption')} style={{ backgroundColor: color }}>
 										<p className={cx('client')}>Client</p>
 										<h3 className={cx('title')}>{title}</h3>

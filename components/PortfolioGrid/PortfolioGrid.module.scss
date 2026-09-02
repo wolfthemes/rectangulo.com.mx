@@ -36,8 +36,15 @@
 }
 
 .image {
+	position: relative;
 	width: 100%;
 	aspect-ratio: 16 / 9;
+	overflow: hidden;
+}
+
+.fallback {
+	width: 100%;
+	height: 100%;
 	object-fit: cover;
 }
 

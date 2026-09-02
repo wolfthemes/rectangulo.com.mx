@@ -23,3 +23,4 @@ export { SafeHtml } from './SafeHtml';
 export { SEO } from './SEO';
 export { SkipNavigationLink } from './SkipNavigationLink';
 export { VideoGrid } from './VideoGrid';
+export { WorkItemMedia } from './WorkItemMedia';

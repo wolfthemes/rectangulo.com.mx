@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid } from '../components';
+import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, WorkItemMedia } from '../components';
 
 // ponytail: same Next.js-first pattern as pages/about.js and pages/contact.js
 // — Header/Footer pull real WP menu/site data. `works` is its own query, kept
@@ -62,6 +62,7 @@ PortfolioPage.query = gql`
 // first: 20 — a simple page-load list, no pagination UI yet — bump/paginate
 // once there are enough real posts for it to matter.
 PortfolioPage.worksQuery = gql`
+	${WorkItemMedia.fragments.entry}
 	query GetWorks {
 		works(first: 20) {
 			edges {
@@ -76,6 +77,7 @@ PortfolioPage.worksQuery = gql`
 							altText
 						}
 					}
+					...WorkMediaFragment
 				}
 			}
 		}
