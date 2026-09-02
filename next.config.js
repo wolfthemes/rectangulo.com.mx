@@ -18,7 +18,10 @@ module.exports = withFaust({
 		return config;
 	},
 	sassOptions: {
-		includePaths: ['node_modules'],
+		// ponytail: sass-loader v16 (Next 16) defaults to the modern Sass API,
+		// which reads `loadPaths` — `includePaths` is legacy-API-only and is
+		// silently ignored, breaking bare `@import 'styles/...'`.
+		loadPaths: [__dirname, 'node_modules'],
 	},
 	images: {
 		remotePatterns: [
