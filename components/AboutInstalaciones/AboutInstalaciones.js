@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { Heading } from '../Heading';
@@ -9,16 +10,23 @@ let cx = classNames.bind(styles);
 // ponytail: copy/images match the current client site's About page. See the
 // "About page: Next.js-first build" plan — real WP-sourced props come later.
 export default function AboutInstalaciones() {
+	// Pinned by FondoInfinitoDiagram for as long as it takes the diagram to
+	// draw itself in — the sidebar below rides along, staying put and
+	// vertically centered, since it's a sibling inside the same pinned box.
+	const pinRef = useRef(null);
+
 	return (
 		<section className={cx('component')}>
 			<Container>
 				<Heading level="h2" className={cx(['heading', 'is-animated-heading'])}>
 					Instaalacionees
 				</Heading>
+			</Container>
 
-				<div className={cx('columns')}>
-					<div className={cx('column')}>
-						<FondoInfinitoDiagram />
+			<div ref={pinRef} className={cx('scrollStage')}>
+				<Container className={cx('scrollStageInner')}>
+					<div className={cx('diagramCol')}>
+						<FondoInfinitoDiagram pinRef={pinRef} />
 						<Heading level="h3" className={cx('stageHeading')}>
 							Stage 01 — A space ready for any project.
 						</Heading>
@@ -28,7 +36,7 @@ export default function AboutInstalaciones() {
 						</p>
 					</div>
 
-					<div className={cx('column')}>
+					<div className={cx('sidebar')}>
 						<p className={cx('description')}>
 							Contamos con un foro para producciones audiovisuales de alto nivel. Un espacio
 							versátil, equipado con iluminación profesional, ciclorama, áreas de montaje y un
@@ -38,8 +46,8 @@ export default function AboutInstalaciones() {
 							espacio confiable y totalmente preparado para filmar.
 						</p>
 					</div>
-				</div>
-			</Container>
+				</Container>
+			</div>
 		</section>
 	);
 }

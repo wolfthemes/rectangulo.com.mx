@@ -10,8 +10,11 @@ if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
 let cx = classNames.bind(styles);
 
 // Scroll-drawn floor-plan diagram: the room's outline, dimension lines and
-// headline numbers draw themselves in as the section scrolls through view,
-// pinned for the duration (see FondoInfinitoDiagram.module.scss's .stage).
+// headline numbers draw themselves in as the section scrolls through view.
+// `pinRef` is the ancestor AboutInstalaciones pins for the same duration (so
+// its sidebar text stays put alongside the diagram, centered, until the
+// drawing finishes) — this component only scrubs the drawing itself against
+// that same trigger/range, it doesn't pin anything on its own.
 // Scroll position is Lenis-driven (lib/scroll.js), not native — ScrollTrigger
 // needs an explicit nudge on every Lenis frame or its scrub lags a frame
 // behind the (already-smoothed) scroll position.
@@ -31,12 +34,13 @@ const DRAWN_SELECTORS = [
 	'#backRect',
 ];
 
-export default function FondoInfinitoDiagram() {
+export default function FondoInfinitoDiagram({ pinRef }) {
 	const stageRef = useRef(null);
 
 	useEffect(() => {
 		const root = stageRef.current;
-		if (!root) return;
+		const pinEl = pinRef?.current;
+		if (!root || !pinEl) return;
 
 		const lines = DRAWN_SELECTORS.flatMap((selector) => Array.from(root.querySelectorAll(selector)));
 		const labels = root.querySelectorAll('.dimlabel');
@@ -58,7 +62,7 @@ export default function FondoInfinitoDiagram() {
 
 		const tl = gsap.timeline({
 			scrollTrigger: {
-				trigger: root,
+				trigger: pinEl,
 				start: 'top top',
 				end: '+=200%',
 				scrub: 1,

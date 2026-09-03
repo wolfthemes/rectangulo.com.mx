@@ -2,9 +2,6 @@
 
 .stage {
 	width: 100%;
-	// Ported from the source demo's 100vh sticky pin: ScrollTrigger's own
-	// `pin: true` (in FondoInfinitoDiagram.js) replaces the sticky positioning
-	// there, so this only needs to size the stage while it's pinned.
 	display: flex;
 	align-items: center;
 	justify-content: center;
