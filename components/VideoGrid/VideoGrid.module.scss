@@ -65,7 +65,7 @@
 }
 
 // Title: hidden until hover, then fades/slides up (own transition, not the
-// scroll-triggered .is-animated-item one on the card itself) and its inner
+// GSAP page-enter reveal on the card itself) and its inner
 // track starts marquee-scrolling. `overflow: hidden` on the wrap is what
 // clips the marquee track — see ClientLogosCarousel for the same
 // duplicated-track technique.

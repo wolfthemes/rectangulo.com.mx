@@ -54,28 +54,10 @@
 	transform: translateY(0);
 }
 
-// Fade-in-up reveal for discrete elements (grid items etc), staggered via a
-// caller-set `--item-index` — see lib/animate-headings.js's
-// observeItemsInView(). Same "never hidden without JS" safety property as
-// the split() classes above: only .is-observed (added once the observer
-// actually runs) hides the element.
-.is-animated-item.is-observed {
-	opacity: 0;
-	transform: translateY(1.5rem);
-	transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-	transition-delay: calc(var(--item-index, 0) * 300ms);
-}
-
-.is-animated-item.is-observed.is-in-view {
-	opacity: 1;
-	transform: translateY(0);
-}
-
 @media (prefers-reduced-motion: reduce) {
 	.is-animated-heading .word,
 	.is-animated-chars .char,
-	.is-animated-lines .line,
-	.is-animated-item {
+	.is-animated-lines .line {
 		opacity: 1;
 		transform: none;
 		filter: none;

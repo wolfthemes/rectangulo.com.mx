@@ -1,0 +1,35 @@
+// Cinema letterbox curtain: two bars slide in from the top/bottom edges to
+// meet at the vertical center (closed), then slide back out (open) once the
+// new route has mounted underneath.
+.bar {
+	position: fixed;
+	left: 0;
+	width: 100%;
+	height: 50vh;
+
+	// True black, not --wpe--color--black (#171717) — the page background
+	// already uses that shade, so a same-color curtain was invisible.
+	background: #000;
+	z-index: 9999;
+	pointer-events: none;
+
+	// gsap drives transform via inline style; these are the closed positions.
+}
+
+.top {
+	top: 0;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background: var(--wpe--color--accent);
+	}
+}
+
+.bottom {
+	bottom: 0;
+}

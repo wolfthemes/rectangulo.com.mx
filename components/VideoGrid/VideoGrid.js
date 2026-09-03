@@ -1,9 +1,9 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import { gsap } from 'gsap';
 import { Flip } from 'gsap/Flip';
 import { Container } from '../Container';
-import { observeItemsInView } from '../../lib/animate-headings';
+import { revealOnEnter } from '../../lib/page-enter';
 import { getLenis } from '../../lib/scroll';
 import { youtubeId } from '../../lib/youtube';
 import { getSafeHttpUrl } from '../../utils/urls';
@@ -33,8 +33,7 @@ function Card({ video, index, onOpen, imgRef }) {
 
 	return (
 		<li
-			className={cx(['card', 'is-animated-item'])}
-			style={{ '--item-index': index }}
+			className={cx('card')}
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}
 		>
@@ -150,8 +149,10 @@ export default function VideoGrid({ videos }) {
 	const viewportRef = useRef(null);
 	const frameRef = useRef(null);
 
-	useEffect(() => {
-		if (videos) observeItemsInView(`.${styles.card}`);
+	// useLayoutEffect, not useEffect: the hidden state has to land before the
+	// browser's first paint of these cards, or they flash visible for a frame.
+	useLayoutEffect(() => {
+		if (videos) revealOnEnter(`.${styles.card}`, { stagger: 0.08 });
 	}, [videos]);
 
 	function handleOpen(index) {

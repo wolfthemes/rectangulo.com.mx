@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { WorkItemMedia } from '../WorkItemMedia';
-import { observeItemsInView } from '../../lib/animate-headings';
+import { revealOnEnter } from '../../lib/page-enter';
 import styles from './PortfolioGrid.module.scss';
 
 let cx = classNames.bind(styles);
@@ -74,8 +74,10 @@ export default function PortfolioGrid({ works }) {
 				}))
 			: PLACEHOLDER_PROJECTS;
 
-	useEffect(() => {
-		if (projects) observeItemsInView(`.${styles.card}`);
+	// useLayoutEffect, not useEffect: the hidden state has to land before the
+	// browser's first paint of these cards, or they flash visible for a frame.
+	useLayoutEffect(() => {
+		if (projects) revealOnEnter(`.${styles.card}`, { stagger: 0.08 });
 	}, [projects]);
 
 	return (
@@ -83,7 +85,7 @@ export default function PortfolioGrid({ works }) {
 			<Container>
 				{projects && (
 					<ul className={cx('grid')}>
-						{projects.map(({ title, excerpt, year, image, color, href, work }, index) => {
+						{projects.map(({ title, excerpt, year, image, color, href, work }) => {
 							const card = (
 								<>
 									<div className={cx('image')}>
@@ -103,11 +105,7 @@ export default function PortfolioGrid({ works }) {
 							);
 
 							return (
-								<li
-									key={title}
-									className={cx(['card', 'is-animated-item'])}
-									style={{ '--item-index': index }}
-								>
+								<li key={title} className={cx('card')}>
 									{href ? (
 										<Link href={href} className={cx('link')}>
 											{card}
