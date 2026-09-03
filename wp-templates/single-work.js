@@ -34,30 +34,40 @@ const GET_LAYOUT_QUERY = gql`
 // Tipo (WorkType) and Servicios (WorkService) taxonomy terms. Servicios link
 // to their taxonomy archive (wp-templates/taxonomy.js); Tipo is plain text —
 // no archive page requested for it yet.
+//
+// Queried through the generic contentNode lookup rather than a dedicated
+// `work(id: ...)` root field — same wolf-portfolio/WPGraphQL gap hit on
+// amla-frontend (works/workTypes connections and the Work type itself
+// resolve fine; only that one specific root field doesn't reliably, and
+// only once actually deployed — works locally, 500s on staging). contentNode
+// is the same generic node-by-id lookup WPGraphQL itself uses under the
+// hood, aliased to `work` so the rest of this file is unchanged.
 const GET_WORK_QUERY = gql`
 	${FeaturedImage.fragments.entry}
 	query GetWork($databaseId: ID!, $asPreview: Boolean = false) {
-		work(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
-			title
-			workClient
-			workYear
-			workObjetivo
-			workAlcance
-			workFormato
-			workResultado
-			workVideoUrl
-			workTypes {
-				nodes {
-					name
+		work: contentNode(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+			... on Work {
+				title
+				workClient
+				workYear
+				workObjetivo
+				workAlcance
+				workFormato
+				workResultado
+				workVideoUrl
+				workTypes {
+					nodes {
+						name
+					}
 				}
-			}
-			workServices {
-				nodes {
-					name
-					uri
+				workServices {
+					nodes {
+						name
+						uri
+					}
 				}
+				...FeaturedImageFragment
 			}
-			...FeaturedImageFragment
 		}
 	}
 `;
