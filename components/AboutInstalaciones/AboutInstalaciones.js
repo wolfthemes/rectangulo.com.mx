@@ -1,6 +1,8 @@
+import { useLayoutEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { Heading } from '../Heading';
+import { revealOnEnter } from '../../lib/page-enter';
 import styles from './AboutInstalaciones.module.scss';
 
 let cx = classNames.bind(styles);
@@ -8,6 +10,12 @@ let cx = classNames.bind(styles);
 // ponytail: copy/images match the current client site's About page. See the
 // "About page: Next.js-first build" plan — real WP-sourced props come later.
 export default function AboutInstalaciones() {
+	// useLayoutEffect, not useEffect: the hidden state has to land before the
+	// browser's first paint, or the diagram flashes visible for a frame.
+	useLayoutEffect(() => {
+		revealOnEnter(`.${styles.diagram}`, { from: { opacity: 0 } });
+	}, []);
+
 	return (
 		<section className={cx('component')}>
 			<Container>
