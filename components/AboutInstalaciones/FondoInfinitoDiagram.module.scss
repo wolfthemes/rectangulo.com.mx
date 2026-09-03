@@ -1,0 +1,66 @@
+@import 'styles/tokens';
+
+.stage {
+	width: 100%;
+	// Ported from the source demo's 100vh sticky pin: ScrollTrigger's own
+	// `pin: true` (in FondoInfinitoDiagram.js) replaces the sticky positioning
+	// there, so this only needs to size the stage while it's pinned.
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	margin-bottom: 1.5rem;
+}
+
+.svg {
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.line {
+	fill: none;
+	stroke: $c-accent;
+	stroke-width: 2.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.thin {
+	fill: none;
+	stroke: $c-accent;
+	stroke-width: 1.2;
+}
+
+.dim {
+	fill: none;
+	stroke: $c-accent;
+	stroke-width: 1.5;
+}
+
+.svg text {
+	font-family: var(--wpe--font-family--body);
+	fill: $c-accent;
+}
+
+.dimlabel {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.bignum {
+	font-size: 130px;
+	font-weight: 900;
+	letter-spacing: -2px;
+}
+
+.exp {
+	font-size: 40px;
+	font-weight: 900;
+}
+
+.brand {
+	font-size: 22px;
+	font-weight: 900;
+	line-height: 1.1;
+}

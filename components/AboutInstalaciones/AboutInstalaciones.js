@@ -1,8 +1,7 @@
-import { useLayoutEffect } from 'react';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { Heading } from '../Heading';
-import { revealOnEnter } from '../../lib/page-enter';
+import FondoInfinitoDiagram from './FondoInfinitoDiagram';
 import styles from './AboutInstalaciones.module.scss';
 
 let cx = classNames.bind(styles);
@@ -10,12 +9,6 @@ let cx = classNames.bind(styles);
 // ponytail: copy/images match the current client site's About page. See the
 // "About page: Next.js-first build" plan — real WP-sourced props come later.
 export default function AboutInstalaciones() {
-	// useLayoutEffect, not useEffect: the hidden state has to land before the
-	// browser's first paint, or the diagram flashes visible for a frame.
-	useLayoutEffect(() => {
-		revealOnEnter(`.${styles.diagram}`, { from: { opacity: 0 } });
-	}, []);
-
 	return (
 		<section className={cx('component')}>
 			<Container>
@@ -25,11 +18,7 @@ export default function AboutInstalaciones() {
 
 				<div className={cx('columns')}>
 					<div className={cx('column')}>
-						<img
-							className={cx('diagram')}
-							src="/images/Asset-1.webp"
-							alt="Diagrama del foro: 8m x 6m, 4m de altura, fondo infinito de 192 m³"
-						/>
+						<FondoInfinitoDiagram />
 						<Heading level="h3" className={cx('stageHeading')}>
 							Stage 01 — A space ready for any project.
 						</Heading>
