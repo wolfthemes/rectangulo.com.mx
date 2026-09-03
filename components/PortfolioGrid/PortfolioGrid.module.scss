@@ -40,6 +40,18 @@
 	width: 100%;
 	aspect-ratio: 16 / 9;
 	overflow: hidden;
+
+	// Targets whatever WorkItemMedia renders (img/video, module-scoped
+	// classes of its own) — hovering the card zooms the media inside.
+	img,
+	video {
+		transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+	}
+}
+
+.card:hover .image img,
+.card:hover .image video {
+	transform: scale(1.06);
 }
 
 .fallback {
