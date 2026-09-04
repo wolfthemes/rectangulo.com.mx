@@ -101,6 +101,8 @@ export default function FondoInfinitoDiagram({ pinRef }) {
 			tl.scrollTrigger?.kill();
 			tl.kill();
 		};
+		// pinRef is a ref object — stable identity, doesn't need to be a dep.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
