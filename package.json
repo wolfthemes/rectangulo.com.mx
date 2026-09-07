@@ -49,6 +49,6 @@
   "overrides": {
     "@types/react": "^18.3.27",
     "@types/react-dom": "^18.3.7",
-    "jsdom": "27.3.0"
+    "jsdom": "26.1.0"
   }
 }
