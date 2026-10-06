@@ -2,6 +2,8 @@
 
 Freelance client site: headless frontend for rectangulo.com.mx, built with FaustWP + Next.js against a separate headless WordPress backend (`rectangulo-backend-staging.saguin.com`). Scaffolded from the same cs-front-derived starter as the sibling `amla-frontend` repo. Durable notes (architecture, decisions, status) live in the `wolf-claude-memory` KB — see `wiki/projects/rectangulo.md` and `wiki/concepts/faust-headless-wordpress-stack.md`. Target: ship during September 2026.
 
+Design direction: this is a video/portfolio site — lean into a **cinema, video, reel** vibe for visual/motion choices (page transitions, hero treatments, loaders): think film curtain, letterbox bars, projector/reel motifs, over generic fades or corporate polish.
+
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.

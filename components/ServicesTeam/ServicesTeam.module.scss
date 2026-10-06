@@ -1,0 +1,80 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	background-color: $c-accent;
+	color: $c-base;
+	padding: clamp(3rem, 10vw, 7rem) 0;
+}
+
+.heading {
+	font-size: clamp(2rem, 6vw, 4rem);
+	text-transform: uppercase;
+	margin: 0 0 2rem;
+}
+
+.layout {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 2rem;
+
+	@media (min-width: $breakpoint-medium) {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+.names {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.name {
+	appearance: none;
+	background: none;
+	border: 0;
+	display: block;
+	width: 100%;
+	text-align: left;
+	padding: 0.75rem 0;
+	color: $c-base;
+	opacity: 0.6;
+	font-size: clamp(1.5rem, 4vw, 2.5rem);
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+
+	&.active,
+	&:hover,
+	&:focus-visible {
+		opacity: 1;
+	}
+}
+
+.role {
+	display: block;
+	font-size: fs(sm);
+	text-transform: none;
+}
+
+.portrait {
+	flex-shrink: 0;
+	width: 12rem;
+	height: 12rem;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	@media (min-width: $breakpoint-medium) {
+		width: 18rem;
+		height: 18rem;
+	}
+}
+
+.initials {
+	font-size: clamp(2.5rem, 8vw, 4rem);
+}

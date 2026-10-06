@@ -1,0 +1,21 @@
+@import 'styles/tokens';
+
+.component {
+	padding: clamp(3rem, 10vw, 7rem) 0;
+}
+
+.link {
+	display: block;
+	font-size: clamp(3rem, 12vw, 8rem);
+	line-height: 0.9;
+	text-transform: uppercase;
+
+	// $c-ink is tuned for light surfaces, not this dark page background —
+	// same fix as HomeFeaturedWork's .link.
+	color: $c-base;
+	text-decoration: none;
+
+	&:hover {
+		color: $c-accent;
+	}
+}

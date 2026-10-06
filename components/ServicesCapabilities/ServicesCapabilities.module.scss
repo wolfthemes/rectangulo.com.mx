@@ -1,0 +1,73 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	padding: clamp(3rem, 10vw, 7rem) 0;
+}
+
+.service {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	padding: clamp(2rem, 6vw, 4rem) 0;
+	border-top: 1px solid $c-border;
+
+	&:last-child {
+		border-bottom: 1px solid $c-border;
+	}
+
+	@media (min-width: $breakpoint-medium) {
+		flex-direction: row;
+		gap: 3rem;
+	}
+}
+
+.loop {
+	flex-shrink: 0;
+	width: 100%;
+	aspect-ratio: 16 / 10;
+	background-color: $c-surface;
+
+	@media (min-width: $breakpoint-medium) {
+		width: 22rem;
+	}
+}
+
+.info {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+.number {
+	display: block;
+	font-size: fs(sm);
+	opacity: 0.5;
+	margin-bottom: 0.5rem;
+}
+
+.title {
+	font-size: clamp(1.75rem, 5vw, 3rem);
+	line-height: 1;
+	text-transform: uppercase;
+	margin: 0 0 0.75rem;
+}
+
+.description {
+	max-width: 36rem;
+	opacity: 0.85;
+	margin: 0 0 1rem;
+}
+
+.capabilities {
+	font-size: fs(sm);
+	opacity: 0.6;
+	margin: 0;
+}
+
+.cta {
+	display: inline-block;
+	margin-top: 1rem;
+	color: $c-accent;
+	font-size: fs(sm);
+	text-transform: uppercase;
+}
