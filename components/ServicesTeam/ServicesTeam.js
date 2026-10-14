@@ -24,7 +24,7 @@ export default function ServicesTeam() {
 	const active = TEAM[activeIndex];
 
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
 				<h2 className={cx('heading')}>Our People</h2>
 
@@ -49,6 +49,7 @@ export default function ServicesTeam() {
 					<div className={cx('portrait')} aria-hidden="true">
 						<span className={cx('initials')}>{initials(active.name)}</span>
 					</div>
+					<p className={cx('bio')}>[À FOURNIR : bio de {active.name}]</p>
 				</div>
 			</Container>
 		</section>

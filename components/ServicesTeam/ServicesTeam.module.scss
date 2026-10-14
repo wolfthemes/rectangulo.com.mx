@@ -78,3 +78,9 @@
 .initials {
 	font-size: clamp(2.5rem, 8vw, 4rem);
 }
+
+.bio {
+	max-width: 24rem;
+	font-size: fs(sm);
+	margin: 0;
+}

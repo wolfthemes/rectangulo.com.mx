@@ -5,3 +5,4 @@
 - T019-bts — collages BTS par logo client (photos/loops) : [À FOURNIR : médias BTS par client]. Sans médias, le hover/tap ne peut afficher que du vide ; à débloquer en fournissant les fichiers, puis mapping logo→médias dans ClientLogosCarousel.
 - T021-rental — inventaire /rental : [À FOURNIR : catalogue matériel de location]
 - T022-stage — photos/vidéo du studio + page Offscreen Studio : [À FOURNIR : médias Stage 01 + URL page Offscreen Studio] (lien « Explore Offscreen Studio » reste un libellé)
+- T023-team — portraits + bios (Josh Sándre, Román Hernández, Karla Suárez) + rôle Karla : [À FOURNIR]
