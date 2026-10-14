@@ -9,3 +9,4 @@
 2026-10-14 | T008 | /privacy et /cookies placeholders (LegalPage), eslint OK | OK (contenu bloqué)
 2026-10-14 | T007 | ServicesCTA paramétrable (réutilisé par WORK) | OK
 2026-10-14 | T009 | rideau rouge+grain vers /services dans PageTransition, eslint/sass OK | OK
+2026-10-14 | T010 | HomeIntro: logo reveal wipe, letterbox, Enter + gate-out, reduced-motion, eslint/sass OK | OK

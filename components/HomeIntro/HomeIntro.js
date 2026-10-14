@@ -25,9 +25,10 @@ function initialOpen() {
 
 export default function HomeIntro({ title = 'Rectángulo' }) {
 	const [open, setOpen] = useState(initialOpen);
+	const [leaving, setLeaving] = useState(false);
 
 	const enter = () => {
-		setOpen(false);
+		setLeaving(true);
 		try {
 			sessionStorage.setItem(SKIP_KEY, '1');
 		} catch {
@@ -38,10 +39,14 @@ export default function HomeIntro({ title = 'Rectángulo' }) {
 	if (!open) return null;
 
 	return (
-		<div className={cx('component')} role="dialog" aria-modal="true" aria-label={`${title} — intro`}>
+		<div
+			className={cx('component', { leaving })}
+			onAnimationEnd={(e) => e.target === e.currentTarget && leaving && setOpen(false)}
+			role="dialog" aria-modal="true" aria-label={`${title} — intro`}
+		>
 			{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
 			<img className={cx('logo')} src="/images/logo.svg" alt={title} />
-			<button type="button" className={cx('enter')} onClick={enter}>
+			<button type="button" disabled={leaving} className={cx('enter')} onClick={enter}>
 				Enter <span aria-hidden="true">→</span>
 			</button>
 		</div>
