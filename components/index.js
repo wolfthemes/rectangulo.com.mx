@@ -18,6 +18,7 @@ export { HomeExplore } from './HomeExplore';
 export { HomeFeaturedWork } from './HomeFeaturedWork';
 export { HomeHero } from './HomeHero';
 export { HomeIntro } from './HomeIntro';
+export { LegalPage } from './LegalPage';
 export { Main } from './Main';
 export { NavigationMenu } from './NavigationMenu';
 export { ParallaxSection } from './ParallaxSection';

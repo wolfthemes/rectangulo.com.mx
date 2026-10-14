@@ -1,1 +1,2 @@
 - T004-verify — URLs sociales Vimeo/LinkedIn (et handles) non confirmées ; à fournir par le client dans constants/contact.js (tâche non bloquante, valeurs provisoires en place)
+- T008-legal — texte Privacy Notice / Cookie Policy : [À FOURNIR : texte légal] (pages /privacy et /cookies en placeholder)

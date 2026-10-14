@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import { Container, NavigationMenu } from '../../components';
 import { CONTACT_EMAIL, CONTACT_PHONE, LOCATION, SOCIAL_LINKS } from '../../constants/contact';
 import styles from './Footer.module.scss';
@@ -37,7 +38,11 @@ export default function Footer({ title, menuItems }) {
 				</div>
 
 				<div className={cx('bottom')}>
-					<p className={cx('copyright')}>{`${title} © ${year}. Powered by Headless WordPress.`}</p>
+					<p className={cx('copyright')}>{`${title} © ${year}`}</p>
+					<nav className={cx('legal')} aria-label="Legal">
+						<Link href="/privacy">Privacy</Link>
+						<Link href="/cookies">Cookies</Link>
+					</nav>
 					<p className={cx('credit')}>Made by <a href="https://constantin.saguin.com" target="_blank">constantin.saguin</a></p>
 				</div>
 			</Container>

@@ -4,3 +4,6 @@
 2026-10-14 | T002 | utilitaire .grain ajouté, sass compile | OK
 2026-10-14 | T003 | logo.svg réel présent | OK
 2026-10-14 | T004 | constants/contact.js + Footer/HomeHero/Contact/About branchés, eslint OK | OK
+2026-10-14 | T005 | nav WP existante, rien à coder (D006) | OK
+2026-10-14 | T006 | footer: IG/VI/YT/IN, localisation, liens légaux, © | OK
+2026-10-14 | T008 | /privacy et /cookies placeholders (LegalPage), eslint OK | OK (contenu bloqué)

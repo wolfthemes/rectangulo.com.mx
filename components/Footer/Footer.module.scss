@@ -71,3 +71,18 @@
 .credit {
 	margin: 0;
 }
+
+.legal {
+	display: flex;
+	gap: 1rem;
+
+	a {
+		color: inherit;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			color: $c-accent;
+		}
+	}
+}

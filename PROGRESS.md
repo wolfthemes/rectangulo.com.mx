@@ -8,10 +8,10 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 - [x] T004 — Données sociales/contact centralisées dans constants/ (IG/VI/YT/IN, contacto@rectangulofilms.com, +52 3323881333, Guadalajara) (HOME p.10, Dossier p.8)
 
 ## Global
-- [ ] T005 — Header : nav WORK/SERVICES/PROJECTS + sociaux, logo réduit (HOME p.4)
-- [ ] T006 — Footer : contact + sociaux IG/VI/YT/IN + légal (privacy, cookies, © année) (HOME p.10, SERVICES p.10)
+- [x] T005 — Header : nav WORK/SERVICES/PROJECTS + sociaux, logo réduit (HOME p.4)
+- [x] T006 — Footer : contact + sociaux IG/VI/YT/IN + légal (privacy, cookies, © année) (HOME p.10, SERVICES p.10)
 - [ ] T007 — Composant CTA partagé « Let's work together / Start a project → » réutilisé HOME/SERVICES/WORK (HOME p.10, SERVICES p.10, WORK p.10)
-- [ ] T008 — Pages légales Privacy/Cookies : pages/ route + placeholder `[À FOURNIR : texte légal]` + BLOCKED (HOME p.10)
+- [x] T008 — Pages légales Privacy/Cookies : pages/ route + placeholder `[À FOURNIR : texte légal]` + BLOCKED (HOME p.10)
 - [ ] T009 — Transition cinéma : rideau/bande rouge + grain dans PageTransition, utilisée HOME→SERVICES (SERVICES p.2, CLAUDE.md)
 
 ## HOME
