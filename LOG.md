@@ -26,3 +26,7 @@
 2026-10-14 | T024 | ServicesCTA + Footer déjà conformes p.10 | OK
 2026-10-14 | T025-T030 | WorkFilters + WorkFilmstrip (pin sticky desktop, loops IO, compteur, popup prev/next via ProjectViewer, CTA fin) branchés sur /portfolio, eslint/sass OK | OK
 2026-10-14 | T031 | bloqué: schéma backend crédits indisponible | BLOCKED
+2026-10-14 | T032 | About déjà alignée (carte « Sin límites geográficos », contact T004) | OK
+2026-10-14 | T033 | reduced-motion global (_base.scss), dialog natif (focus-trap), vidéos preload none | OK
+2026-10-14 | T034 | nouveaux composants mobile-first, pas de pin sous 1024px (rendu non vérifié visuellement) | OK
+2026-10-14 | T035 | REPORT.md écrit; QA runtime non exécutable (serveur Windows) | PARTIAL

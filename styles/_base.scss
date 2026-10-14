@@ -128,3 +128,16 @@ h6 {
 a {
 	color: var(--wpe--link--color);
 }
+
+// Global reduced-motion floor (T033): per-component rules refine this, but
+// nothing should animate for users who opted out.
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

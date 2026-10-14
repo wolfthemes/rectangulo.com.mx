@@ -43,7 +43,7 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 - [~] T031 — Champs crédits WPGraphQL (client, agency, director, … location) : fragments + mapping, alignés sur le backend (WORK p.8)
 
 ## Finitions / QA
-- [ ] T032 — Page About/Contact alignées sur Dossier (carte Mexique « Sin límites geográficos », contact p.8)
-- [ ] T033 — A11y/perf : prefers-reduced-motion partout, focus-trap modals, aria, `next/image`/lazy vidéos
-- [ ] T034 — Responsive mobile : HOME, SERVICES, WORK (pas de scroll-jacking mobile)
-- [ ] T035 — QA globale + REPORT.md + DONE
+- [x] T032 — Page About/Contact alignées sur Dossier (carte Mexique « Sin límites geográficos », contact p.8)
+- [x] T033 — A11y/perf : prefers-reduced-motion partout, focus-trap modals, aria, `next/image`/lazy vidéos
+- [x] T034 — Responsive mobile : HOME, SERVICES, WORK (pas de scroll-jacking mobile)
+- [~] T035 — QA globale + REPORT.md + DONE
