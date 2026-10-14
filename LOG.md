@@ -10,3 +10,4 @@
 2026-10-14 | T007 | ServicesCTA paramétrable (réutilisé par WORK) | OK
 2026-10-14 | T009 | rideau rouge+grain vers /services dans PageTransition, eslint/sass OK | OK
 2026-10-14 | T010 | HomeIntro: logo reveal wipe, letterbox, Enter + gate-out, reduced-motion, eslint/sass OK | OK
+2026-10-14 | T011 | HomeHero: menu WORK/SERVICES/PROJECTS à l'état 2, visibility des états cachés, reduced-motion = état final, eslint/sass OK | OK

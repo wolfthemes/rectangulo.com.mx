@@ -53,6 +53,13 @@
 	}
 }
 
+.menu {
+	display: flex;
+	gap: 1rem;
+	margin-right: 1.5rem;
+	text-transform: uppercase;
+}
+
 .statement {
 	position: absolute;
 	bottom: 3rem;

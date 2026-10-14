@@ -10,6 +10,12 @@ let cx = classNames.bind(styles);
 // states (brief section 03). Bigger = slower/more scroll per state.
 const SECTION_VH = 2.5;
 
+const MENU = [
+	{ label: 'Work', href: '/work' },
+	{ label: 'Services', href: '/services' },
+	{ label: 'Projects', href: '/projects' },
+];
+
 const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
 // Remaps progress from [from, to] to [0, 1], clamped — the small helper
 // every state transition below is built from.
@@ -46,14 +52,24 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 			}
 
 			// STATE 02: nav + social links fade in alongside the shrinking logo.
-			if (navRef.current) navRef.current.style.opacity = band(progress, 0.2, 0.5);
+			// visibility keeps hidden links out of tab order / pointer reach.
+			const showNav = band(progress, 0.2, 0.5);
+			if (navRef.current) {
+				navRef.current.style.opacity = showNav;
+				navRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
+			}
 
 			// STATE 03: brand statement + View Showreel.
-			if (statementRef.current) statementRef.current.style.opacity = band(progress, 0.6, 1);
+			const showStatement = band(progress, 0.6, 1);
+			if (statementRef.current) {
+				statementRef.current.style.opacity = showStatement;
+				statementRef.current.style.visibility = showStatement > 0 ? 'visible' : 'hidden';
+			}
 		};
 
 		if (reduce) {
-			apply(0);
+			// Final state, not 0: nav + statement would otherwise stay hidden forever.
+			apply(Infinity);
 			return undefined;
 		}
 
@@ -72,13 +88,18 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 				{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
 				<img ref={logoRef} className={cx('logo')} src="/images/logo.svg" alt="Rectángulo" />
 
-				<div ref={navRef} className={cx('social')}>
+				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
+					<nav className={cx('menu')} aria-label="Hero">
+						{MENU.map(({ label, href }) => (
+							<a key={href} href={href}>{label}</a>
+						))}
+					</nav>
 					{SOCIAL_LINKS.map(({ short, label, href }) => (
 						<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
 					))}
 				</div>
 
-				<div ref={statementRef} className={cx('statement')}>
+				<div ref={statementRef} className={cx('statement')} style={{ visibility: 'hidden' }}>
 					<p>{statement}</p>
 					{/* ponytail: no full-demoreel lightbox built yet (brief section
 					    03's "View Showreel" opens the complete piece) — disabled until
