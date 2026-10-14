@@ -3,3 +3,4 @@ D001 — global — Le dépôt est un frontend Next.js/FaustWP headless (pas un 
 D002 — global — `npm run lint/build/dev` NON exécutés depuis cette session (mémoire utilisateur : il compile sous Windows). Vérification statique : `npx eslint`, `npx sass`. — préférence utilisateur explicite, prime sur la consigne générique de la boucle.
 D003 — global — Capture Playwright impossible depuis cette session (pas de rendu PDF/serveur vérifiable ; dev server côté Windows). Comparaison visuelle différée à « à valider par le client/dev » dans REPORT.md.
 D004 — global — PDF lus via Ghostscript (txtwrite + png) car pdftoppm absent ; le Dossier est image-seule, analysé visuellement (basse résolution).
+D005 — T004 — email de contact = contacto@rectangulofilms.com — c'est celui du Dossier p.8 (le Footer avait @rectangulo.com.mx)

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { onScrollFrame } from '../../lib/scroll';
+import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './HomeHero.module.scss';
 
 let cx = classNames.bind(styles);
@@ -72,10 +73,9 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 				<img ref={logoRef} className={cx('logo')} src="/images/logo.svg" alt="Rectángulo" />
 
 				<div ref={navRef} className={cx('social')}>
-					<a href="https://instagram.com/rectangulo" target="_blank" rel="noreferrer">IG</a>
-					<a href="https://youtube.com/@rectangulo" target="_blank" rel="noreferrer">YT</a>
-					<a href="https://vimeo.com/rectangulo" target="_blank" rel="noreferrer">VI</a>
-					<a href="https://linkedin.com/company/rectangulo" target="_blank" rel="noreferrer">IN</a>
+					{SOCIAL_LINKS.map(({ short, label, href }) => (
+						<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
+					))}
 				</div>
 
 				<div ref={statementRef} className={cx('statement')}>

@@ -1,17 +1,11 @@
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { Heading } from '../Heading';
+import { CONTACT_EMAIL, CONTACT_PHONE, WEBSITE } from '../../constants/contact';
 import styles from './ContactHero.module.scss';
 
 let cx = classNames.bind(styles);
 
-// ponytail: contact details match the "Trabajemos Juntos" dossier slide.
-// Footer.js hardcodes a slightly different email (contacto@rectangulo.com.mx
-// vs contacto@rectangulofilms.com here) — same "no WP field yet" situation,
-// left alone since reconciling which is correct wasn't asked for.
-const CONTACT_EMAIL = 'contacto@rectangulofilms.com';
-const CONTACT_PHONE = '+52 3323881333';
-const WEBSITE = 'rectangulo.com.mx';
 
 export default function ContactHero() {
 	return (

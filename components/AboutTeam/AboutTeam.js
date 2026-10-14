@@ -1,14 +1,9 @@
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
+import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './AboutTeam.module.scss';
 
 let cx = classNames.bind(styles);
-
-const SOCIAL_LINKS = [
-	{ label: 'Instagram', href: 'https://instagram.com/rectangulo' },
-	{ label: 'YouTube', href: 'https://youtube.com/@rectangulo' },
-	{ label: 'LinkedIn', href: 'https://linkedin.com/company/rectangulo' },
-];
 
 const TEAM = [
 	{ name: 'Roman Alejandro', role: 'Producer', email: 'r.martinez@rectangulo.com.mx' },

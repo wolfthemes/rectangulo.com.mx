@@ -1,0 +1,1 @@
+- T004-verify — URLs sociales Vimeo/LinkedIn (et handles) non confirmées ; à fournir par le client dans constants/contact.js (tâche non bloquante, valeurs provisoires en place)
