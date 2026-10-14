@@ -2,3 +2,6 @@
 // link (YouTube/Vimeo/…) — a file can be dropped into a plain <video>, an
 // embed needs an <iframe>. Shared by anything rendering a work's video meta.
 export const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i;
+
+// [À FOURNIR : URL du showreel complet (mp4 ou embed Vimeo/YouTube)] — HOME p.4
+export const SHOWREEL_URL = '';

@@ -17,7 +17,7 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 ## HOME
 - [x] T010 — HomeIntro : logo animé (draw/reveal) + interaction « Enter » (HOME p.3)
 - [x] T011 — HomeHero : audit 3 états scroll, menu+IG/YT/VI/IN à l'état 2, statement état 3 (HOME p.4)
-- [ ] T012 — Lightbox Showreel (modal vidéo) branchée sur onViewShowreel ; URL démo `[À FOURNIR]` (HOME p.4)
+- [x] T012 — Lightbox Showreel (modal vidéo) branchée sur onViewShowreel ; URL démo `[À FOURNIR]` (HOME p.4)
 - [ ] T013 — HomeExplore : WORK/SERVICES/PROJECTS typo surdimensionnée, fond uni+grain, liens (HOME p.5)
 - [ ] T014 — Route /projects (Rectángulo-owned: Aahh! La Brava…) placeholder structuré (HOME p.2, p.5)
 - [ ] T015 — HomeFeaturedWork : numérotation 01–05 + catégorie, hover preview vidéo/loop (HOME p.6-8)

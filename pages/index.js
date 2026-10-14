@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
+import { SHOWREEL_URL } from '../constants/media';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
@@ -12,6 +14,7 @@ import {
 	HomeExplore,
 	HomeFeaturedWork,
 	HomeCTA,
+	VideoModal,
 } from '../components';
 
 // ponytail: scaffold stage — mirrors pages/portfolio.js's Next.js-first
@@ -24,6 +27,7 @@ const STATEMENT =
 	'Somos una productora audiovisual especializada en contenido comercial, branded content y narrativa.';
 
 export default function HomePage() {
+	const [showreelOpen, setShowreelOpen] = useState(false);
 	const { data } = useQuery(HomePage.query, {
 		variables: HomePage.variables(),
 	});
@@ -42,13 +46,12 @@ export default function HomePage() {
 			<HomeIntro title={siteTitle} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
-				{/* ponytail: no full-demoreel lightbox yet — View Showreel renders
-				    inert until that's built; see HomeHero's own note. */}
-				<HomeHero statement={STATEMENT} />
+				<HomeHero statement={STATEMENT} onViewShowreel={() => setShowreelOpen(true)} />
 				<HomeExplore />
 				<HomeFeaturedWork works={works} />
 				<HomeCTA />
 			</Main>
+			<VideoModal open={showreelOpen} onClose={() => setShowreelOpen(false)} src={SHOWREEL_URL} title="Showreel" />
 			<Footer title={siteTitle} menuItems={footerMenu} />
 		</>
 	);

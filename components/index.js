@@ -33,4 +33,5 @@ export { ServicesStage } from './ServicesStage';
 export { ServicesTeam } from './ServicesTeam';
 export { SkipNavigationLink } from './SkipNavigationLink';
 export { VideoGrid } from './VideoGrid';
+export { VideoModal } from './VideoModal';
 export { WorkItemMedia } from './WorkItemMedia';
