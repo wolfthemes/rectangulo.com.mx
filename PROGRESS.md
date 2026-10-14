@@ -2,9 +2,9 @@
 Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map <scss> /dev/null` (voir D002). Capture Playwright : voir D003.
 
 ## Setup / design system
-- [ ] T001 — Tokens : rouge institutionnel, noir, blanc, typo condensée MAJ dans styles/_css-variables.scss + _tokens.scss (Dossier p.1-8) — eslint/sass OK, variables --wpe--color--red présentes
-- [ ] T002 — Utilitaire grain/noise (overlay CSS, SVG feTurbulence inline) dans styles/_utilities.scss (HOME p.5, WORK p.2) — classe `.grain` compile
-- [ ] T003 — Logo : vérifier public/images/logo.svg (lettres étirées RECTANGULO), sinon placeholder + BLOCKED `[À FOURNIR : logo SVG]` (Dossier p.1)
+- [x] T001 — Tokens : rouge institutionnel, noir, blanc, typo condensée MAJ dans styles/_css-variables.scss + _tokens.scss (Dossier p.1-8) — eslint/sass OK, variables --wpe--color--red présentes
+- [x] T002 — Utilitaire grain/noise (overlay CSS, SVG feTurbulence inline) dans styles/_utilities.scss (HOME p.5, WORK p.2) — classe `.grain` compile
+- [x] T003 — Logo : vérifier public/images/logo.svg (lettres étirées RECTANGULO), sinon placeholder + BLOCKED `[À FOURNIR : logo SVG]` (Dossier p.1)
 - [ ] T004 — Données sociales/contact centralisées dans constants/ (IG/VI/YT/IN, contacto@rectangulofilms.com, +52 3323881333, Guadalajara) (HOME p.10, Dossier p.8)
 
 ## Global
