@@ -25,7 +25,7 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 - [x] T017 — Brancher ProjectViewer sur HomeFeaturedWork (clic = overlay, plus de navigation) + lien VIEW ALL WORK → (HOME p.8)
 
 ## SERVICES
-- [ ] T018 — ClientLogosCarousel : boucle continue lente, pause reduced-motion, logos Dossier p.6 (placeholders `[À FOURNIR : logos SVG]`) (SERVICES p.3)
+- [x] T018 — ClientLogosCarousel : boucle continue lente, pause reduced-motion, logos Dossier p.6 (placeholders `[À FOURNIR : logos SVG]`) (SERVICES p.3)
 - [ ] T019 — Hover/tap BTS sur logo : collage de photos/loops (médias `[À FOURNIR]`) (SERVICES p.3)
 - [ ] T020 — ServicesCapabilities : 6 sections scroll-driven avec textes exacts (03.1–03.6) (SERVICES p.4-7)
 - [ ] T021 — CTA « VIEW RENTAL EQUIPMENT → » + route /rental placeholder (SERVICES p.7)
