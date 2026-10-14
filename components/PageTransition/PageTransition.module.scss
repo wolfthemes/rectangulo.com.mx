@@ -33,3 +33,17 @@
 .bottom {
 	bottom: 0;
 }
+
+// Red variant for entering SERVICES (brief: red band + grain/noise).
+.red {
+	background: var(--wpe--color--accent);
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		opacity: 0.18;
+		mix-blend-mode: overlay;
+		background-image: var(--grain-image);
+	}
+}

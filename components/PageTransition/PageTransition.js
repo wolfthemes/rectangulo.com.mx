@@ -6,6 +6,8 @@ import styles from './PageTransition.module.scss';
 
 const DURATION = 0.45;
 const HOLD = 0.12;
+// Routes whose entry curtain is the red/grain band (SERVICES brief p.2).
+const RED_ROUTES = ['/services'];
 
 export default function PageTransition() {
 	const router = useRouter();
@@ -50,7 +52,10 @@ export default function PageTransition() {
 			revealCall = gsap.delayedCall(HOLD + DURATION * 0.6, playPageEnter);
 		};
 
-		const close = (onDone) => {
+		const close = (onDone, pathname) => {
+			// Tint before the bars start closing; pathname is only known on
+			// click-driven navs, programmatic ones come through routeChangeStart.
+			bars.forEach((bar) => bar.classList.toggle(styles.red, RED_ROUTES.includes(pathname)));
 			closed.current = false;
 			routed.current = false;
 			revealCall?.kill();
@@ -67,7 +72,11 @@ export default function PageTransition() {
 			});
 		};
 
-		const handleStart = () => close();
+		// Programmatic push: the click interceptor below didn't run, so tint here.
+		// Click navs already closed the bars (closed.current) — leave them be.
+		const handleStart = (url) => {
+			if (!closed.current) close(undefined, url.split(/[?#]/)[0]);
+		};
 
 		const handleDone = () => {
 			routed.current = true;
@@ -104,7 +113,7 @@ export default function PageTransition() {
 
 			e.preventDefault();
 			e.stopPropagation();
-			close(() => router.push(url.pathname + url.search + url.hash));
+			close(() => router.push(url.pathname + url.search + url.hash), url.pathname);
 		};
 
 		document.addEventListener('click', onClick, true);
