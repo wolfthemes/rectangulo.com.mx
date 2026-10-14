@@ -1,3 +1,4 @@
 - T004-verify — URLs sociales Vimeo/LinkedIn (et handles) non confirmées ; à fournir par le client dans constants/contact.js (tâche non bloquante, valeurs provisoires en place)
 - T008-legal — texte Privacy Notice / Cookie Policy : [À FOURNIR : texte légal] (pages /privacy et /cookies en placeholder)
 - T012-showreel — URL du showreel complet : [À FOURNIR : mp4 ou embed Vimeo/YouTube] → constants/media.js SHOWREEL_URL (la lightbox affiche un placeholder tant que vide)
+- T014-projects — liste des créations propres Rectángulo (titres, visuels, synopsis) : [À FOURNIR] → pages/projects.js (seul « Aahh! La Brava » cité dans le brief)
