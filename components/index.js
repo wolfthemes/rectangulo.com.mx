@@ -25,6 +25,7 @@ export { ParallaxSection } from './ParallaxSection';
 export { PortfolioGrid } from './PortfolioGrid';
 export { Post } from './Post';
 export { PostInfo } from './PostInfo';
+export { ProjectViewer } from './ProjectViewer';
 export { SafeHtml } from './SafeHtml';
 export { SEO } from './SEO';
 export { ServicesCapabilities } from './ServicesCapabilities';

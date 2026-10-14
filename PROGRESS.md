@@ -21,7 +21,7 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 - [x] T013 — HomeExplore : WORK/SERVICES/PROJECTS typo surdimensionnée, fond uni+grain, liens (HOME p.5)
 - [x] T014 — Route /projects (Rectángulo-owned: Aahh! La Brava…) placeholder structuré (HOME p.2, p.5)
 - [x] T015 — HomeFeaturedWork : numérotation 01–05 + catégorie, hover preview vidéo/loop (HOME p.6-8)
-- [ ] T016 — ProjectViewer (composant modal partagé) : infos + crédits (champs vides masqués), vidéo, CLOSE, restauration du scroll (HOME p.9, WORK p.7-8)
+- [x] T016 — ProjectViewer (composant modal partagé) : infos + crédits (champs vides masqués), vidéo, CLOSE, restauration du scroll (HOME p.9, WORK p.7-8)
 - [ ] T017 — Brancher ProjectViewer sur HomeFeaturedWork (clic = overlay, plus de navigation) + lien VIEW ALL WORK → (HOME p.8)
 
 ## SERVICES
