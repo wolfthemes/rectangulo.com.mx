@@ -6,17 +6,20 @@ import styles from './ServicesCTA.module.scss';
 let cx = classNames.bind(styles);
 
 // Brief section 06 — contact/social/legal already live in Footer, rendered
-// right after this (same split as HomeCTA on the HOME page).
-export default function ServicesCTA() {
+// right after this (same split as HomeCTA on the HOME page). Props let the
+// WORK page (brief p.10) reuse it with its own wording.
+export default function ServicesCTA({
+	heading = 'Let\u2019s Work Together',
+	body = 'Short invitation to discuss a production, service or technical requirement.',
+	label = 'Start a Project',
+}) {
 	return (
 		<section className={cx('component')}>
 			<Container>
-				<h2 className={cx('heading')}>Let&rsquo;s Work Together</h2>
-				<p className={cx('body')}>
-					Short invitation to discuss a production, service or technical requirement.
-				</p>
+				<h2 className={cx('heading')}>{heading}</h2>
+				<p className={cx('body')}>{body}</p>
 				<Link href="/contact" className={cx('link')}>
-					Start a Project <span aria-hidden="true">→</span>
+					{label} <span aria-hidden="true">→</span>
 				</Link>
 			</Container>
 		</section>

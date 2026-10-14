@@ -7,3 +7,4 @@
 2026-10-14 | T005 | nav WP existante, rien à coder (D006) | OK
 2026-10-14 | T006 | footer: IG/VI/YT/IN, localisation, liens légaux, © | OK
 2026-10-14 | T008 | /privacy et /cookies placeholders (LegalPage), eslint OK | OK (contenu bloqué)
+2026-10-14 | T007 | ServicesCTA paramétrable (réutilisé par WORK) | OK
