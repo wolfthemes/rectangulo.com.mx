@@ -11,7 +11,7 @@ let cx = classNames.bind(styles);
 const SECTION_VH = 2.5;
 
 const MENU = [
-	{ label: 'Work', href: '/work' },
+	{ label: 'Work', href: '/portfolio' },
 	{ label: 'Services', href: '/services' },
 	{ label: 'Projects', href: '/projects' },
 ];

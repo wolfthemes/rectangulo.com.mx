@@ -6,3 +6,4 @@ D004 — global — PDF lus via Ghostscript (txtwrite + png) car pdftoppm absent
 D005 — T004 — email de contact = contacto@rectangulofilms.com — c'est celui du Dossier p.8 (le Footer avait @rectangulo.com.mx)
 D006 — T005 — Header/nav : menu piloté par WP (menus Primary) ; WORK/SERVICES/PROJECTS à créer côté WP admin, pas de code — la nav existait déjà
 D007 — T008 — Placeholder légal dans LegalPage plutôt que texte inventé — règle « ne pas inventer de contenu client »
+D008 — T013 — la route WORK est /portfolio (pages/portfolio.js existant), pas /work — éviter un doublon de route ; liens HomeHero/HomeExplore alignés

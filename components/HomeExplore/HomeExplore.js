@@ -16,7 +16,7 @@ const PATHS = [
 
 export default function HomeExplore() {
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
 				<ul className={cx('list')}>
 					{PATHS.map(({ label, href, description }) => (
