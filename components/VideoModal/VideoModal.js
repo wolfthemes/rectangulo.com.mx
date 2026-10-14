@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { VIDEO_FILE_PATTERN } from '../../constants/media';
+import { getSafeEmbedUrl, getSafeHttpUrl } from '../../utils/urls';
 import styles from './VideoModal.module.scss';
 
 let cx = classNames.bind(styles);
@@ -9,6 +10,9 @@ let cx = classNames.bind(styles);
 // background for free. `children` renders beside the video (project info).
 export default function VideoModal({ open, onClose, src, title, children }) {
 	const ref = useRef(null);
+	// Files play in <video>; anything else must be an allow-listed embed host.
+	const fileUrl = VIDEO_FILE_PATTERN.test(src ?? '') ? getSafeHttpUrl(src) : null;
+	const embedUrl = fileUrl ? null : getSafeEmbedUrl(src);
 
 	useEffect(() => {
 		const dialog = ref.current;
@@ -26,12 +30,18 @@ export default function VideoModal({ open, onClose, src, title, children }) {
 				{children && <div className={cx('info')}>{children}</div>}
 				<div className={cx('media')}>
 					{/* Unmounted when closed so playback stops and nothing buffers. */}
-					{!open ? null : !src ? (
-						<p>[À FOURNIR : vidéo]</p>
-					) : VIDEO_FILE_PATTERN.test(src) ? (
-						<video src={src} controls autoPlay playsInline />
+					{!open ? null : fileUrl ? (
+						<video src={fileUrl} controls autoPlay playsInline />
+					) : embedUrl ? (
+						<iframe
+							src={embedUrl}
+							title={title}
+							sandbox="allow-scripts allow-same-origin allow-presentation"
+							allow="autoplay; fullscreen"
+							allowFullScreen
+						/>
 					) : (
-						<iframe src={src} title={title} allow="autoplay; fullscreen" allowFullScreen />
+						<p>[À FOURNIR : vidéo]</p>
 					)}
 				</div>
 			</div>
