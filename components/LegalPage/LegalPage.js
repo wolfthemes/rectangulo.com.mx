@@ -2,7 +2,15 @@ import { gql, useQuery } from '@apollo/client';
 import classNames from 'classnames/bind';
 import * as MENUS from '../../constants/menus';
 import { BlogInfoFragment } from '../../fragments/GeneralSettings';
-import { Header, Footer, Main, SEO, NavigationMenu, Container, Heading } from '../../components';
+import { Header, Footer, Main, SEO, Container, Heading } from '../../components';
+// Imported directly, not through the barrel above: LegalPage is itself
+// barrel-exported (components/index.js), and LegalPage.query reads
+// NavigationMenu.fragments.entry at module top level — going through the
+// barrel hits it mid-circular-evaluation (NavigationMenu's barrel export
+// comes after LegalPage's alphabetically, so it's still undefined at that
+// point). Header/Footer get away with importing NavigationMenu from the
+// barrel because they only reference it inside render, not at module scope.
+import { NavigationMenu } from '../NavigationMenu';
 import styles from './LegalPage.module.scss';
 
 let cx = classNames.bind(styles);
