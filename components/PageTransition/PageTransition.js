@@ -97,7 +97,7 @@ export default function PageTransition() {
 			if (e.defaultPrevented || e.button !== 0) return;
 			if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 			const link = e.target.closest('a');
-			if (!link || link.target === '_blank' || link.hasAttribute('download')) return;
+			if (!link || link.target === '_blank' || link.hasAttribute('download') || link.hasAttribute('data-no-transition')) return;
 
 			const href = link.getAttribute('href');
 			if (!href) return;

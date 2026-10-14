@@ -16,3 +16,4 @@
 2026-10-14 | T014 | /projects placeholder (shell LegalPage), eslint OK | OK (contenu bloqué)
 2026-10-14 | T015 | FeaturedWork: numérotation/catégorie/preview déjà OK ; preview au focus clavier ajouté | OK
 2026-10-14 | T016 | ProjectViewer (sur VideoModal) + constants/credits.js, champs vides masqués, HTML sanitisé, eslint/sass OK | OK (champs crédits : T031)
+2026-10-14 | T017 | FeaturedWork ouvre ProjectViewer en place (data-no-transition), date ajoutée au fragment; routes localhost:3000 injoignables depuis la session (000, D003), eslint OK | OK

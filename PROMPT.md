@@ -11,6 +11,12 @@ jamais de question et tu ne t'arrêtes jamais pour demander une validation.
 - `LOG.md`             : une ligne par itération (date, tâche, résultat)
 
 # Itération 0 (seulement si PROGRESS.md n'existe pas)
+0. AVANT toute nouvelle tâche, contrôle de régression :
+   for r in / /about /services /work /projects /privacy /cookies; do
+     echo "$r $(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000$r)"
+   done
+   Toute route ≠ 200 = régression : corrige-la en priorité (tâche FIX-xxx),
+   commit, puis seulement ensuite reprends PROGRESS.md.
 1. Lis chaque PDF en entier (texte + rendu visuel des pages avec maquettes).
 2. Écris `specs/SPEC.md` : pour chaque page du PDF, contenus, sections,
    comportements, couleurs/typos repérées, avec la référence de page.

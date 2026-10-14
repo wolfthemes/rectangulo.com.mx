@@ -3,18 +3,18 @@ import Link from 'next/link';
 import { gql } from '@apollo/client';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
+import { ProjectViewer } from '../ProjectViewer';
 import { WorkItemMedia } from '../WorkItemMedia';
 import styles from './HomeFeaturedWork.module.scss';
 
 let cx = classNames.bind(styles);
 
 // Brief section 05/06: a curated, numbered selection (not the full archive —
-// that's /portfolio) with a hover preview and a click-through to the single
-// work page. The brief's "Project Viewer" pop-up (in-place modal, returns to
-// the same scroll position) isn't built yet — this scaffold links out to
-// /work/[slug] instead; swap once that modal exists.
+// that's /portfolio) with a hover preview; a click opens the ProjectViewer
+// overlay in place (the link href is only the new-tab / no-JS fallback).
 export default function HomeFeaturedWork({ works }) {
 	const [activeIndex, setActiveIndex] = useState(null);
+	const [viewing, setViewing] = useState(null);
 	if (!works?.length) return null;
 
 	const active = activeIndex != null ? works[activeIndex] : null;
@@ -35,6 +35,15 @@ export default function HomeFeaturedWork({ works }) {
 									<Link
 										href={`/work/${work.slug}`}
 										className={cx('link')}
+										data-no-transition
+										onClick={(e) => {
+											// Plain click opens the in-place viewer; modified clicks keep the
+											// normal link behaviour (new tab, etc.). data-no-transition keeps
+											// PageTransition's capture-phase interceptor out of the way.
+											if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+											e.preventDefault();
+											setViewing(work);
+										}}
 										onMouseEnter={() => setActiveIndex(i)}
 										onMouseLeave={() => setActiveIndex((cur) => (cur === i ? null : cur))}
 										onFocus={() => setActiveIndex(i)}
@@ -54,6 +63,8 @@ export default function HomeFeaturedWork({ works }) {
 					</div>
 				</div>
 
+				<ProjectViewer work={viewing} onClose={() => setViewing(null)} />
+
 				<Link href="/portfolio" className={cx('view-all')}>
 					View all work <span aria-hidden="true">→</span>
 				</Link>
@@ -68,6 +79,7 @@ HomeFeaturedWork.fragments = {
 		fragment HomeFeaturedWorkFragment on Work {
 			title
 			slug
+			date
 			workTypes {
 				nodes {
 					name
