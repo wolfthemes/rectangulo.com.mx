@@ -42,7 +42,8 @@ function GallerySlideshow({ images }) {
 // video meta, "gallery" cycles its gallery meta as a slideshow, everything
 // else — including a video/gallery format work whose meta is empty — falls
 // back to the plain featured image.
-export default function WorkItemMedia({ work }) {
+// `manual`: the parent starts/stops the video (play only while in view).
+export default function WorkItemMedia({ work, manual = false }) {
 	const formatSlug = work?.postFormats?.nodes?.[0]?.slug;
 	const videoUrl = getSafeHttpUrl(work?.workVideoUrl);
 	const gallery = work?.workGallery ?? [];
@@ -54,7 +55,7 @@ export default function WorkItemMedia({ work }) {
 				className={cx('video')}
 				src={videoUrl}
 				poster={featuredImage?.sourceUrl}
-				autoPlay
+				autoPlay={!manual}
 				muted
 				loop
 				playsInline

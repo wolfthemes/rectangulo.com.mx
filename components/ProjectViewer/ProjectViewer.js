@@ -10,7 +10,7 @@ let cx = classNames.bind(styles);
 // Overlay for a single work (HOME p.9, WORK p.7-8): info + credits beside the
 // video. Closing just closes the <dialog>, so the page underneath keeps its
 // exact scroll position — nothing navigates.
-export default function ProjectViewer({ work, onClose }) {
+export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 	const category = work?.workTypes?.nodes?.[0]?.name;
 	const year = work?.date && new Date(work.date).getFullYear();
 	const credits = work ? CREDIT_FIELDS.filter(([key]) => work[key]) : [];
@@ -29,6 +29,16 @@ export default function ProjectViewer({ work, onClose }) {
 						</div>
 					))}
 				</dl>
+			)}
+			{(onPrev || onNext) && (
+				<nav className={cx('nav')} aria-label="Project navigation">
+					<button type="button" onClick={onPrev} disabled={!onPrev}>
+						← Previous
+					</button>
+					<button type="button" onClick={onNext} disabled={!onNext}>
+						Next →
+					</button>
+				</nav>
 			)}
 		</VideoModal>
 	);

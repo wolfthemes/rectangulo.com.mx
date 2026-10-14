@@ -35,4 +35,6 @@ export { ServicesTeam } from './ServicesTeam';
 export { SkipNavigationLink } from './SkipNavigationLink';
 export { VideoGrid } from './VideoGrid';
 export { VideoModal } from './VideoModal';
+export { WorkFilmstrip } from './WorkFilmstrip';
+export { WorkFilters } from './WorkFilters';
 export { WorkItemMedia } from './WorkItemMedia';

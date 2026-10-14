@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, WorkItemMedia } from '../components';
+import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, ServicesCTA, WorkFilmstrip, WorkItemMedia } from '../components';
 
 // ponytail: same Next.js-first pattern as pages/about.js and pages/contact.js
 // — Header/Footer pull real WP menu/site data. `works` is its own query, kept
@@ -32,7 +32,11 @@ export default function PortfolioPage() {
 			<SEO title={`Portfolio — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
-				<PortfolioGrid works={works} />
+				{works?.length ? <WorkFilmstrip works={works} /> : <PortfolioGrid works={works} />}
+				<ServicesCTA
+					heading="Have a project in mind?"
+					body="Let’s make something together."
+				/>
 			</Main>
 			<Footer title={siteTitle} menuItems={footerMenu} />
 		</>
@@ -71,6 +75,12 @@ PortfolioPage.worksQuery = gql`
 					excerpt
 					slug
 					workYear
+					date
+					workTypes {
+						nodes {
+							name
+						}
+					}
 					featuredImage {
 						node {
 							sourceUrl

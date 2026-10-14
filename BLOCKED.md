@@ -6,3 +6,4 @@
 - T021-rental — inventaire /rental : [À FOURNIR : catalogue matériel de location]
 - T022-stage — photos/vidéo du studio + page Offscreen Studio : [À FOURNIR : médias Stage 01 + URL page Offscreen Studio] (lien « Explore Offscreen Studio » reste un libellé)
 - T023-team — portraits + bios (Josh Sándre, Román Hernández, Karla Suárez) + rôle Karla : [À FOURNIR]
+- T031-credits — champs crédits WPGraphQL (client, agency, artist, director, producer, dop, editor, colorist, sound, vfx, production, post, location) : le schéma backend (register-work-fields.php, thème WP) n'est pas dans ce dépôt ; requêter des champs non exposés casserait la requête GetWorks. Débloquer : exposer ces meta avec show_in_graphql côté WP, puis les ajouter à PortfolioPage.worksQuery et HomeFeaturedWorkFragment (CREDIT_FIELDS est déjà prêt).

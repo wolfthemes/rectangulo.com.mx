@@ -7,3 +7,4 @@ D005 — T004 — email de contact = contacto@rectangulofilms.com — c'est celu
 D006 — T005 — Header/nav : menu piloté par WP (menus Primary) ; WORK/SERVICES/PROJECTS à créer côté WP admin, pas de code — la nav existait déjà
 D007 — T008 — Placeholder légal dans LegalPage plutôt que texte inventé — règle « ne pas inventer de contenu client »
 D008 — T013 — la route WORK est /portfolio (pages/portfolio.js existant), pas /work — éviter un doublon de route ; liens HomeHero/HomeExplore alignés
+D009 — T025 — filtres WORK mappés sur les noms de termes workTypes (insensible à la casse) ; les termes WP doivent s'appeler ALL/Commercial/Branded Content/Film & Narrative/Music/Events/Photography — pas de champ catégorie dédié connu

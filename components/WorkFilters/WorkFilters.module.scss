@@ -1,0 +1,37 @@
+@import 'styles/tokens';
+
+.component {
+	display: flex;
+	gap: clamp(1rem, 3vw, 2.5rem);
+	list-style: none;
+	margin: 0;
+	padding: 1rem 0;
+	overflow-x: auto;
+	white-space: nowrap;
+	scroll-snap-type: x proximity;
+}
+
+.button {
+	appearance: none;
+	background: none;
+	border: 0;
+	padding: 0.25rem 0;
+	color: inherit;
+	font: inherit;
+	font-size: fs(sm);
+	text-transform: uppercase;
+	opacity: 0.5;
+	cursor: pointer;
+	scroll-snap-align: start;
+	transition: opacity 0.2s ease;
+
+	&:hover,
+	&:focus-visible,
+	&.active {
+		opacity: 1;
+	}
+
+	&.active {
+		border-bottom: 1px solid currentcolor;
+	}
+}

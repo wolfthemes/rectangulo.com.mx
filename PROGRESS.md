@@ -34,13 +34,13 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 - [x] T024 — ServicesCTA + footer conformes (SERVICES p.10)
 
 ## WORK
-- [ ] T025 — Filtres horizontaux (7 catégories), état actif, filtrage client sans reload, swipe mobile (WORK p.3)
-- [ ] T026 — Filmstrip horizontal épinglé (scroll vertical→horizontal, desktop only, natif en mobile) (WORK p.4, p.9)
-- [ ] T027 — Tuiles : loops muets via IntersectionObserver (play/stop), hover titre/catégorie/année/VIEW PROJECT (WORK p.5)
-- [ ] T028 — Index 01/02… + compteur « 07 / 32 » sur résultat filtré (WORK p.6)
-- [ ] T029 — Popup WORK : layout gauche infos/crédits fixes + vidéo 70-75 % droite, PREVIOUS/NEXT, restauration position horizontale (WORK p.7-9)
-- [ ] T030 — Fin du filmstrip : libération du pin + CTA « Have a project in mind? » + footer (WORK p.10)
-- [ ] T031 — Champs crédits WPGraphQL (client, agency, director, … location) : fragments + mapping, alignés sur le backend (WORK p.8)
+- [x] T025 — Filtres horizontaux (7 catégories), état actif, filtrage client sans reload, swipe mobile (WORK p.3)
+- [x] T026 — Filmstrip horizontal épinglé (scroll vertical→horizontal, desktop only, natif en mobile) (WORK p.4, p.9)
+- [x] T027 — Tuiles : loops muets via IntersectionObserver (play/stop), hover titre/catégorie/année/VIEW PROJECT (WORK p.5)
+- [x] T028 — Index 01/02… + compteur « 07 / 32 » sur résultat filtré (WORK p.6)
+- [x] T029 — Popup WORK : layout gauche infos/crédits fixes + vidéo 70-75 % droite, PREVIOUS/NEXT, restauration position horizontale (WORK p.7-9)
+- [x] T030 — Fin du filmstrip : libération du pin + CTA « Have a project in mind? » + footer (WORK p.10)
+- [~] T031 — Champs crédits WPGraphQL (client, agency, director, … location) : fragments + mapping, alignés sur le backend (WORK p.8)
 
 ## Finitions / QA
 - [ ] T032 — Page About/Contact alignées sur Dossier (carte Mexique « Sin límites geográficos », contact p.8)

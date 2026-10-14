@@ -24,3 +24,5 @@
 2026-10-14 | T022 | reveal scroll CSS (animation-timeline) plan->dims->texte, sass OK; photos/lien bloqués | OK
 2026-10-14 | T023 | ServicesTeam: grain + bio placeholder, eslint/sass OK; portraits/bios bloqués | OK
 2026-10-14 | T024 | ServicesCTA + Footer déjà conformes p.10 | OK
+2026-10-14 | T025-T030 | WorkFilters + WorkFilmstrip (pin sticky desktop, loops IO, compteur, popup prev/next via ProjectViewer, CTA fin) branchés sur /portfolio, eslint/sass OK | OK
+2026-10-14 | T031 | bloqué: schéma backend crédits indisponible | BLOCKED

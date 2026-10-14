@@ -1,0 +1,123 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+.component {
+	padding-top: clamp(2rem, 6vw, 4rem);
+}
+
+.counter {
+	margin: 0;
+	padding: 0 var(--wp--style--root--padding-left, 1.5rem);
+	font-size: fs(sm);
+	opacity: 0.6;
+}
+
+// Mobile / reduced motion: the track is a native swipeable row.
+.stage {
+	overflow: hidden;
+}
+
+.track {
+	display: flex;
+	gap: 1rem;
+	list-style: none;
+	margin: 0;
+	padding: 1rem;
+	overflow-x: auto;
+	scroll-snap-type: x proximity;
+	will-change: transform;
+
+	@media (min-width: $breakpoint-medium) and (prefers-reduced-motion: no-preference) {
+		overflow: visible;
+		gap: 2rem;
+		padding: 0 2rem;
+		width: max-content;
+	}
+}
+
+// Desktop: sticky stage inside a tall outer block (height set from JS).
+@media (min-width: $breakpoint-medium) and (prefers-reduced-motion: no-preference) {
+	.stage {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+	}
+}
+
+// Variable proportions across tiles (WORK p.4).
+.tile {
+	position: relative;
+	flex: 0 0 auto;
+	height: 60vh;
+	aspect-ratio: 16 / 9;
+	scroll-snap-align: start;
+	overflow: hidden;
+
+	&:nth-child(3n + 2) {
+		aspect-ratio: 4 / 5;
+	}
+
+	&:nth-child(5n + 3) {
+		aspect-ratio: 1;
+	}
+
+	@media (max-width: $breakpoint-medium) {
+		height: 50vh;
+	}
+}
+
+.open {
+	appearance: none;
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	border: 0;
+	background: $c-ink;
+	color: $c-base;
+	font: inherit;
+	text-align: left;
+	cursor: pointer;
+}
+
+.index {
+	position: absolute;
+	top: 0.75rem;
+	left: 0.75rem;
+	font-size: fs(sm);
+}
+
+.hover {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 0.25rem;
+	padding: 1rem;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 60%);
+	font-size: fs(sm);
+	text-transform: uppercase;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+
+	.open:hover &,
+	.open:focus-visible & {
+		opacity: 1;
+	}
+}
+
+.title {
+	font-size: fs(lg);
+}
+
+.view {
+	color: $c-accent;
+}
+
+.empty {
+	padding: 2rem;
+}
