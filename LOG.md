@@ -23,3 +23,4 @@
 2026-10-14 | T021 | CTA -> /rental + page placeholder, eslint OK | OK (contenu bloqué)
 2026-10-14 | T022 | reveal scroll CSS (animation-timeline) plan->dims->texte, sass OK; photos/lien bloqués | OK
 2026-10-14 | T023 | ServicesTeam: grain + bio placeholder, eslint/sass OK; portraits/bios bloqués | OK
+2026-10-14 | T024 | ServicesCTA + Footer déjà conformes p.10 | OK

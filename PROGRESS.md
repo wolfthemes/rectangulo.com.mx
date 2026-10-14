@@ -31,7 +31,7 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 - [x] T021 — CTA « VIEW RENTAL EQUIPMENT → » + route /rental placeholder (SERVICES p.7)
 - [x] T022 — ServicesStage : reveal au scroll plan filaire → dimensions 192 m³ 8×6×4 → liste → photos + lien Explore Offscreen Studio (SERVICES p.8)
 - [x] T023 — ServicesTeam : fond rouge+grain, colonne de noms, hover/clic portrait+rôle+bio (Josh Sándre, Román Hernández, Karla Suárez ; bios `[À FOURNIR]`) (SERVICES p.9)
-- [ ] T024 — ServicesCTA + footer conformes (SERVICES p.10)
+- [x] T024 — ServicesCTA + footer conformes (SERVICES p.10)
 
 ## WORK
 - [ ] T025 — Filtres horizontaux (7 catégories), état actif, filtrage client sans reload, swipe mobile (WORK p.3)
