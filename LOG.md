@@ -14,3 +14,4 @@
 2026-10-14 | T012 | VideoModal (<dialog>) réutilisable + showreel branché sur HomeHero, eslint/sass OK | OK (URL bloquée)
 2026-10-14 | T013 | HomeExplore: grain ajouté (typo/fond/liens déjà OK), lien hero WORK → /portfolio (D008) | OK
 2026-10-14 | T014 | /projects placeholder (shell LegalPage), eslint OK | OK (contenu bloqué)
+2026-10-14 | T015 | FeaturedWork: numérotation/catégorie/preview déjà OK ; preview au focus clavier ajouté | OK

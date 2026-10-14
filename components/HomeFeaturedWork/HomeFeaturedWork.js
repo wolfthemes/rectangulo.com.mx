@@ -37,6 +37,8 @@ export default function HomeFeaturedWork({ works }) {
 										className={cx('link')}
 										onMouseEnter={() => setActiveIndex(i)}
 										onMouseLeave={() => setActiveIndex((cur) => (cur === i ? null : cur))}
+										onFocus={() => setActiveIndex(i)}
+										onBlur={() => setActiveIndex((cur) => (cur === i ? null : cur))}
 									>
 										<span className={cx('index')}>{String(i + 1).padStart(2, '0')}</span>
 										<span className={cx('title')}>{work.title}</span>
