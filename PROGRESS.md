@@ -26,8 +26,8 @@ Validation « statique » = `npx eslint <fichiers>` + `npx sass --no-source-map 
 
 ## SERVICES
 - [x] T018 — ClientLogosCarousel : boucle continue lente, pause reduced-motion, logos Dossier p.6 (placeholders `[À FOURNIR : logos SVG]`) (SERVICES p.3)
-- [ ] T019 — Hover/tap BTS sur logo : collage de photos/loops (médias `[À FOURNIR]`) (SERVICES p.3)
-- [ ] T020 — ServicesCapabilities : 6 sections scroll-driven avec textes exacts (03.1–03.6) (SERVICES p.4-7)
+- [~] T019 — Hover/tap BTS sur logo : collage de photos/loops (médias `[À FOURNIR]`) (SERVICES p.3)
+- [x] T020 — ServicesCapabilities : 6 sections scroll-driven avec textes exacts (03.1–03.6) (SERVICES p.4-7)
 - [ ] T021 — CTA « VIEW RENTAL EQUIPMENT → » + route /rental placeholder (SERVICES p.7)
 - [ ] T022 — ServicesStage : reveal au scroll plan filaire → dimensions 192 m³ 8×6×4 → liste → photos + lien Explore Offscreen Studio (SERVICES p.8)
 - [ ] T023 — ServicesTeam : fond rouge+grain, colonne de noms, hover/clic portrait+rôle+bio (Josh Sándre, Román Hernández, Karla Suárez ; bios `[À FOURNIR]`) (SERVICES p.9)

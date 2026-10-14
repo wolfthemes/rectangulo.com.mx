@@ -2,3 +2,4 @@
 - T008-legal — texte Privacy Notice / Cookie Policy : [À FOURNIR : texte légal] (pages /privacy et /cookies en placeholder)
 - T012-showreel — URL du showreel complet : [À FOURNIR : mp4 ou embed Vimeo/YouTube] → constants/media.js SHOWREEL_URL (la lightbox affiche un placeholder tant que vide)
 - T014-projects — liste des créations propres Rectángulo (titres, visuels, synopsis) : [À FOURNIR] → pages/projects.js (seul « Aahh! La Brava » cité dans le brief)
+- T019-bts — collages BTS par logo client (photos/loops) : [À FOURNIR : médias BTS par client]. Sans médias, le hover/tap ne peut afficher que du vide ; à débloquer en fournissant les fichiers, puis mapping logo→médias dans ClientLogosCarousel.

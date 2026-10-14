@@ -18,3 +18,5 @@
 2026-10-14 | T016 | ProjectViewer (sur VideoModal) + constants/credits.js, champs vides masqués, HTML sanitisé, eslint/sass OK | OK (champs crédits : T031)
 2026-10-14 | T017 | FeaturedWork ouvre ProjectViewer en place (data-no-transition), date ajoutée au fragment; routes localhost:3000 injoignables depuis la session (000, D003), eslint OK | OK
 2026-10-14 | T018 | ClientLogosCarousel déjà conforme (boucle CSS, reduced-motion, logos réels, branché /services), sass OK | OK
+2026-10-14 | T019 | bloqué: médias BTS à fournir | BLOCKED
+2026-10-14 | T020 | textes 03.1-03.6 vérifiés vs PDF p.5-7, empilement sticky CSS desktop (hors reduced-motion), sass OK; loops vidéo à fournir | OK
