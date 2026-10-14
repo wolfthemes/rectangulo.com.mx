@@ -20,3 +20,4 @@
 2026-10-14 | T018 | ClientLogosCarousel déjà conforme (boucle CSS, reduced-motion, logos réels, branché /services), sass OK | OK
 2026-10-14 | T019 | bloqué: médias BTS à fournir | BLOCKED
 2026-10-14 | T020 | textes 03.1-03.6 vérifiés vs PDF p.5-7, empilement sticky CSS desktop (hors reduced-motion), sass OK; loops vidéo à fournir | OK
+2026-10-14 | T021 | CTA -> /rental + page placeholder, eslint OK | OK (contenu bloqué)

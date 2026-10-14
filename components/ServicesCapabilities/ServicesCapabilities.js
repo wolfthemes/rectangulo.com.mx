@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import styles from './ServicesCapabilities.module.scss';
@@ -71,10 +72,8 @@ const SERVICES = [
 			'Monitors', 'Camera Support', 'Tripods', 'Gimbals', 'Audio',
 			'Production Accessories', 'Video Systems',
 		],
-		// brief: "Show a curated equipment selection and CTA: VIEW RENTAL
-		// EQUIPMENT →" — no dedicated rental catalog page exists yet, so this
-		// stays a label instead of a dead link.
-		cta: 'View Rental Equipment →',
+		// brief p.7: CTA to the dedicated rental catalog (placeholder page for now).
+		cta: { label: 'View Rental Equipment →', href: '/rental' },
 	},
 ];
 
@@ -90,7 +89,7 @@ export default function ServicesCapabilities() {
 							<h3 className={cx('title')}>{title}</h3>
 							<p className={cx('description')}>{description}</p>
 							<p className={cx('capabilities')}>{capabilities.join(' · ')}</p>
-							{cta && <span className={cx('cta')}>{cta}</span>}
+							{cta && <Link href={cta.href} className={cx('cta')}>{cta.label}</Link>}
 						</div>
 					</article>
 				))}
