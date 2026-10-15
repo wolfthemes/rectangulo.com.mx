@@ -31,6 +31,12 @@ yarn-error.log*
 .pnpm-debug.log*
 dev-error.log
 
+# run.sh's headless claude loop
+loop.log
+DONE
+PROGRESS.md
+REPORT.md
+
 # env files (can opt-in for committing if needed)
 .env.local
 
