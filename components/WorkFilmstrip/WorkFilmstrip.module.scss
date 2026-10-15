@@ -7,9 +7,16 @@
 
 .counter {
 	margin: 0;
-	padding: 0 var(--wp--style--root--padding-left, 1.5rem);
+
+	// Matches .track's padding at the same breakpoint, so it (and
+	// WorkFilters above it) line up with the first carousel tile's left edge.
+	padding: 0 1rem;
 	font-size: fs(sm);
 	opacity: 0.6;
+
+	@media (min-width: $breakpoint-medium) {
+		padding: 0 2rem;
+	}
 }
 
 // Mobile / reduced motion: the track is a native swipeable row.
@@ -36,13 +43,18 @@
 }
 
 // Desktop: sticky stage inside a tall outer block (height set from JS).
+// Top-aligned with a fixed offset, not vertically centered — centering in
+// the full 100vh box pushed the tiles far down below the filters/counter
+// above, regardless of scroll position (that gap isn't scroll-pin related,
+// .stage is always 100vh tall).
 @media (min-width: $breakpoint-medium) and (prefers-reduced-motion: no-preference) {
 	.stage {
 		position: sticky;
 		top: 0;
 		height: 100vh;
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
+		padding-top: 50px;
 	}
 }
 

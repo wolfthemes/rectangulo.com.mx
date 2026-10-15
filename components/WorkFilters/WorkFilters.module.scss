@@ -1,3 +1,4 @@
+@import 'styles/breakpoints';
 @import 'styles/tokens';
 
 .component {
@@ -5,10 +6,17 @@
 	gap: clamp(1rem, 3vw, 2.5rem);
 	list-style: none;
 	margin: 0;
-	padding: 1rem 0;
+
+	// Matches WorkFilmstrip's .track padding at the same breakpoint, so the
+	// first filter lines up with the first carousel tile's left edge.
+	padding: 1rem;
 	overflow-x: auto;
 	white-space: nowrap;
 	scroll-snap-type: x proximity;
+
+	@media (min-width: $breakpoint-medium) {
+		padding: 1rem 2rem;
+	}
 }
 
 .button {
