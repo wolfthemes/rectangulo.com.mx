@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './HomeIntro.module.scss';
 
@@ -10,22 +10,31 @@ let cx = classNames.bind(styles);
 // curtain choreography extends to a first-visit "enter site" state.
 const SKIP_KEY = 'rectangulo:intro-seen';
 
-// Lazy initializer, not an effect: reads sessionStorage once, synchronously,
-// before first paint — an effect-driven setState here would cost an extra
-// render pass and still let the overlay flash open for a frame first.
-function initialOpen() {
-	if (typeof window === 'undefined') return false;
+function seen() {
 	try {
-		return !sessionStorage.getItem(SKIP_KEY);
+		return !!sessionStorage.getItem(SKIP_KEY);
 	} catch {
 		// Storage blocked (private mode, etc.) — show the intro every time.
-		return true;
+		return false;
 	}
 }
 
 export default function HomeIntro({ title = 'Rectángulo' }) {
-	const [open, setOpen] = useState(initialOpen);
+	// Starts closed on both server and first client render (no window on the
+	// server, so any state depending on it there mismatches hydration — React
+	// expects the client's first render to match the server's exactly). The
+	// real value is decided in a layout effect instead, which still runs
+	// before paint, so there's no visible flash either way.
+	const [open, setOpen] = useState(false);
 	const [leaving, setLeaving] = useState(false);
+
+	useLayoutEffect(() => {
+		// Reads an external, browser-only source (sessionStorage) and syncs it
+		// into state — not a derived/cascading update, so the lint rule's
+		// general cascading-render concern doesn't apply here.
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		if (!seen()) setOpen(true);
+	}, []);
 
 	const enter = () => {
 		setLeaving(true);

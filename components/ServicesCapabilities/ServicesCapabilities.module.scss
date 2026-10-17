@@ -19,16 +19,7 @@
 	@media (min-width: $breakpoint-medium) {
 		flex-direction: row;
 		gap: 3rem;
-	}
-
-	// Scroll-driven: each service pins and the next slides over it (CSS only,
-	// desktop, skipped under reduced motion). Opaque bg hides the pinned one.
-	@media (min-width: $breakpoint-medium) and (prefers-reduced-motion: no-preference) {
-		position: sticky;
-		top: 0;
-		min-height: 100vh;
 		align-items: center;
-		background-color: $c-base;
 	}
 }
 
