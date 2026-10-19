@@ -18,6 +18,7 @@
 	// same fix as HomeFeaturedWork's .link.
 	color: $c-base;
 	text-decoration: none;
+	transition: color 0.3s ease;
 
 	&:hover {
 		color: $c-accent;

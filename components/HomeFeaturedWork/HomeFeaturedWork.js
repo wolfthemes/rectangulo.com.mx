@@ -14,6 +14,10 @@ let cx = classNames.bind(styles);
 // static (no cursor to follow, and it'd just drift on scroll otherwise).
 const FOLLOW_QUERY = '(min-width: 1024px) and (hover: hover) and (pointer: fine)';
 
+// How much of the remaining distance to the cursor the preview closes per
+// frame — lower trails more, 1 would be an instant snap (no lerp at all).
+const LERP = 0.15;
+
 // Brief section 05/06: a curated, numbered selection (not the full archive —
 // that's /portfolio) with a hover preview; a click opens the ProjectViewer
 // overlay in place (the link href is only the new-tab / no-JS fallback).
@@ -23,20 +27,57 @@ export default function HomeFeaturedWork({ works }) {
 	const layoutRef = useRef(null);
 	const previewRef = useRef(null);
 
+	// Keyed on works?.length, not []: `works` is still null while the query
+	// loads, so the component renders nothing yet and layoutRef.current is
+	// null the first time this runs — with an empty dep array that bail-out
+	// would be permanent, since nothing re-triggers it once real content (and
+	// the ref) actually exists.
 	useEffect(() => {
 		const layout = layoutRef.current;
 		if (!layout) return undefined;
 
 		const mq = window.matchMedia(FOLLOW_QUERY);
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		// Target is wherever the cursor last was; current trails it a fraction
+		// of the way per frame (lerp) instead of snapping straight there.
+		const target = { x: 0, y: 0 };
+		const current = { x: 0, y: 0 };
+		let started = false;
+		let raf = 0;
+
 		const onMove = (e) => {
-			if (!mq.matches || !previewRef.current) return;
+			if (!mq.matches) return;
 			// Offset so the preview sits beside the cursor, not under it.
-			previewRef.current.style.transform = `translate3d(${e.clientX + 32}px, ${e.clientY - 120}px, 0)`;
+			target.x = e.clientX + 32;
+			target.y = e.clientY - 120;
+			if (!started) {
+				// First move: jump straight there instead of lerping in from (0,0).
+				current.x = target.x;
+				current.y = target.y;
+				started = true;
+			}
+			if (reduce && previewRef.current) {
+				previewRef.current.style.transform = `translate3d(${target.x}px, ${target.y}px, 0)`;
+			}
+		};
+
+		const tick = () => {
+			current.x += (target.x - current.x) * LERP;
+			current.y += (target.y - current.y) * LERP;
+			if (previewRef.current) {
+				previewRef.current.style.transform = `translate3d(${current.x}px, ${current.y}px, 0)`;
+			}
+			raf = requestAnimationFrame(tick);
 		};
 
 		layout.addEventListener('mousemove', onMove);
-		return () => layout.removeEventListener('mousemove', onMove);
-	}, []);
+		if (!reduce) raf = requestAnimationFrame(tick);
+
+		return () => {
+			layout.removeEventListener('mousemove', onMove);
+			cancelAnimationFrame(raf);
+		};
+	}, [works?.length]);
 
 	if (!works?.length) return null;
 
