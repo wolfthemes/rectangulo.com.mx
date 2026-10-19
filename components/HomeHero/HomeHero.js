@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { onScrollFrame } from '../../lib/scroll';
 import { SOCIAL_LINKS } from '../../constants/contact';
@@ -27,8 +27,33 @@ const band = (p, from, to) => clamp01((p - from) / (to - from));
 // runs at scroll cadence and a re-render per frame would be wasted work.
 export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 	const sectionRef = useRef(null);
+	const reelRef = useRef(null);
+	const wordmarkRef = useRef(null);
 	const navRef = useRef(null);
 	const statementRef = useRef(null);
+
+	// Fit the wordmark to the full section width rather than guessing a
+	// clamp() that's right for one word at one viewport — scales the current
+	// font-size by (available width / rendered width), which converges
+	// correctly on every call, so plain resize (no ResizeObserver needed) and
+	// a refit once the real font swaps in are enough; no fit-text dependency
+	// for a single-element, single-line case this small.
+	useLayoutEffect(() => {
+		const el = wordmarkRef.current;
+		if (!el) return undefined;
+
+		const fit = () => {
+			const available = el.parentElement?.clientWidth;
+			if (!available || !el.scrollWidth) return;
+			const current = parseFloat(getComputedStyle(el).fontSize);
+			el.style.fontSize = `${(current * available) / el.scrollWidth}px`;
+		};
+
+		fit();
+		document.fonts?.ready?.then(fit);
+		window.addEventListener('resize', fit);
+		return () => window.removeEventListener('resize', fit);
+	}, []);
 
 	useEffect(() => {
 		const section = sectionRef.current;
@@ -40,6 +65,14 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 			const top = section.offsetTop;
 			const height = section.offsetHeight - window.innerHeight;
 			const progress = height > 0 ? clamp01((scrollY - top) / height) : 0;
+
+			// Background moves slower than the pin itself (classic parallax) —
+			// the whole point of pinning the hero is lost if the video just
+			// sits static while everything else happens on top of it. Scaled up
+			// so the vertical drift never uncovers an edge.
+			if (reelRef.current) {
+				reelRef.current.style.transform = `translate3d(0, ${(progress - 0.5) * 15}%, 0) scale(1.15)`;
+			}
 
 			// STATE 01 -> 02: nav + social links fade in.
 			// visibility keeps hidden links out of tab order / pointer reach.
@@ -70,16 +103,16 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 		<section ref={sectionRef} className={cx('component')} style={{ height: `${SECTION_VH * 100}vh` }}>
 			<div className={cx('pinned')}>
 				{demoreelUrl ? (
-					<video className={cx('reel')} src={demoreelUrl} autoPlay muted loop playsInline />
+					<video ref={reelRef} className={cx('reel')} src={demoreelUrl} autoPlay muted loop playsInline />
 				) : (
-					<div className={cx('reel', 'reel--placeholder')} />
+					<div ref={reelRef} className={cx('reel', 'reel--placeholder')} />
 				)}
 
 				<div className={cx('lines')} aria-hidden="true" />
 
 				{/* Decorative display wordmark; the real brand name lives in the
 				    header logo, so this is hidden from the accessibility tree. */}
-				<p className={cx('wordmark')} aria-hidden="true">Reectanguloo</p>
+				<p ref={wordmarkRef} className={cx('wordmark')} aria-hidden="true">Reectanguloo</p>
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">
