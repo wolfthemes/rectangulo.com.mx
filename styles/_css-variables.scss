@@ -51,7 +51,10 @@
 	--wpe--main--color: var(--wpe--color--white);
 	--wpe--main--background-color: var(--wpe--color--black);
 	--wpe--footer--color: var(--wpe--color--white);
-	--wpe--footer--background-color: var(--wpe--color--black);
+
+	// True black, not --wpe--color--black (#171717) — Header/Main use that
+	// shade too, so the footer needs to read as visibly darker, not blend in.
+	--wpe--footer--background-color: #000;
 	--wpe--heading--color: var(--wpe--color--white);
 	--wpe--border--light: 1px solid var(--wpe--color--neutral);
 	--wpe--border--extra-light: 1px solid rgba(255, 255, 255, 0.08);

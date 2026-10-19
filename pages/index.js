@@ -44,7 +44,7 @@ export default function HomePage() {
 		<>
 			<SEO title={siteTitle} description={siteDescription} />
 			<HomeIntro title={siteTitle} />
-			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
+			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} hidden />
 			<Main>
 				<HomeHero
 				demoreelUrl={HERO_DEMOREEL_URL}

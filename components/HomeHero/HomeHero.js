@@ -131,8 +131,13 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 				<div className={cx('lines')} aria-hidden="true" />
 
 				{/* Decorative display wordmark; the real brand name lives in the
-				    header logo, so this is hidden from the accessibility tree. */}
-				<p ref={wordmarkRef} className={cx('wordmark')} aria-hidden="true">Reectanguloo</p>
+				    header logo, so this is hidden from the accessibility tree.
+				    is-animated-chars: the site-wide letter-by-letter reveal
+				    (lib/animate-headings.js), wired through _app.js so it fires
+				    on the same page-enter cue as the curtain opening. */}
+				<p ref={wordmarkRef} className={`${cx('wordmark')} is-animated-chars`} aria-hidden="true">
+					Reectanguloo
+				</p>
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">

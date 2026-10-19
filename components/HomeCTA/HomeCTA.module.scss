@@ -8,6 +8,10 @@
 	display: block;
 	font-size: clamp(3rem, 12vw, 8rem);
 	line-height: 0.9;
+
+	// 900, not fw(bold) (700) — the token scale tops out at bold, this
+	// wants the actual heaviest cut (Gotham has a real Black weight file).
+	font-weight: 900;
 	text-transform: uppercase;
 
 	// $c-ink is tuned for light surfaces, not this dark page background —

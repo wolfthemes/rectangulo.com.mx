@@ -6,11 +6,15 @@ import styles from './Header.module.scss';
 
 let cx = classNames.bind(styles);
 
-export default function Header({ title = 'Rectángulo', menuItems }) {
+// ponytail: `hidden` (display:none) hides the default nav on HOME while
+// HomeHero's own fixed wordmark+nav stands in for it — temporary until
+// HOME's mobile nav story (this also removes the hamburger toggle) gets
+// sorted out for good.
+export default function Header({ title = 'Rectángulo', menuItems, hidden }) {
 	const [isNavShown, setIsNavShown] = useState(false);
 
 	return (
-		<header className={cx('component')}>
+		<header className={cx('component', { hidden })}>
 			<SkipNavigationLink />
 			<Container>
 				<div className={cx('navbar')}>

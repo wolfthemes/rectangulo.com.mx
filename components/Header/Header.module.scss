@@ -6,6 +6,10 @@
 	background-color: var(--wpe--header--background-color);
 	position: relative;
 	z-index: 2; // Pull dropdown menus to the foreground to sit above <Main />.
+
+	&.hidden {
+		display: none;
+	}
 }
 
 .navbar {
