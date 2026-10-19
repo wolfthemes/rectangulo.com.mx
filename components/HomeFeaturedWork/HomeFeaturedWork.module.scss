@@ -85,10 +85,21 @@
 	overflow: hidden;
 	opacity: 0;
 	transition: opacity 0.2s ease;
+	pointer-events: none;
 
 	@media (min-width: $breakpoint-medium) {
 		width: 24rem;
 		flex-shrink: 0;
+	}
+
+	// Desktop + mouse only (matches HomeFeaturedWork.js's FOLLOW_QUERY):
+	// fixed and transform-driven by mousemove instead of sticky, so it can
+	// trail the cursor through the list rather than sit in one spot.
+	@media (width >= 1024px) and (hover: hover) and (pointer: fine) {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 20rem;
 	}
 
 	&.active {

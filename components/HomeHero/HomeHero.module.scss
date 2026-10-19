@@ -45,8 +45,14 @@
 }
 
 .wordmark {
-	position: absolute;
-	z-index: 2;
+	// Fixed, not absolute: once the shrink finishes and the pin releases,
+	// .pinned itself scrolls away with the rest of the hero — fixed is what
+	// keeps this (now logo-sized) acting as a persistent corner mark instead
+	// of leaving with it. Shares the scroll-driven scale() written in
+	// HomeHero.js, which freezes at its final value once progress hits 1, so
+	// there's nothing left to animate by the time this takes over.
+	position: fixed;
+	z-index: 5;
 	top: 1.5rem;
 	left: 0;
 	width: 100%;
@@ -79,8 +85,10 @@
 }
 
 .social {
-	position: absolute;
-	z-index: 2;
+	// Fixed for the same reason as .wordmark — stays put as a persistent
+	// top-right nav once the pin releases, instead of scrolling away.
+	position: fixed;
+	z-index: 5;
 	top: 1.5rem;
 	right: 1.5rem;
 	display: flex;
