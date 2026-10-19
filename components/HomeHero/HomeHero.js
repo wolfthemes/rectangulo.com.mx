@@ -85,6 +85,11 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 					<div className={cx('reel', 'reel--placeholder')} />
 				)}
 
+				<div className={cx('lines')} aria-hidden="true" />
+
+				{/* Decorative — the logo <img>'s alt text already carries the brand name. */}
+				<p className={cx('wordmark')} aria-hidden="true">Rectángulo</p>
+
 				{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
 				<img ref={logoRef} className={cx('logo')} src="/images/logo.svg" alt="Rectángulo" />
 

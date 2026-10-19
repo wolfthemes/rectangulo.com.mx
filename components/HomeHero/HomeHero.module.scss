@@ -14,6 +14,53 @@
 	color: $c-base;
 }
 
+// Film-grain overlay (HOME brief p.5). Local, not the shared `.grain`
+// utility — that one flips `position` to `relative`, which would fight
+// .pinned's `sticky`.
+.pinned::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	opacity: 0.15;
+	mix-blend-mode: overlay;
+	background-image: var(--grain-image);
+}
+
+// Evenly spaced full-height rules across the hero (figurefilm.co.uk ref).
+.lines {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background-image: repeating-linear-gradient(
+		to right,
+		rgba(255, 255, 255, 0.15) 0,
+		rgba(255, 255, 255, 0.15) 1px,
+		transparent 1px,
+		transparent 100%
+	);
+	background-size: calc(100% / 6) 100%;
+}
+
+.wordmark {
+	position: absolute;
+	z-index: 2;
+	top: 1.5rem;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0 1.5rem;
+	font-size: clamp(3.5rem, 14vw, 11rem);
+	line-height: 0.9;
+	font-weight: fw(bold);
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: -0.02em;
+	white-space: nowrap;
+}
+
 .reel {
 	position: absolute;
 	inset: 0;
@@ -28,6 +75,7 @@
 
 .logo {
 	position: absolute;
+	z-index: 2;
 	top: 50%;
 	left: 50%;
 	width: clamp(12rem, 40vw, 28rem);
@@ -40,6 +88,7 @@
 
 .social {
 	position: absolute;
+	z-index: 2;
 	top: 1.5rem;
 	right: 1.5rem;
 	display: flex;
@@ -62,6 +111,7 @@
 
 .statement {
 	position: absolute;
+	z-index: 2;
 	bottom: 3rem;
 	left: 50%;
 	transform: translateX(-50%);
