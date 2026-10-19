@@ -130,14 +130,20 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 
 				<div className={cx('lines')} aria-hidden="true" />
 
-				{/* Decorative display wordmark; the real brand name lives in the
-				    header logo, so this is hidden from the accessibility tree.
-				    is-animated-chars: the site-wide letter-by-letter reveal
-				    (lib/animate-headings.js), wired through _app.js so it fires
-				    on the same page-enter cue as the curtain opening. */}
-				<p ref={wordmarkRef} className={`${cx('wordmark')} is-animated-chars`} aria-hidden="true">
+				{/* The page's real h1 — Header's own logo is hidden on HOME (see
+				    pages/index.js), so this is the only brand mark left.
+				    is-animated-heading, not is-animated-chars: StretchPro merges
+				    the doubled letters ("RE"+"RE", "O"+"O") into the brand's
+				    ambigram shapes via OpenType calt/liga (see ContactHero's
+				    .wordmark comment) — splitting into one <span> per letter, as
+				    the char-level reveal does, isolates every letter from its
+				    neighbor and kills that substitution outright. Word-level
+				    splitting leaves this single word's letters in one run, so the
+				    ligatures still shape correctly, at the cost of revealing as
+				    one block instead of letter by letter. */}
+				<h1 ref={wordmarkRef} className={`${cx('wordmark')} is-animated-heading`}>
 					Reectanguloo
-				</p>
+				</h1>
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">
