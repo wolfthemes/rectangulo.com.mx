@@ -62,7 +62,10 @@
 	// already accounts for this padding when sizing the font, so it stays
 	// exact regardless of the value here.
 	padding: 0 var(--wpe--container--padding-x);
-	font-family: StretchPro, sans-serif;
+
+	// Same token h1-h6 use (styles/_base.scss) — StretchPro with its real
+	// fallback stack, instead of a hardcoded duplicate of just the one name.
+	font-family: var(--wpe--font-family--display);
 	font-size: clamp(3.5rem, 14vw, 11rem);
 	line-height: 0.9;
 	text-transform: uppercase;
