@@ -19,6 +19,15 @@ const MENU = [
 	{ label: 'Projects', href: '/projects' },
 ];
 
+// Manually pre-split instead of handing this to SplitType (see the is-split
+// JSX below): the generic char-splitter isolates every single letter into
+// its own span with no idea which pairs are meant to ligature together —
+// "ee" and "oo" here need to stay inside the same span, or StretchPro's
+// calt/liga substitution that merges them into the brand's ambigram shapes
+// can't see them as adjacent and never fires. Every other letter has no
+// ligature to protect, so it's free to split on its own same as before.
+const WORDMARK_UNITS = ['R', 'ee', 'c', 't', 'a', 'n', 'g', 'u', 'l', 'oo'];
+
 const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
 // Remaps progress from [from, to] to [0, 1], clamped — the small helper
 // every state transition below is built from.
@@ -132,17 +141,17 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 
 				{/* The page's real h1 — Header's own logo is hidden on HOME (see
 				    pages/index.js), so this is the only brand mark left.
-				    is-animated-heading, not is-animated-chars: StretchPro merges
-				    the doubled letters ("RE"+"RE", "O"+"O") into the brand's
-				    ambigram shapes via OpenType calt/liga (see ContactHero's
-				    .wordmark comment) — splitting into one <span> per letter, as
-				    the char-level reveal does, isolates every letter from its
-				    neighbor and kills that substitution outright. Word-level
-				    splitting leaves this single word's letters in one run, so the
-				    ligatures still shape correctly, at the cost of revealing as
-				    one block instead of letter by letter. */}
-				<h1 ref={wordmarkRef} className={`${cx('wordmark')} is-animated-heading`}>
-					Reectanguloo
+				    Reuses .is-animated-chars' own reveal CSS (styles/_utilities.scss
+				    — .char, --char-index) but builds the spans by hand instead of
+				    letting SplitType do it from plain text, and marks is-split
+				    itself so splitAnimatedHeadings() leaves it alone: see
+				    WORDMARK_UNITS above for why (ligature pairs need to survive). */}
+				<h1 ref={wordmarkRef} className={`${cx('wordmark')} is-animated-chars is-split`}>
+					{WORDMARK_UNITS.map((unit, i) => (
+						<span key={i} className="char" style={{ '--char-index': i }}>
+							{unit}
+						</span>
+					))}
 				</h1>
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
