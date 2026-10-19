@@ -52,15 +52,15 @@
 	width: 100%;
 	margin: 0;
 
-	// No horizontal padding: the fit-to-width script in HomeHero.js measures
-	// this element's own scrollWidth against its parent's, so anything here
-	// that doesn't scale 1:1 with font-size (a fixed-length padding) would
-	// throw that ratio off.
+	// Matches Container's gutter. The fit-to-width script in HomeHero.js
+	// already accounts for this padding when sizing the font, so it stays
+	// exact regardless of the value here.
+	padding: 0 var(--wpe--container--padding-x);
 	font-family: StretchPro, sans-serif;
 	font-size: clamp(3.5rem, 14vw, 11rem);
 	line-height: 0.9;
 	text-transform: uppercase;
-	text-align: center;
+	text-align: left;
 	white-space: nowrap;
 	transform-origin: top left;
 	will-change: transform;

@@ -7,8 +7,11 @@ import styles from './HomeHero.module.scss';
 let cx = classNames.bind(styles);
 
 // How many viewport-heights the pinned hero takes to run through its three
-// states (brief section 03). Bigger = slower/more scroll per state.
-const SECTION_VH = 2.5;
+// states (brief section 03). The wordmark shrink spans the full 0-1 range
+// (see `toCorner` below), so this is also how long the pin itself lasts —
+// it releases exactly as the shrink finishes, not some arbitrary scroll
+// distance after.
+const SECTION_VH = 1.5;
 
 const MENU = [
 	{ label: 'Work', href: '/portfolio' },
@@ -43,10 +46,19 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 		if (!el) return undefined;
 
 		const fit = () => {
-			const available = el.parentElement?.clientWidth;
-			if (!available || !el.scrollWidth) return;
-			const current = parseFloat(getComputedStyle(el).fontSize);
-			el.style.fontSize = `${(current * available) / el.scrollWidth}px`;
+			const parent = el.parentElement;
+			if (!parent) return;
+			// Padding is fixed-length, so it doesn't scale with font-size the way
+			// the text does — strip it from both sides of the ratio (available
+			// space and rendered width) so only the part that actually scales
+			// drives the convergence.
+			const cs = getComputedStyle(el);
+			const paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+			const available = parent.clientWidth - paddingX;
+			const textWidth = el.scrollWidth - paddingX;
+			if (available <= 0 || !textWidth) return;
+			const current = parseFloat(cs.fontSize);
+			el.style.fontSize = `${(current * available) / textWidth}px`;
 		};
 
 		fit();
@@ -74,24 +86,24 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 				reelRef.current.style.transform = `translate3d(0, ${(progress - 0.5) * 15}%, 0) scale(1.15)`;
 			}
 
-			// STATE 01 -> 02: wordmark shrinks into the top-left corner. Scale
-			// only — transform-origin: top left (set in CSS) does the anchoring,
-			// no translate math needed.
-			const toCorner = band(progress, 0, 0.4);
+			// Wordmark shrinks into the top-left corner across the whole pin —
+			// it's what the pin's scroll distance is sized to, so it finishes
+			// exactly as the section releases, not partway through a longer
+			// scroll. Scale only — transform-origin: top left (CSS) anchors it.
 			if (wordmarkRef.current) {
-				wordmarkRef.current.style.transform = `scale(${1 - toCorner * 0.7})`;
+				wordmarkRef.current.style.transform = `scale(${1 - progress * 0.7})`;
 			}
 
-			// STATE 01 -> 02: nav + social links fade in.
+			// Nav + social links fade in first, ahead of the shrink finishing.
 			// visibility keeps hidden links out of tab order / pointer reach.
-			const showNav = band(progress, 0.2, 0.5);
+			const showNav = band(progress, 0, 0.55);
 			if (navRef.current) {
 				navRef.current.style.opacity = showNav;
 				navRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
 			}
 
-			// STATE 03: brand statement + View Showreel.
-			const showStatement = band(progress, 0.6, 1);
+			// Brand statement + View Showreel — lands before the pin releases.
+			const showStatement = band(progress, 0.35, 0.85);
 			if (statementRef.current) {
 				statementRef.current.style.opacity = showStatement;
 				statementRef.current.style.visibility = showStatement > 0 ? 'visible' : 'hidden';
