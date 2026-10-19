@@ -22,10 +22,12 @@
 }
 
 .link {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 	padding: clamp(1.5rem, 4vw, 3rem) 0;
+	overflow: hidden;
 	color: inherit;
 	text-decoration: none;
 
@@ -38,9 +40,76 @@
 	&:hover .label {
 		color: $c-accent;
 	}
+
+	&:hover .bg,
+	&:focus-visible .bg {
+		opacity: 1;
+	}
+
+	&:hover .marquee,
+	&:focus-visible .marquee {
+		opacity: 1;
+	}
+}
+
+.bg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.bg--0 {
+	background: linear-gradient(135deg, #3a1012, $c-ink);
+}
+
+.bg--1 {
+	background: linear-gradient(135deg, #1a1f3a, $c-ink);
+}
+
+.bg--2 {
+	background: linear-gradient(135deg, #1a3a1f, $c-ink);
+}
+
+.marquee {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.marqueeTrack {
+	display: flex;
+	flex-shrink: 0;
+	white-space: nowrap;
+	font-size: clamp(2rem, 8vw, 6rem);
+	font-weight: fw(bold);
+	opacity: 0.15;
+	animation: marquee 10s linear infinite;
+
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+
+	to {
+		transform: translateX(-50%);
+	}
 }
 
 .label {
+	position: relative;
+	z-index: 2;
 	font-family: var(--wpe--font-family--heading, inherit);
 	font-size: clamp(3rem, 12vw, 9rem);
 	line-height: 0.9;
@@ -49,6 +118,8 @@
 }
 
 .description {
+	position: relative;
+	z-index: 2;
 	max-width: 20rem;
 	font-size: fs(sm);
 	opacity: 0.6;
