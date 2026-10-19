@@ -21,14 +21,12 @@ const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
 // every state transition below is built from.
 const band = (p, from, to) => clamp01((p - from) / (to - from));
 
-// Scroll-driven hero: logo starts dominant over the demoreel, shrinks into
-// the nav as the user scrolls, then the brand statement + "View Showreel"
-// CTA fade in. Imperative style writes (no React state per frame) — same
-// reasoning as GalleryBanner's rAF loop: this runs at scroll cadence and a
-// re-render per frame would be wasted work.
+// Scroll-driven hero: nav + social links fade in over the demoreel, then
+// the brand statement + "View Showreel" CTA. Imperative style writes (no
+// React state per frame) — same reasoning as GalleryBanner's rAF loop: this
+// runs at scroll cadence and a re-render per frame would be wasted work.
 export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 	const sectionRef = useRef(null);
-	const logoRef = useRef(null);
 	const navRef = useRef(null);
 	const statementRef = useRef(null);
 
@@ -43,15 +41,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 			const height = section.offsetHeight - window.innerHeight;
 			const progress = height > 0 ? clamp01((scrollY - top) / height) : 0;
 
-			// STATE 01 -> 02: logo scales down from dominant to nav-sized.
-			const toNav = band(progress, 0, 0.45);
-			const scale = 1 - toNav * 0.75;
-			const y = -toNav * 38; // vh, rises toward the nav bar
-			if (logoRef.current) {
-				logoRef.current.style.transform = `translate3d(0, ${y}vh, 0) scale(${scale})`;
-			}
-
-			// STATE 02: nav + social links fade in alongside the shrinking logo.
+			// STATE 01 -> 02: nav + social links fade in.
 			// visibility keeps hidden links out of tab order / pointer reach.
 			const showNav = band(progress, 0.2, 0.5);
 			if (navRef.current) {
@@ -87,11 +77,9 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 
 				<div className={cx('lines')} aria-hidden="true" />
 
-				{/* Decorative — the logo <img>'s alt text already carries the brand name. */}
-				<p className={cx('wordmark')} aria-hidden="true">Rectángulo</p>
-
-				{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
-				<img ref={logoRef} className={cx('logo')} src="/images/logo.svg" alt="Rectángulo" />
+				{/* Decorative display wordmark; the real brand name lives in the
+				    header logo, so this is hidden from the accessibility tree. */}
+				<p className={cx('wordmark')} aria-hidden="true">Reectanguloo</p>
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">

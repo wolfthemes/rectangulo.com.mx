@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { SHOWREEL_URL } from '../constants/media';
+import { HERO_DEMOREEL_URL, SHOWREEL_URL } from '../constants/media';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
@@ -46,7 +46,11 @@ export default function HomePage() {
 			<HomeIntro title={siteTitle} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
-				<HomeHero statement={STATEMENT} onViewShowreel={() => setShowreelOpen(true)} />
+				<HomeHero
+				demoreelUrl={HERO_DEMOREEL_URL}
+				statement={STATEMENT}
+				onViewShowreel={() => setShowreelOpen(true)}
+			/>
 				<HomeExplore />
 				<HomeFeaturedWork works={works} />
 				<HomeCTA />

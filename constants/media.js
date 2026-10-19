@@ -5,3 +5,6 @@ export const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov|m4v)(\?.*)?$/i;
 
 // [À FOURNIR : URL du showreel complet (mp4 ou embed Vimeo/YouTube)] — HOME p.4
 export const SHOWREEL_URL = '';
+
+// Hero background loop (HOME p.3).
+export const HERO_DEMOREEL_URL = '/videos/hero.mov';
