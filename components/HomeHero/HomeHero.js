@@ -74,6 +74,14 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 				reelRef.current.style.transform = `translate3d(0, ${(progress - 0.5) * 15}%, 0) scale(1.15)`;
 			}
 
+			// STATE 01 -> 02: wordmark shrinks into the top-left corner. Scale
+			// only — transform-origin: top left (set in CSS) does the anchoring,
+			// no translate math needed.
+			const toCorner = band(progress, 0, 0.4);
+			if (wordmarkRef.current) {
+				wordmarkRef.current.style.transform = `scale(${1 - toCorner * 0.7})`;
+			}
+
 			// STATE 01 -> 02: nav + social links fade in.
 			// visibility keeps hidden links out of tab order / pointer reach.
 			const showNav = band(progress, 0.2, 0.5);

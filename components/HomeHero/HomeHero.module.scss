@@ -62,6 +62,8 @@
 	text-transform: uppercase;
 	text-align: center;
 	white-space: nowrap;
+	transform-origin: top left;
+	will-change: transform;
 }
 
 .reel {
