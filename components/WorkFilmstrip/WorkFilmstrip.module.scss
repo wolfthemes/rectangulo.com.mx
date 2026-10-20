@@ -1,7 +1,11 @@
 @import 'styles/breakpoints';
 @import 'styles/tokens';
 
-.component {
+// Lives on .filtersBar itself (not .component) so the breathing room above
+// the filters is part of its own box and survives it going sticky — a
+// top-level padding-top would collapse to nothing once the bar pins flush
+// to the viewport edge.
+.filtersBar {
 	padding-top: clamp(2rem, 6vw, 4rem);
 }
 
@@ -48,9 +52,19 @@
 // above, regardless of scroll position (that gap isn't scroll-pin related,
 // .stage is always 100vh tall).
 @media (min-width: $breakpoint-medium) and (prefers-reduced-motion: no-preference) {
-	.stage {
+	// Pins at the top alongside .stage so it stays visible for the whole
+	// horizontal-scroll duration instead of scrolling away before the pin
+	// kicks in — the carousel's padding-top below leaves room for it.
+	.filtersBar {
 		position: sticky;
 		top: 0;
+		z-index: 1;
+		background: $c-ink;
+	}
+
+	.stage {
+		position: sticky;
+		top: var(--filters-h, 0);
 		height: 100vh;
 		display: flex;
 		align-items: flex-start;

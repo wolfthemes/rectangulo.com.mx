@@ -58,6 +58,7 @@ export default function WorkFilmstrip({ works }) {
 	const [pinned, setPinned] = useState(false);
 	const outerRef = useRef(null);
 	const trackRef = useRef(null);
+	const filtersBarRef = useRef(null);
 
 	const shown = works.filter((w) => matchesFilter(w, filter));
 	const current = visible.size ? Math.max(...visible) + 1 : 0;
@@ -96,6 +97,10 @@ export default function WorkFilmstrip({ works }) {
 		const layout = () => {
 			const distance = Math.max(track.scrollWidth - window.innerWidth, 0);
 			outer.style.height = `${distance + window.innerHeight}px`;
+			// Stage pins below the filters bar, not at the viewport edge — keeps
+			// the gap between them once both are stuck (its height varies with
+			// the clamp() padding and is cheaper to measure than to duplicate in CSS).
+			outer.style.setProperty('--filters-h', `${filtersBarRef.current?.offsetHeight ?? 0}px`);
 			update();
 		};
 		const update = () => {
@@ -128,10 +133,12 @@ export default function WorkFilmstrip({ works }) {
 
 	return (
 		<section className={cx('component')}>
-			<WorkFilters active={filter} onChange={changeFilter} />
-			<p className={cx('counter')} aria-live="polite">
-				{String(current).padStart(2, '0')} / {String(shown.length).padStart(2, '0')}
-			</p>
+			<div ref={filtersBarRef} className={cx('filtersBar')}>
+				<WorkFilters active={filter} onChange={changeFilter} />
+				<p className={cx('counter')} aria-live="polite">
+					{String(current).padStart(2, '0')} / {String(shown.length).padStart(2, '0')}
+				</p>
+			</div>
 
 			<div ref={outerRef} className={cx('outer')}>
 				<div className={cx('stage')}>
