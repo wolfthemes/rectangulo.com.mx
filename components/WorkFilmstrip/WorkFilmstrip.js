@@ -134,7 +134,7 @@ export default function WorkFilmstrip({ works }) {
 	return (
 		<section className={cx('component')}>
 			<div ref={filtersBarRef} className={cx('filtersBar')}>
-				<WorkFilters active={filter} onChange={changeFilter} />
+				<WorkFilters active={filter} onChange={changeFilter} works={works} />
 				<p className={cx('counter')} aria-live="polite">
 					{String(current).padStart(2, '0')} / {String(shown.length).padStart(2, '0')}
 				</p>
