@@ -9,7 +9,6 @@ import {
 	Main,
 	SEO,
 	NavigationMenu,
-	HomeIntro,
 	HomeHero,
 	HomeExplore,
 	HomeFeaturedWork,
@@ -43,7 +42,6 @@ export default function HomePage() {
 	return (
 		<>
 			<SEO title={siteTitle} description={siteDescription} />
-			<HomeIntro title={siteTitle} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} hidden />
 			<Main>
 				<HomeHero

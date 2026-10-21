@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import gsap from 'gsap';
 import { pageEnterClosing, playPageEnter } from '../../lib/page-enter';
@@ -19,7 +19,11 @@ export default function PageTransition() {
 	const closed = useRef(false);
 	const routed = useRef(true);
 
-	useEffect(() => {
+	// useLayoutEffect, not useEffect: the bars' CSS-default position is fully
+	// closed (meeting at the center, red line visible at the seam) — a plain
+	// useEffect leaves that visible for one real paint before moving them
+	// off-screen, flashing the closed bars on every first page load.
+	useLayoutEffect(() => {
 		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		// No curtain ever animates in this case — lib/page-enter's `open`
 		// default (true) already means everything registered plays immediately.

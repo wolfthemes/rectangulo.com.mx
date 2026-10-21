@@ -28,6 +28,18 @@
 	background-image: var(--grain-image);
 }
 
+// Load-in intro: red curtain at rest, lifted (yPercent, set from JS) to
+// reveal .pinned's own dark backdrop underneath. pointer-events: none since
+// everything it covers is itself hidden/invisible for the same duration —
+// nothing underneath can be interacted with either way.
+.curtain {
+	position: fixed;
+	inset: 0;
+	z-index: 25;
+	pointer-events: none;
+	background-color: $c-accent;
+}
+
 // Evenly spaced full-height rules across the hero (figurefilm.co.uk ref).
 .lines {
 	position: absolute;
@@ -73,6 +85,13 @@
 	white-space: nowrap;
 	transform-origin: top left;
 	will-change: transform;
+
+	// Not the shared .is-animated-chars CSS (see the JSX comment on why) —
+	// just the bare display these spans need, hidden/revealed entirely by
+	// the load-in intro's own GSAP timeline instead.
+	:global(.char) {
+		display: inline-block;
+	}
 }
 
 .reel {
