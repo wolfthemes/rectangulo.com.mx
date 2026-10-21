@@ -17,14 +17,11 @@
 	margin: 0 0 1.5rem;
 }
 
+// .link-underline (styles/_utilities.scss) handles the hover sweep itself.
 .link {
-	display: inline-block;
 	color: $c-base;
-	text-decoration: none;
 	font-size: fs(base);
 	text-transform: uppercase;
-	border-bottom: 1px solid currentcolor;
-	padding-bottom: 0.2rem;
 
 	&:hover {
 		color: $c-accent;
