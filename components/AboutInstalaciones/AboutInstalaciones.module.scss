@@ -10,6 +10,10 @@
 	margin: 0 0 2.5rem;
 	line-height: 0.95;
 	font-size: clamp(2.5rem, 9vw, 6rem);
+
+	// A single long word has nowhere to wrap at a space — without this it
+	// overflows the viewport at this font size instead of breaking.
+	overflow-wrap: break-word;
 }
 
 // Pinned by FondoInfinitoDiagram (see its pinRef prop) for the scroll

@@ -19,7 +19,7 @@ export default function AboutInstalaciones() {
 		<section className={cx('component')}>
 			<Container>
 				<Heading level="h2" className={cx(['heading', 'is-animated-heading'])}>
-					Instaalacionees
+					Instalaciones
 				</Heading>
 			</Container>
 
