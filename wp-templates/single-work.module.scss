@@ -10,6 +10,7 @@
 	display: grid;
 	gap: 2rem;
 	align-items: start;
+	padding-bottom: clamp(3rem, 6vw, 6rem);
 
 	// Media first on mobile (default DOM order), meta below it.
 	@media (min-width: $breakpoint-small) {

@@ -59,7 +59,7 @@ export default function WorkItemMedia({ work, manual = false }) {
 				muted
 				loop
 				playsInline
-				preload="none"
+				preload={manual ? "none" : "auto"}
 			/>
 		);
 	}

@@ -35,7 +35,15 @@ export default function PageTransition() {
 		// touches the element, and no later yPercent tween can undo it (bars stay
 		// stuck off-screen forever, even at yPercent: 0). gsap.set must be the
 		// only thing that ever writes transform on these elements.
-		gsap.set(bars, { yPercent: (i) => (i === 0 ? -100 : 100) });
+		//
+		// visibility, unlike the transform, IS set in CSS (hidden by default —
+		// see .bar) — these bars have nothing useful to show before hydration,
+		// and JS is the only thing that ever needs them visible, so there's no
+		// reason to risk a pre-hydration paint of their CSS-default (fully
+		// closed, red line at the seam) position. Revealing it here, atomic
+		// with the off-screen transform, means the very first time this ever
+		// paints, it's already off-screen.
+		gsap.set(bars, { yPercent: (i) => (i === 0 ? -100 : 100), visibility: 'visible' });
 
 		// Scheduled by open() below; cancelled if a new nav interrupts before it
 		// fires, so a rapid double-navigation can't leave a stale reveal queued.

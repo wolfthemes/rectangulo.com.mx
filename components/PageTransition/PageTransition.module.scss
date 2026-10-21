@@ -13,6 +13,15 @@
 	z-index: 9999;
 	pointer-events: none;
 
+	// Hidden until PageTransition's JS reveals it already off-screen (see its
+	// gsap.set comment) — these bars are purely a route-change effect, never
+	// needed before hydration, so there's nothing to show here by default.
+	// Pre-hydration SSR markup has no JS to move them off-screen yet, and a
+	// CSS-default transform isn't an option (see the JS comment), so without
+	// this every first page load flashed the closed bars (red line at the
+	// seam) for the whole pre-hydration window.
+	visibility: hidden;
+
 	// gsap drives transform via inline style; these are the closed positions.
 }
 
