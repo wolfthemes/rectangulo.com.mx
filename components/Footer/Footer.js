@@ -31,7 +31,19 @@ export default function Footer({ title, menuItems }) {
 						<h2 className={cx('heading')}>Follow us</h2>
 						{SOCIAL_LINKS.map(({ short, label, href }) => (
 							<a key={short} className={cx('link')} href={href} target="_blank" rel="noreferrer" aria-label={label}>
-								{short} <span aria-hidden="true">↗</span>
+								{short}
+								<svg
+									className={cx('external-icon')}
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									strokeWidth="2"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									aria-hidden="true"
+								>
+									<path d="M7 17 17 7M17 7H7M17 7v10" />
+								</svg>
 							</a>
 						))}
 					</div>
