@@ -24,6 +24,14 @@ const LERP = 0.15;
 export default function HomeFeaturedWork({ works }) {
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [viewing, setViewing] = useState(null);
+	// Gates the preview's visibility, not just its hover state: on the
+	// fixed+transform desktop layout, `active` can flip true via a scroll
+	// that moves the row under a stationary cursor (no mousemove), before
+	// the preview's transform has ever been positioned — showing it then
+	// flashes it at its untransformed (0,0) spot, top-left of the viewport.
+	// Below FOLLOW_QUERY the preview is sticky/untransformed, so it's ready
+	// from the start.
+	const [ready, setReady] = useState(false);
 	const layoutRef = useRef(null);
 	const previewRef = useRef(null);
 
@@ -45,6 +53,9 @@ export default function HomeFeaturedWork({ works }) {
 		let started = false;
 		let raf = 0;
 
+		// Non-follow layouts have no transform to wait on.
+		setReady(!mq.matches);
+
 		const onMove = (e) => {
 			if (!mq.matches) return;
 			// Offset so the preview sits beside the cursor, not under it.
@@ -55,6 +66,7 @@ export default function HomeFeaturedWork({ works }) {
 				current.x = target.x;
 				current.y = target.y;
 				started = true;
+				setReady(true);
 			}
 			if (reduce && previewRef.current) {
 				previewRef.current.style.transform = `translate3d(${target.x}px, ${target.y}px, 0)`;
@@ -124,7 +136,7 @@ export default function HomeFeaturedWork({ works }) {
 
 					<div
 					ref={previewRef}
-					className={cx('preview', { active: Boolean(active) })}
+					className={cx('preview', { active: Boolean(active) && ready })}
 					aria-hidden="true"
 				>
 						{active && <WorkItemMedia work={active} />}
