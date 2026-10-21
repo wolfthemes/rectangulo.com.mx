@@ -28,7 +28,9 @@ export default function VideoModal({ open, onClose, src, title, children }) {
 			</button>
 			<div className={cx('layout')}>
 				{children && <div className={cx('info')}>{children}</div>}
-				<div className={cx('media')}>
+				{/* WORK brief p.8: "dark/black background with subtle grain" for the
+				    video area. */}
+				<div className={`${cx('media')} grain`}>
 					{/* Unmounted when closed so playback stops and nothing buffers. */}
 					{!open ? null : fileUrl ? (
 						<video src={fileUrl} controls autoPlay playsInline />
