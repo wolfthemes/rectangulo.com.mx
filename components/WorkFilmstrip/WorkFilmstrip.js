@@ -13,7 +13,7 @@ let cx = classNames.bind(styles);
 // swipe — no scroll-jacking.
 const PIN_QUERY = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
-function Tile({ work, index, onOpen, onVisible }) {
+function Tile({ work, index, total, onOpen, onVisible }) {
 	const ref = useRef(null);
 
 	// Loops play only while in view (WORK p.5) and stop on exit.
@@ -40,7 +40,13 @@ function Tile({ work, index, onOpen, onVisible }) {
 		<li ref={ref} className={cx('tile')}>
 			<button type="button" className={cx('open')} onClick={() => onOpen(index)}>
 				<WorkItemMedia work={work} manual />
-				<span className={cx('index')}>{String(index + 1).padStart(2, '0')}</span>
+				<span className={cx('index')}>
+					{/* Brief p.6: the 7th tile also carries the active filter's total
+					    count ("07 / 32") — every other tile stays a bare index. */}
+					{index === 6
+						? `${String(index + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}`
+						: String(index + 1).padStart(2, '0')}
+				</span>
 				<span className={cx('hover')}>
 					<span className={cx('title')}>{work.title}</span>
 					<span>{[category, year].filter(Boolean).join(' · ')}</span>
@@ -145,7 +151,14 @@ export default function WorkFilmstrip({ works }) {
 					{shown.length ? (
 						<ul ref={trackRef} className={cx('track')}>
 							{shown.map((work, i) => (
-								<Tile key={work.slug} work={work} index={i} onOpen={setViewing} onVisible={onVisible} />
+								<Tile
+									key={work.slug}
+									work={work}
+									index={i}
+									total={shown.length}
+									onOpen={setViewing}
+									onVisible={onVisible}
+								/>
 							))}
 						</ul>
 					) : (
