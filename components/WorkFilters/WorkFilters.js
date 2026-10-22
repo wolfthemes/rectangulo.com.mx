@@ -1,17 +1,23 @@
 import classNames from 'classnames/bind';
-import { WORK_FILTERS, matchesFilter } from '../../constants/work-filters';
+import { ALL_FILTER } from '../../constants/work-filters';
 import styles from './WorkFilters.module.scss';
 
 let cx = classNames.bind(styles);
 
+// Unique WorkType taxonomy term names actually present across `works`, in
+// first-seen order — the row mirrors whatever terms WordPress actually has
+// instead of a hardcoded label list going stale the moment a term is
+// renamed or added.
+function deriveFilters(works) {
+	const names = new Set();
+	works.forEach((w) => (w.workTypes?.nodes ?? []).forEach((t) => t.name && names.add(t.name)));
+	return [ALL_FILTER, ...names];
+}
+
 // Horizontal filter row (WORK p.3). Pure client state — no reload. On narrow
 // screens the row scrolls sideways natively, which gives the swipe.
 export default function WorkFilters({ active, onChange, works = [] }) {
-	// "All" always shows; the rest only if at least one work actually has
-	// that category, so empty taxonomy terms don't clutter the row.
-	const filters = WORK_FILTERS.filter(
-		(filter) => filter === WORK_FILTERS[0] || works.some((w) => matchesFilter(w, filter)),
-	);
+	const filters = deriveFilters(works);
 
 	return (
 		<ul className={cx('component')} aria-label="Filter work by category">

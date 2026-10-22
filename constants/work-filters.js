@@ -1,17 +1,11 @@
-// WORK archive filters (WORK brief p.3), in display order. A work matches a
-// filter when one of its workTypes names equals the label (case-insensitive) —
-// D009: the WP taxonomy terms must be named exactly like these.
-export const WORK_FILTERS = [
-	'All',
-	'Commercial',
-	'Branded Content',
-	'Film & Narrative',
-	'Music',
-	'Events',
-	'Photography',
-];
+// WORK archive filters (WORK brief p.3). Previously a hardcoded EN label
+// list (Commercial, Branded Content, …) — the real WorkType taxonomy terms
+// turned out to be in Spanish (Comerciales, Narrativa, …), so every one of
+// those labels silently matched nothing. Filters now come from whatever
+// WorkType terms the works actually carry (see deriveFilters in WorkFilters.js).
+export const ALL_FILTER = 'All';
 
 export function matchesFilter(work, filter) {
-	if (filter === WORK_FILTERS[0]) return true;
-	return (work.workTypes?.nodes ?? []).some((t) => t.name?.toLowerCase() === filter.toLowerCase());
+	if (filter === ALL_FILTER) return true;
+	return (work.workTypes?.nodes ?? []).some((t) => t.name === filter);
 }

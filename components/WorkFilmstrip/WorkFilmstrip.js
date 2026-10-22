@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
-import { WORK_FILTERS, matchesFilter } from '../../constants/work-filters';
+import { ALL_FILTER, matchesFilter } from '../../constants/work-filters';
 import { ProjectViewer } from '../ProjectViewer';
 import { WorkFilters } from '../WorkFilters';
 import { WorkItemMedia } from '../WorkItemMedia';
@@ -63,7 +63,7 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 }
 
 export default function WorkFilmstrip({ works }) {
-	const [filter, setFilter] = useState(WORK_FILTERS[0]);
+	const [filter, setFilter] = useState(ALL_FILTER);
 	const [viewing, setViewing] = useState(null);
 	const [visible, setVisible] = useState(() => new Set());
 	const [pinned, setPinned] = useState(false);
