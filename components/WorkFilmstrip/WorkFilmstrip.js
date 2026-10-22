@@ -13,6 +13,11 @@ let cx = classNames.bind(styles);
 // swipe — no scroll-jacking.
 const PIN_QUERY = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
+// WORK brief p.6: the strip itself is capped to 7 tiles regardless of how
+// many match the active filter — the 7th tile's "07 / N" index is what
+// surfaces the fuller count (see Tile below), not more tiles.
+const MAX_TILES = 7;
+
 function Tile({ work, index, total, onOpen, onVisible }) {
 	const ref = useRef(null);
 
@@ -66,7 +71,8 @@ export default function WorkFilmstrip({ works }) {
 	const trackRef = useRef(null);
 	const filtersBarRef = useRef(null);
 
-	const shown = works.filter((w) => matchesFilter(w, filter));
+	const matched = works.filter((w) => matchesFilter(w, filter));
+	const shown = matched.slice(0, MAX_TILES);
 	const current = visible.size ? Math.max(...visible) + 1 : 0;
 
 	const onVisible = (index, isVisible) =>
@@ -142,7 +148,7 @@ export default function WorkFilmstrip({ works }) {
 			<div ref={filtersBarRef} className={cx('filtersBar')}>
 				<WorkFilters active={filter} onChange={changeFilter} works={works} />
 				<p className={cx('counter')} aria-live="polite">
-					{String(current).padStart(2, '0')} / {String(shown.length).padStart(2, '0')}
+					{String(current).padStart(2, '0')} / {String(matched.length).padStart(2, '0')}
 				</p>
 			</div>
 
@@ -155,7 +161,7 @@ export default function WorkFilmstrip({ works }) {
 									key={work.slug}
 									work={work}
 									index={i}
-									total={shown.length}
+									total={matched.length}
 									onOpen={setViewing}
 									onVisible={onVisible}
 								/>
