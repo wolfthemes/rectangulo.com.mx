@@ -1,6 +1,7 @@
 @import 'styles/tokens';
 
 .component {
+	position: relative;
 	width: 100vw;
 	height: 100vh;
 	max-width: none;
@@ -16,44 +17,81 @@
 	}
 }
 
+// Production-dossier reference: the same column rules run the full height of
+// the overlay, under both the info panel and the video — not just a motif
+// inside one or the other.
+.component::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background-image: repeating-linear-gradient(
+		to right,
+		rgba(255, 255, 255, 0.12) 0,
+		rgba(255, 255, 255, 0.12) 1px,
+		transparent 1px,
+		transparent 100%
+	);
+	background-size: calc(100% / 7) 100%;
+}
+
 .close {
 	appearance: none;
 	position: absolute;
 	top: 1.5rem;
 	right: 1.5rem;
-	z-index: 1;
+	z-index: 2;
 	border: 0;
 	background: transparent;
 	color: inherit;
-	font-size: fs(sm);
-	letter-spacing: 0.08em;
+	font-family: var(--wpe--font-family--mono);
+	font-size: fs(xs);
+	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	cursor: pointer;
 }
 
 .layout {
+	position: relative;
+	z-index: 1;
 	display: flex;
 	height: 100%;
-	align-items: center;
-	gap: 2rem;
-	padding: 4rem 1.5rem 1.5rem;
+	align-items: stretch;
+	padding: 4rem 0 0;
 
-	@media (max-width: 768px) {
+	@media (width <= 768px) {
 		flex-direction: column;
+		height: auto;
+		min-height: 100%;
 	}
 }
 
+// A flex column, not just a block: ProjectViewer's .sheet (year/credits)
+// relies on margin-top: auto here to sit at the panel's bottom edge.
 .info {
-	flex: 0 0 25%;
-	align-self: flex-start;
+	flex: 0 0 calc(100% / 7 * 2);
+	display: flex;
+	flex-direction: column;
 	overflow-y: auto;
-	max-height: 100%;
+	padding: 0 1.5rem 1.5rem;
+
+	@media (width <= 768px) {
+		flex: none;
+		order: 2;
+	}
 }
 
 .media {
-	flex: 1;
+	flex: 1 1 auto;
 	min-width: 0;
-	width: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 1.5rem 1.5rem;
+
+	@media (width <= 768px) {
+		order: 1;
+	}
 
 	video,
 	iframe {

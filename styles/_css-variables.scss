@@ -36,6 +36,9 @@
 	--wpe--font-family--body: 'Gotham', -apple-system, BlinkMacSystemFont, sans-serif;
 	// Secondary heading font (h2–h6) — see _base.scss @font-face.
 	--wpe--font-family--secondary: 'BBH Sans Bartle', -apple-system, BlinkMacSystemFont, sans-serif;
+	// Typewriter/dossier feel for the project viewer (credits sheet reference) —
+	// system monospace stack, no font file needed.
+	--wpe--font-family--mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Courier New', monospace;
 
 	// Color Assignments.
 	--wpe--color--title: var(--wpe--color--white);

@@ -18,18 +18,30 @@ export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 	return (
 		<VideoModal open={Boolean(work)} onClose={onClose} src={getSafeHttpUrl(work?.workVideoUrl)} title={work?.title}>
 			<h2 className={cx('title')}>{work?.title}</h2>
-			<p className={cx('meta')}>{[category, year].filter(Boolean).join(' · ')}</p>
-			{work?.excerpt && <SafeHtml html={work.excerpt} />}
-			{credits.length > 0 && (
-				<dl className={cx('credits')}>
-					{credits.map(([key, label]) => (
-						<div key={key}>
-							<dt>{label}</dt>
-							<dd>{work[key]}</dd>
-						</div>
-					))}
-				</dl>
+			{category && <p className={cx('category')}>({category})</p>}
+			{work?.excerpt && (
+				<div className={cx('description')}>
+					<SafeHtml html={work.excerpt} />
+				</div>
 			)}
+
+			<div className={cx('sheet')}>
+				{year && <p className={cx('year')}>{year}</p>}
+				{credits.length > 0 && (
+					<>
+						<p className={cx('creditsHeading')}>Credits</p>
+						<dl className={cx('credits')}>
+							{credits.map(([key, label]) => (
+								<div key={key} className={cx('creditRow')}>
+									<dt>{label}</dt>
+									<dd>{work[key]}</dd>
+								</div>
+							))}
+						</dl>
+					</>
+				)}
+			</div>
+
 			{(onPrev || onNext) && (
 				<nav className={cx('nav')} aria-label="Project navigation">
 					<button type="button" onClick={onPrev} disabled={!onPrev}>

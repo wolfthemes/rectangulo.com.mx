@@ -1,29 +1,79 @@
 @import 'styles/tokens';
 
+// Production-dossier reference: everything in the info panel reads as the
+// same typewriter sheet, sized down the hierarchy rather than switching
+// families (title/category/credits all share --wpe--font-family--mono).
 .title {
-	margin: 0 0 0.5rem;
-	font-size: clamp(1.5rem, 3vw, 2.5rem);
+	margin: 0 0 0.25rem;
+	font-family: var(--wpe--font-family--mono);
+	font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+	font-weight: fw(bold);
+	letter-spacing: 0.02em;
 	text-transform: uppercase;
 }
 
-.meta {
-	margin: 0 0 1rem;
-	font-size: fs(sm);
+.category {
+	margin: 0 0 1.5rem;
+	font-family: var(--wpe--font-family--mono);
+	font-size: fs(xs);
+	letter-spacing: 0.05em;
 	text-transform: uppercase;
 	opacity: 0.6;
 }
 
+.description {
+	margin: 0 0 2rem;
+	font-family: var(--wpe--font-family--mono);
+	font-size: fs(xs);
+	line-height: 1.6;
+	text-transform: uppercase;
+	opacity: 0.85;
+	max-width: 32ch;
+}
+
+// Pushes year/credits to the panel's bottom edge, same as the reference's
+// sheet sitting low above the aspect-ratio ribbon — not stacked right under
+// the description regardless of how little of either there is.
+.sheet {
+	margin-top: auto;
+	padding-top: 2rem;
+}
+
+.year {
+	margin: 0 0 1.5rem;
+	font-family: var(--wpe--font-family--mono);
+	font-size: fs(xs);
+	opacity: 0.6;
+}
+
+.creditsHeading {
+	margin: 0 0 0.75rem;
+	font-family: var(--wpe--font-family--mono);
+	font-size: fs(xs);
+	font-weight: fw(bold);
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+
 .credits {
-	margin: 1.5rem 0 0;
-	font-size: fs(sm);
+	margin: 0;
+	font-family: var(--wpe--font-family--mono);
+	font-size: fs(xxs);
+}
+
+.creditRow {
+	display: flex;
+	gap: 1rem;
+	padding: 0.2rem 0;
 
 	dt {
-		opacity: 0.5;
+		flex: 0 0 7rem;
 		text-transform: uppercase;
+		opacity: 0.5;
 	}
 
 	dd {
-		margin: 0 0 0.75rem;
+		margin: 0;
 	}
 }
 
@@ -31,6 +81,7 @@
 	display: flex;
 	gap: 1.5rem;
 	margin-top: 2rem;
+	font-family: var(--wpe--font-family--mono);
 
 	button {
 		appearance: none;
@@ -39,7 +90,7 @@
 		padding: 0;
 		color: inherit;
 		font: inherit;
-		font-size: fs(sm);
+		font-size: fs(xs);
 		text-transform: uppercase;
 		cursor: pointer;
 
