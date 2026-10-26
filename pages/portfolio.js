@@ -1,17 +1,17 @@
+import Link from 'next/link';
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
-import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, ServicesCTA, WorkFilmstrip, WorkItemMedia } from '../components';
+import { Header, Footer, Main, SEO, NavigationMenu, ServicesCTA, WorkFilmstrip, WorkItemMedia } from '../components';
 
 // ponytail: same Next.js-first pattern as pages/about.js and pages/contact.js
 // — Header/Footer pull real WP menu/site data. `works` is its own query, kept
 // separate from the chrome query on purpose: a GraphQL error on one field
 // fails the whole combined response (Apollo returns no data at all), which
 // previously took the nav down with it whenever the CPT wasn't queryable yet.
-// PortfolioGrid only falls back to hardcoded placeholders once loading is
-// done and works is genuinely empty — see the `works` null-while-loading
-// logic below.
+// This is the curated "Works" page (carousel, capped at 7 by WorkFilmstrip
+// itself); /portfolio/archive is the full grid of every work post.
 export default function PortfolioPage() {
 	const t = useT();
 	const { data } = useQuery(PortfolioPage.query, {
@@ -24,17 +24,17 @@ export default function PortfolioPage() {
 	const { title: siteTitle, description: siteDescription } = data?.generalSettings ?? {};
 	const primaryMenu = data?.headerMenuItems?.nodes ?? [];
 	const footerMenu = data?.footerMenuItems?.nodes ?? [];
-	// null while loading (or erroring) so PortfolioGrid can tell "not
-	// resolved yet" apart from "resolved, genuinely empty" — see its own
-	// comment on why that distinction matters for the placeholder fallback.
 	const works = worksLoading ? null : (worksData?.works?.edges?.map((edge) => edge.node) ?? []);
 
 	return (
 		<>
-			<SEO title={t({ es: 'Trabajo', en: 'Portfolio' })} />
+			<SEO title={t({ es: 'Trabajos', en: 'Works' })} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
-				{works?.length ? <WorkFilmstrip works={works} /> : <PortfolioGrid works={works} />}
+				<WorkFilmstrip works={works ?? []} />
+				<Link href="/portfolio/archive" className="link-underline">
+					{t({ es: 'Ver todos los trabajos', en: 'View all works' })} <span aria-hidden="true">→</span>
+				</Link>
 				<ServicesCTA
 					heading={t({ es: '¿Tienes un proyecto en mente?', en: 'Have a project in mind?' })}
 					body={t({ es: 'Hagamos algo juntos.', en: 'Let’s make something together.' })}
