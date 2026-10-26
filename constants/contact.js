@@ -4,7 +4,7 @@
 export const CONTACT_EMAIL = 'contacto@rectangulofilms.com';
 export const CONTACT_PHONE = '+52 3323881333';
 export const WEBSITE = 'rectangulo.com.mx';
-export const LOCATION = 'Guadalajara, Mexico';
+export const LOCATION = { es: 'Guadalajara, México', en: 'Guadalajara, Mexico' };
 
 // `short` is the brief's abbreviated system IG / VI / YT / IN.
 export const SOCIAL_LINKS = [

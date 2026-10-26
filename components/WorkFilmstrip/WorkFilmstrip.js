@@ -4,6 +4,7 @@ import { ALL_FILTER, matchesFilter } from '../../constants/work-filters';
 import { ProjectViewer } from '../ProjectViewer';
 import { WorkFilters } from '../WorkFilters';
 import { WorkItemMedia } from '../WorkItemMedia';
+import { useT } from '../../lib/i18n';
 import styles from './WorkFilmstrip.module.scss';
 
 let cx = classNames.bind(styles);
@@ -20,6 +21,7 @@ const MAX_TILES = 7;
 
 function Tile({ work, index, total, onOpen, onVisible }) {
 	const ref = useRef(null);
+	const t = useT();
 
 	// Loops play only while in view (WORK p.5) and stop on exit.
 	useEffect(() => {
@@ -55,7 +57,7 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 				<span className={cx('hover')}>
 					<span className={cx('title')}>{work.title}</span>
 					<span>{[category, year].filter(Boolean).join(' · ')}</span>
-					<span className={cx('view')}>View project →</span>
+					<span className={cx('view')}>{t({ es: 'Ver proyecto', en: 'View project' })} →</span>
 				</span>
 			</button>
 		</li>
@@ -63,6 +65,7 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 }
 
 export default function WorkFilmstrip({ works }) {
+	const t = useT();
 	const [filter, setFilter] = useState(ALL_FILTER);
 	const [viewing, setViewing] = useState(null);
 	const [visible, setVisible] = useState(() => new Set());
@@ -168,7 +171,9 @@ export default function WorkFilmstrip({ works }) {
 							))}
 						</ul>
 					) : (
-						<p className={cx('empty')}>[À FOURNIR : projets pour cette catégorie]</p>
+						<p className={cx('empty')}>
+								{t({ es: '[POR PROPORCIONAR: proyectos para esta categoría]', en: '[TO BE PROVIDED: projects for this category]' })}
+							</p>
 					)}
 				</div>
 			</div>

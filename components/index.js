@@ -17,6 +17,7 @@ export { HomeCTA } from './HomeCTA';
 export { HomeExplore } from './HomeExplore';
 export { HomeFeaturedWork } from './HomeFeaturedWork';
 export { HomeHero } from './HomeHero';
+export { LanguageSwitcher } from './LanguageSwitcher';
 export { LegalPage } from './LegalPage';
 export { Main } from './Main';
 export { NavigationMenu } from './NavigationMenu';

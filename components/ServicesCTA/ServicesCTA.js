@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
+import { useT } from '../../lib/i18n';
 import styles from './ServicesCTA.module.scss';
 
 let cx = classNames.bind(styles);
@@ -9,10 +10,18 @@ let cx = classNames.bind(styles);
 // right after this (same split as HomeCTA on the HOME page). Props let the
 // WORK page (brief p.10) reuse it with its own wording.
 export default function ServicesCTA({
-	heading = 'Let\u2019s Work Together',
-	body = 'Short invitation to discuss a production, service or technical requirement.',
-	label = 'Start a Project',
+	heading,
+	body,
+	label,
 }) {
+	const t = useT();
+	// Defaults live here (not in the param list) so they can follow the locale.
+	heading ??= t({ es: 'Trabajemos juntos', en: 'Let\u2019s Work Together' });
+	body ??= t({
+		es: 'Una breve invitación para platicar sobre una producción, un servicio o un requerimiento técnico.',
+		en: 'Short invitation to discuss a production, service or technical requirement.',
+	});
+	label ??= t({ es: 'Iniciar un proyecto', en: 'Start a Project' });
 	return (
 		<section className={cx('component')}>
 			<Container>

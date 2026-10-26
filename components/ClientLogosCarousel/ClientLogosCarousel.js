@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import { useT } from '../../lib/i18n';
 import styles from './ClientLogosCarousel.module.scss';
 
 let cx = classNames.bind(styles);
@@ -42,8 +43,9 @@ function Track() {
 }
 
 export default function ClientLogosCarousel({ className }) {
+	const t = useT();
 	return (
-		<div className={cx(['component', className])} role="list" aria-label="Clientes">
+		<div className={cx(['component', className])} role="list" aria-label={t({ es: 'Clientes', en: 'Clients' })}>
 			{/* Track rendered twice back-to-back for a seamless CSS marquee loop. */}
 			<Track />
 			<Track />

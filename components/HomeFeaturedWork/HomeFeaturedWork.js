@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { ProjectViewer } from '../ProjectViewer';
 import { WorkItemMedia } from '../WorkItemMedia';
+import { useT } from '../../lib/i18n';
 import styles from './HomeFeaturedWork.module.scss';
 
 let cx = classNames.bind(styles);
@@ -22,6 +23,7 @@ const LERP = 0.15;
 // that's /portfolio) with a hover preview; a click opens the ProjectViewer
 // overlay in place (the link href is only the new-tab / no-JS fallback).
 export default function HomeFeaturedWork({ works }) {
+	const t = useT();
 	const [activeIndex, setActiveIndex] = useState(null);
 	const [viewing, setViewing] = useState(null);
 	// Gates the preview's visibility, not just its hover state: on the
@@ -99,7 +101,7 @@ export default function HomeFeaturedWork({ works }) {
 		<section className={cx('component')}>
 			<Container>
 				<h2 className={cx('heading')}>
-					Featured<br />Work
+					{t({ es: <>Trabajo<br />destacado</>, en: <>Featured<br />Work</> })}
 				</h2>
 
 				<div ref={layoutRef} className={cx('layout')}>
@@ -146,7 +148,7 @@ export default function HomeFeaturedWork({ works }) {
 				<ProjectViewer work={viewing} onClose={() => setViewing(null)} />
 
 				<Link href="/portfolio" className={`${cx('view-all')} link-underline`}>
-					View all work <span aria-hidden="true">→</span>
+					{t({ es: 'Ver todo el trabajo', en: 'View all work' })} <span aria-hidden="true">→</span>
 				</Link>
 			</Container>
 		</section>

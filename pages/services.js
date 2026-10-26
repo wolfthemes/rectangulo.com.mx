@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
 	Header,
@@ -9,7 +10,7 @@ import {
 	NavigationMenu,
 	ClientLogosCarousel,
 	ServicesCapabilities,
-	ServicesStage,
+	AboutInstalaciones,
 	ServicesTeam,
 	ServicesCTA,
 } from '../components';
@@ -21,6 +22,7 @@ import {
 // carousel's hover/tap BTS collage aren't built yet — see the component-level
 // ponytail notes for what's deferred where.
 export default function ServicesPage() {
+	const t = useT();
 	const { data } = useQuery(ServicesPage.query, {
 		variables: ServicesPage.variables(),
 	});
@@ -31,12 +33,12 @@ export default function ServicesPage() {
 
 	return (
 		<>
-			<SEO title={`Services — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={`${t({ es: 'Servicios', en: 'Services' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<ClientLogosCarousel />
 				<ServicesCapabilities />
-				<ServicesStage />
+				<AboutInstalaciones />
 				<ServicesTeam />
 				<ServicesCTA />
 			</Main>

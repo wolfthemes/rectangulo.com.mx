@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
+import { useT } from '../../lib/i18n';
 import styles from './ServicesTeam.module.scss';
 
 let cx = classNames.bind(styles);
@@ -13,18 +14,27 @@ let cx = classNames.bind(styles);
 const TEAM = [
 	{
 		name: 'Josh Sándre',
-		role: 'Director / Creative',
-		bio: 'Leads creative direction end to end, from first concept to final cut, keeping every production anchored to a clear visual idea.',
+		role: { es: 'Director / Creativo', en: 'Director / Creative' },
+		bio: {
+			es: 'Lidera la dirección creativa de principio a fin, desde el primer concepto hasta el corte final, manteniendo cada producción anclada a una idea visual clara.',
+			en: 'Leads creative direction end to end, from first concept to final cut, keeping every production anchored to a clear visual idea.',
+		},
 	},
 	{
 		name: 'Román Hernández',
-		role: 'Producer',
-		bio: 'Runs production on the ground — scheduling, crew, budget — so the creative team can focus on the work in front of the camera.',
+		role: { es: 'Productor', en: 'Producer' },
+		bio: {
+			es: 'Dirige la producción en campo — calendario, equipo, presupuesto — para que el equipo creativo se concentre en lo que ocurre frente a cámara.',
+			en: 'Runs production on the ground — scheduling, crew, budget — so the creative team can focus on the work in front of the camera.',
+		},
 	},
 	{
 		name: 'Karla Suárez',
-		role: 'Role to be defined',
-		bio: 'Part of the Rectángulo team, bio to be defined.',
+		role: { es: 'Puesto por definir', en: 'Role to be defined' },
+		bio: {
+			es: 'Parte del equipo de Rectángulo, biografía por definir.',
+			en: 'Part of the Rectángulo team, bio to be defined.',
+		},
 	},
 ];
 
@@ -33,13 +43,14 @@ function initials(name) {
 }
 
 export default function ServicesTeam() {
+	const t = useT();
 	const [activeIndex, setActiveIndex] = useState(0);
 	const active = TEAM[activeIndex];
 
 	return (
 		<section className={`${cx('component')} grain`}>
 			<Container>
-				<h2 className={cx('heading')}>Our People</h2>
+				<h2 className={cx('heading')}>{t({ es: 'Nuestra gente', en: 'Our People' })}</h2>
 
 				<div className={cx('layout')}>
 					<ul className={cx('names')}>
@@ -53,7 +64,7 @@ export default function ServicesTeam() {
 									onClick={() => setActiveIndex(i)}
 								>
 									{name}
-									<span className={cx('role')}>{role}</span>
+									<span className={cx('role')}>{t(role)}</span>
 								</button>
 							</li>
 						))}
@@ -62,7 +73,7 @@ export default function ServicesTeam() {
 					<div className={cx('portrait')} aria-hidden="true">
 						<span className={cx('initials')}>{initials(active.name)}</span>
 					</div>
-					<p className={cx('bio')}>{active.bio}</p>
+					<p className={cx('bio')}>{t(active.bio)}</p>
 				</div>
 			</Container>
 		</section>

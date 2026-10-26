@@ -5,6 +5,7 @@ import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { FeaturedImage } from '../components/FeaturedImage';
 import { youtubeId } from '../lib/youtube';
+import { useT } from '../lib/i18n';
 import { getSafeHttpUrl } from '../utils/urls';
 import styles from './single-video.module.scss';
 
@@ -58,9 +59,10 @@ export default function Component(props) {
 	const { video } = useFaustQuery(GET_VIDEO_QUERY) ?? {};
 	const { generalSettings, headerMenuItems, footerMenuItems } =
 		useFaustQuery(GET_LAYOUT_QUERY) ?? {};
+	const t = useT();
 
 	if (props.loading) {
-		return <>Loading...</>;
+		return <>{t({ es: 'Cargando...', en: 'Loading...' })}</>;
 	}
 
 	const { title: siteTitle, description: siteDescription } = generalSettings ?? {};

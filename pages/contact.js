@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { Header, Footer, Main, SEO, NavigationMenu, ContactHero } from '../components';
 
@@ -7,6 +8,7 @@ import { Header, Footer, Main, SEO, NavigationMenu, ContactHero } from '../compo
 // pull real WP menu/site data, ContactHero is a hardcoded placeholder from
 // the "Trabajemos Juntos" dossier slide until a WP source exists for it.
 export default function ContactPage() {
+	const t = useT();
 	const { data } = useQuery(ContactPage.query, {
 		variables: ContactPage.variables(),
 	});
@@ -17,7 +19,7 @@ export default function ContactPage() {
 
 	return (
 		<>
-			<SEO title={`Contact — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={`${t({ es: 'Contacto', en: 'Contact' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<ContactHero />

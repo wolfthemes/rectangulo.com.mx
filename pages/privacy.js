@@ -1,5 +1,7 @@
+import { useT } from '../lib/i18n';
 import { LegalPage } from '../components';
 
 export default function PrivacyPage() {
-	return <LegalPage title="Privacy Notice" />;
+	const t = useT();
+	return <LegalPage title={t({ es: 'Aviso de privacidad', en: 'Privacy Notice' })} />;
 }

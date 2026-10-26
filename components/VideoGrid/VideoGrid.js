@@ -7,6 +7,7 @@ import { revealOnEnter } from '../../lib/page-enter';
 import { getLenis } from '../../lib/scroll';
 import { youtubeId } from '../../lib/youtube';
 import { getSafeHttpUrl } from '../../utils/urls';
+import { useT } from '../../lib/i18n';
 import styles from './VideoGrid.module.scss';
 
 if (typeof window !== 'undefined') gsap.registerPlugin(Flip);
@@ -75,6 +76,7 @@ function Card({ video, index, onOpen, imgRef }) {
 // settles. `close` (exposed via ref) reverses the same tween back onto
 // `cardEl` — VideoGrid calls it, then unmounts this.
 const Frame = forwardRef(function Frame({ video, cardEl, viewportEl, onClose }, ref) {
+	const t = useT();
 	const frameRef = useRef(null);
 	const videoRef = useRef(null);
 	const ytId = youtubeId(video.full);
@@ -109,7 +111,7 @@ const Frame = forwardRef(function Frame({ video, cardEl, viewportEl, onClose }, 
 
 	return (
 		<div className={cx('frame')} ref={frameRef}>
-			<button type="button" className={cx('close')} onClick={onClose} aria-label="Close">
+			<button type="button" className={cx('close')} onClick={onClose} aria-label={t({ es: 'Cerrar', en: 'Close' })}>
 				×
 			</button>
 			{ytId ? (

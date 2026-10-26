@@ -34,11 +34,18 @@ module.exports = withFaust({
 		],
 	},
 	i18n: {
-		locales: ['en'],
-		defaultLocale: 'en',
+		locales: ['es', 'en'],
+		defaultLocale: 'es',
+		// Spanish is the site's language: don't redirect visitors to /en from
+		// their browser's Accept-Language — English is opt-in via the switcher.
+		localeDetection: false,
 	},
 	async headers() {
 		return [
+			// Non-production: keep every response (assets included) out of the index.
+			...(process.env.NEXT_PUBLIC_SITE_ENV === 'production'
+				? []
+				: [{ source: '/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }]),
 			{
 				source: '/:path*',
 				headers: createSecureHeaders({

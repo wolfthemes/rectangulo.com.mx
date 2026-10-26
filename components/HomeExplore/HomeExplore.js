@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import classNames from 'classnames/bind';
+import { useT } from '../../lib/i18n';
 import styles from './HomeExplore.module.scss';
 
 let cx = classNames.bind(styles);
@@ -12,21 +13,21 @@ let cx = classNames.bind(styles);
 // direction per section until the client provides that.
 const PATHS = [
 	{
-		label: 'Work',
+		label: { es: 'Trabajo', en: 'Work' },
 		href: '/portfolio',
-		description: 'Completed client and collaboration work.',
+		description: { es: 'Proyectos realizados para clientes y colaboraciones.', en: 'Completed client and collaboration work.' },
 		image: '/images/BEHIND THE SCENES/GENERAL BTS/_0010100.jpg',
 	},
 	{
-		label: 'Services',
+		label: { es: 'Servicios', en: 'Services' },
 		href: '/services',
-		description: 'Capabilities available to clients.',
+		description: { es: 'Capacidades disponibles para nuestros clientes.', en: 'Capabilities available to clients.' },
 		image: '/images/BEHIND THE SCENES/GENERAL BTS/_MG_2036.jpg',
 	},
 	{
-		label: 'Projects',
+		label: { es: 'Proyectos', en: 'Projects' },
 		href: '/projects',
-		description: 'Original IP — series, films and Aahh! La Brava.',
+		description: { es: 'Propiedad intelectual original: series, películas y Aahh! La Brava.', en: 'Original IP — series, films and Aahh! La Brava.' },
 		image: '/images/BEHIND THE SCENES/GENERAL BTS/_0010042.jpg',
 	},
 ];
@@ -39,11 +40,16 @@ function marqueeText(label) {
 }
 
 export default function HomeExplore() {
+	const t = useT();
+
 	return (
 		<section className={`${cx('component')} grain`}>
 			<ul className={cx('list')}>
-				{PATHS.map(({ label, href, description, image }) => (
-					<li key={label} className={cx('item')}>
+				{PATHS.map(({ label: labelCopy, href, description: descriptionCopy, image }) => {
+					const label = t(labelCopy);
+					const description = t(descriptionCopy);
+					return (
+					<li key={href} className={cx('item')}>
 						<Link href={href} className={cx('link')}>
 							<span className={cx('bg')} aria-hidden="true">
 								<Image
@@ -65,7 +71,8 @@ export default function HomeExplore() {
 							<span className={cx('description')}>{description}</span>
 						</Link>
 					</li>
-				))}
+					);
+				})}
 			</ul>
 		</section>
 	);

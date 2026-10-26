@@ -11,6 +11,7 @@ import { Header, Footer, Main, SEO, Container, Heading } from '../../components'
 // point). Header/Footer get away with importing NavigationMenu from the
 // barrel because they only reference it inside render, not at module scope.
 import { NavigationMenu } from '../NavigationMenu';
+import { useT } from '../../lib/i18n';
 import styles from './LegalPage.module.scss';
 
 let cx = classNames.bind(styles);
@@ -18,6 +19,7 @@ let cx = classNames.bind(styles);
 // Shared shell for /privacy and /cookies (HOME brief p.10: legal links in the
 // footer). Body copy is the client's to supply — never invent legal text.
 export default function LegalPage({ title, children }) {
+	const t = useT();
 	const { data } = useQuery(LegalPage.query, {
 		variables: { headerLocation: MENUS.PRIMARY_LOCATION, footerLocation: MENUS.FOOTER_LOCATION },
 	});
@@ -34,7 +36,9 @@ export default function LegalPage({ title, children }) {
 						<Heading level="h1" className={cx('heading')}>
 							{title}
 						</Heading>
-						{children ?? <p>[À FOURNIR : texte légal — {title}]</p>}
+						{children ?? (
+								<p>{t({ es: '[POR PROPORCIONAR: texto legal', en: '[TO BE PROVIDED: legal text' })} — {title}]</p>
+							)}
 					</div>
 				</Container>
 			</Main>

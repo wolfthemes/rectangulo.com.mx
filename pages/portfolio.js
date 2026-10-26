@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, ServicesCTA, WorkFilmstrip, WorkItemMedia } from '../components';
 
@@ -12,6 +13,7 @@ import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, ServicesCTA, 
 // done and works is genuinely empty — see the `works` null-while-loading
 // logic below.
 export default function PortfolioPage() {
+	const t = useT();
 	const { data } = useQuery(PortfolioPage.query, {
 		variables: PortfolioPage.variables(),
 	});
@@ -29,13 +31,13 @@ export default function PortfolioPage() {
 
 	return (
 		<>
-			<SEO title={`Portfolio — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={`${t({ es: 'Trabajo', en: 'Portfolio' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				{works?.length ? <WorkFilmstrip works={works} /> : <PortfolioGrid works={works} />}
 				<ServicesCTA
-					heading="Have a project in mind?"
-					body="Let’s make something together."
+					heading={t({ es: '¿Tienes un proyecto en mente?', en: 'Have a project in mind?' })}
+					body={t({ es: 'Hagamos algo juntos.', en: 'Let’s make something together.' })}
 				/>
 			</Main>
 			<Footer title={siteTitle} menuItems={footerMenu} />

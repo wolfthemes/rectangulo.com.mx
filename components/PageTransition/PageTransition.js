@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import gsap from 'gsap';
+import { localeOf, stripLocale } from '../../lib/i18n';
 import { pageEnterClosing, playPageEnter } from '../../lib/page-enter';
 import styles from './PageTransition.module.scss';
 
@@ -67,7 +68,7 @@ export default function PageTransition() {
 		const close = (onDone, pathname) => {
 			// Tint before the bars start closing; pathname is only known on
 			// click-driven navs, programmatic ones come through routeChangeStart.
-			bars.forEach((bar) => bar.classList.toggle(styles.red, RED_ROUTES.includes(pathname)));
+			bars.forEach((bar) => bar.classList.toggle(styles.red, RED_ROUTES.includes(stripLocale(pathname))));
 			closed.current = false;
 			routed.current = false;
 			revealCall?.kill();
@@ -125,7 +126,10 @@ export default function PageTransition() {
 
 			e.preventDefault();
 			e.stopPropagation();
-			close(() => router.push(url.pathname + url.search + url.hash), url.pathname);
+			close(
+				() => router.push(stripLocale(url.pathname) + url.search + url.hash, undefined, { locale: localeOf(url.pathname) }),
+				url.pathname
+			);
 		};
 
 		document.addEventListener('click', onClick, true);

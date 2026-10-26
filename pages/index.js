@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { HERO_DEMOREEL_URL, SHOWREEL_URL } from '../constants/media';
 import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
 	Header,
@@ -22,10 +23,13 @@ import {
 // copy from the client yet; HomeHero already renders fine without a
 // demoreelUrl (falls back to a dark placeholder). Swap in real copy/video
 // once the client provides them — see the HOME brief in the project KB.
-const STATEMENT =
-	'Somos una productora audiovisual especializada en contenido comercial, branded content y narrativa.';
+const STATEMENT = {
+	es: 'Somos una productora audiovisual especializada en contenido comercial, branded content y narrativa.',
+	en: 'We are an audiovisual production company specialized in commercial content, branded content and narrative.',
+};
 
 export default function HomePage() {
+	const t = useT();
 	const [showreelOpen, setShowreelOpen] = useState(false);
 	const { data } = useQuery(HomePage.query, {
 		variables: HomePage.variables(),
@@ -46,7 +50,7 @@ export default function HomePage() {
 			<Main>
 				<HomeHero
 				demoreelUrl={HERO_DEMOREEL_URL}
-				statement={STATEMENT}
+				statement={t(STATEMENT)}
 				onViewShowreel={() => setShowreelOpen(true)}
 			/>
 				<HomeExplore />

@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import { gql } from '@apollo/client';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { NAV_LABELS, useT } from '../../lib/i18n';
 import styles from './NavigationMenu.module.scss';
 import stylesFromWP from './NavigationMenuClassesFromWP.module.scss';
 import { flatListToHierarchical } from '@faustwp/core';
@@ -18,6 +19,7 @@ function normalizePath(value) {
 
 export default function NavigationMenu({ menuItems, className, onItemClick }) {
 	const router = useRouter();
+	const t = useT();
 
 	if (!menuItems) {
 		return null;
@@ -55,7 +57,7 @@ export default function NavigationMenu({ menuItems, className, onItemClick }) {
 								{/* Sweep reveal: a two-tone gradient clipped to the text, swept
 								    across on hover. Single glyph render (no stacked duplicate text
 								    layers), so there's no anti-aliasing seam between colors. */}
-								<span className={cx('label')}>{label ?? ''}</span>
+								<span className={cx('label')}>{t(NAV_LABELS[normalizePath(path)]) ?? label ?? ''}</span>
 							</Link>
 							{children.length ? renderMenu(children) : null}
 						</li>

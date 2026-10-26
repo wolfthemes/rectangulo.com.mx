@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { onScrollFrame } from '../../lib/scroll';
+import { useT } from '../../lib/i18n';
 import styles from './FondoInfinitoDiagram.module.scss';
 
 if (typeof window !== 'undefined') gsap.registerPlugin(ScrollTrigger);
@@ -35,6 +36,7 @@ const DRAWN_SELECTORS = [
 ];
 
 export default function FondoInfinitoDiagram({ pinRef }) {
+	const t = useT();
 	const stageRef = useRef(null);
 
 	useEffect(() => {
@@ -112,7 +114,10 @@ export default function FondoInfinitoDiagram({ pinRef }) {
 				viewBox="0 0 1600 640"
 				xmlns="http://www.w3.org/2000/svg"
 				role="img"
-				aria-label="Diagrama del foro: 8m x 6m, 4m de altura, fondo infinito de 192 m³"
+				aria-label={t({
+					es: 'Diagrama del foro: 8m x 6m, 4m de altura, fondo infinito de 192 m³',
+					en: 'Stage diagram: 8m x 6m, 4m high, 192 m³ infinity cyclorama',
+				})}
 			>
 				{/* outer frame (front wall opening) */}
 				<path id="frontLeft" className={cx('line')} d="M 370 120 L 30 10" />

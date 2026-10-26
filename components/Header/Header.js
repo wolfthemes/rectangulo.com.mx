@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { Container, NavigationMenu, SkipNavigationLink } from '../../components';
+import { Container, LanguageSwitcher, NavigationMenu, SkipNavigationLink } from '../../components';
+import { useT } from '../../lib/i18n';
 import styles from './Header.module.scss';
 
 let cx = classNames.bind(styles);
@@ -12,6 +13,7 @@ let cx = classNames.bind(styles);
 // sorted out for good.
 export default function Header({ title = 'Rectángulo', menuItems, hidden }) {
 	const [isNavShown, setIsNavShown] = useState(false);
+	const t = useT();
 
 	return (
 		<header className={cx('component', { hidden })}>
@@ -26,11 +28,12 @@ export default function Header({ title = 'Rectángulo', menuItems, hidden }) {
 							</a>
 						</Link>
 					</div>
+					<LanguageSwitcher className={cx('lang')} />
 					<button
 						type="button"
 						className={cx('nav-toggle')}
 						onClick={() => setIsNavShown(!isNavShown)}
-						aria-label="Toggle navigation"
+						aria-label={t({ es: 'Abrir menú', en: 'Toggle navigation' })}
 						aria-controls={cx('primary-navigation')}
 						aria-expanded={isNavShown}
 					>

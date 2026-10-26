@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { WorkItemMedia } from '../WorkItemMedia';
 import { revealOnEnter } from '../../lib/page-enter';
+import { useT } from '../../lib/i18n';
 import styles from './PortfolioGrid.module.scss';
 
 let cx = classNames.bind(styles);
@@ -59,6 +60,7 @@ function colorFor(slug) {
 // and there's genuinely nothing published — only the latter falls back to
 // placeholders, so real posts never get preceded by a placeholder flash.
 export default function PortfolioGrid({ works }) {
+	const t = useT();
 	const projects = !works
 		? null
 		: works.length
@@ -96,7 +98,7 @@ export default function PortfolioGrid({ works }) {
 										)}
 									</div>
 									<div className={cx('caption')} style={{ backgroundColor: color }}>
-										<p className={cx('client')}>Client</p>
+										<p className={cx('client')}>{t({ es: 'Cliente', en: 'Client' })}</p>
 										<h3 className={cx('title')}>{title}</h3>
 										<p className={cx('excerpt')}>{excerpt}</p>
 										<p className={cx('year')}>{year}</p>

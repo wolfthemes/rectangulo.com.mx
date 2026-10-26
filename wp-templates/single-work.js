@@ -6,6 +6,7 @@ import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { FeaturedImage } from '../components/FeaturedImage';
 import { youtubeId } from '../lib/youtube';
+import { useT } from '../lib/i18n';
 import { getSafeHttpUrl } from '../utils/urls';
 import styles from './single-work.module.scss';
 
@@ -73,16 +74,16 @@ const GET_WORK_QUERY = gql`
 `;
 
 // Label/value pairs, in display order. Rows with no value are skipped.
-function metaRows(work) {
+function metaRows(work, t) {
 	return [
-		['Tipo', work?.workTypes?.nodes?.map((node) => node.name).join(', ')],
-		['Cliente', work?.workClient],
-		['Objetivo', work?.workObjetivo],
-		['Alcance', work?.workAlcance],
-		['Formato', work?.workFormato],
-		['Servicios', work?.workServices?.nodes?.length ? work.workServices.nodes : null],
-		['Resultado', work?.workResultado],
-		['Año', work?.workYear],
+		[t({ es: 'Tipo', en: 'Type' }), work?.workTypes?.nodes?.map((node) => node.name).join(', ')],
+		[t({ es: 'Cliente', en: 'Client' }), work?.workClient],
+		[t({ es: 'Objetivo', en: 'Objective' }), work?.workObjetivo],
+		[t({ es: 'Alcance', en: 'Scope' }), work?.workAlcance],
+		[t({ es: 'Formato', en: 'Format' }), work?.workFormato],
+		[t({ es: 'Servicios', en: 'Services' }), work?.workServices?.nodes?.length ? work.workServices.nodes : null],
+		[t({ es: 'Resultado', en: 'Result' }), work?.workResultado],
+		[t({ es: 'Año', en: 'Year' }), work?.workYear],
 	].filter(([, value]) => value);
 }
 
@@ -94,8 +95,9 @@ export default function Component(props) {
 	const { generalSettings, headerMenuItems, footerMenuItems } =
 		useFaustQuery(GET_LAYOUT_QUERY) ?? {};
 
+	const t = useT();
 	if (props.loading) {
-		return <>Loading...</>;
+		return <>{t({ es: 'Cargando...', en: 'Loading...' })}</>;
 	}
 
 	const { title: siteTitle, description: siteDescription } = generalSettings ?? {};
@@ -120,7 +122,7 @@ export default function Component(props) {
 					</Heading>
 					<div className={styles.hero}>
 						<dl className={styles.meta}>
-							{metaRows(work).map(([label, value]) => (
+							{metaRows(work, t).map(([label, value]) => (
 								<div className={styles.row} key={label}>
 									<dt className={styles.label}>{label}</dt>
 									<dd className={styles.value}>

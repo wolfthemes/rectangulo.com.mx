@@ -3,6 +3,7 @@ import { CREDIT_FIELDS } from '../../constants/credits';
 import { getSafeHttpUrl } from '../../utils/urls';
 import { SafeHtml } from '../SafeHtml';
 import { VideoModal } from '../VideoModal';
+import { useT } from '../../lib/i18n';
 import styles from './ProjectViewer.module.scss';
 
 let cx = classNames.bind(styles);
@@ -11,6 +12,7 @@ let cx = classNames.bind(styles);
 // video. Closing just closes the <dialog>, so the page underneath keeps its
 // exact scroll position — nothing navigates.
 export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
+	const t = useT();
 	const category = work?.workTypes?.nodes?.[0]?.name;
 	const year = work?.date && new Date(work.date).getFullYear();
 	const credits = work ? CREDIT_FIELDS.filter(([key]) => work[key]) : [];
@@ -29,11 +31,11 @@ export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 				{year && <p className={cx('year')}>{year}</p>}
 				{credits.length > 0 && (
 					<>
-						<p className={cx('creditsHeading')}>Credits</p>
+						<p className={cx('creditsHeading')}>{t({ es: 'Créditos', en: 'Credits' })}</p>
 						<dl className={cx('credits')}>
 							{credits.map(([key, label]) => (
 								<div key={key} className={cx('creditRow')}>
-									<dt>{label}</dt>
+									<dt>{t(label)}</dt>
 									<dd>{work[key]}</dd>
 								</div>
 							))}
@@ -43,12 +45,12 @@ export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 			</div>
 
 			{(onPrev || onNext) && (
-				<nav className={cx('nav')} aria-label="Project navigation">
+				<nav className={cx('nav')} aria-label={t({ es: 'Navegación de proyectos', en: 'Project navigation' })}>
 					<button type="button" onClick={onPrev} disabled={!onPrev}>
-						← Previous
+						← {t({ es: 'Anterior', en: 'Previous' })}
 					</button>
 					<button type="button" onClick={onNext} disabled={!onNext}>
-						Next →
+						{t({ es: 'Siguiente', en: 'Next' })} →
 					</button>
 				</nav>
 			)}

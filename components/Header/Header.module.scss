@@ -57,6 +57,17 @@
 	}
 }
 
+.lang {
+	// Mobile: sits between the brand and the hamburger. Desktop: after the
+	// nav, top right (see .primary-navigation's order).
+	margin-left: auto;
+
+	@media (min-width: $breakpoint-small) {
+		order: 2;
+		margin-left: 0;
+	}
+}
+
 .primary-navigation {
 	display: none;
 	width: 100%;
@@ -68,5 +79,8 @@
 	@media (min-width: $breakpoint-small) {
 		display: block;
 		width: auto;
+		order: 1;
+		// Pushes nav + switcher to the right edge, same as before the switcher existed.
+		margin-left: auto;
 	}
 }

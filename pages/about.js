@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import {
 	Header,
@@ -22,6 +23,7 @@ import {
 // placeholders until the design settles and we decide how WP feeds them —
 // see docs/superpowers/specs plan "About page: Next.js-first build".
 export default function AboutPage() {
+	const t = useT();
 	const { data } = useQuery(AboutPage.query, {
 		variables: AboutPage.variables(),
 	});
@@ -32,7 +34,7 @@ export default function AboutPage() {
 
 	return (
 		<>
-			<SEO title={`About — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={`${t({ es: 'Nosotros', en: 'About' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<AboutHero />

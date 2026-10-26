@@ -1,18 +1,21 @@
 import classNames from 'classnames/bind';
 import { Container } from '../Container';
 import { SOCIAL_LINKS } from '../../constants/contact';
+import { useT } from '../../lib/i18n';
 import styles from './AboutTeam.module.scss';
 
 let cx = classNames.bind(styles);
 
 const TEAM = [
-	{ name: 'Roman Alejandro', role: 'Producer', email: 'r.martinez@rectangulo.com.mx' },
-	{ name: 'Josh Sándre', role: 'Director / Producer', email: 'josh.sandre@rectangulo.com.mx' },
+	{ name: 'Roman Alejandro', role: { es: 'Productor', en: 'Producer' }, email: 'r.martinez@rectangulo.com.mx' },
+	{ name: 'Josh Sándre', role: { es: 'Director / Productor', en: 'Director / Producer' }, email: 'josh.sandre@rectangulo.com.mx' },
 ];
 
 // ponytail: copy matches the current client site's About page. See the
 // "About page: Next.js-first build" plan — real WP-sourced props come later.
 export default function AboutTeam() {
+	const t = useT();
+
 	return (
 		<section className={cx('component')}>
 			<Container>
@@ -26,11 +29,11 @@ export default function AboutTeam() {
 					</div>
 
 					<div className={cx('column')}>
-						<p className={cx('heading')}>Team</p>
+						<p className={cx('heading')}>{t({ es: 'Equipo', en: 'Team' })}</p>
 						{TEAM.map(({ name, role, email }) => (
 							<div key={name} className={cx('member')}>
 								<p className={cx('memberName')}>{name}</p>
-								<p className={cx('memberRole')}>{role}</p>
+								<p className={cx('memberRole')}>{t(role)}</p>
 								<a className={cx('link')} href={`mailto:${email}`}>
 									{email}
 								</a>
@@ -39,8 +42,8 @@ export default function AboutTeam() {
 					</div>
 
 					<div className={cx('column')}>
-						<p className={cx('heading')}>Contact</p>
-						<p className={cx('cta')}>Let&rsquo;s create something unforgettable together.</p>
+						<p className={cx('heading')}>{t({ es: 'Contacto', en: 'Contact' })}</p>
+						<p className={cx('cta')}>{t({ es: 'Creemos algo inolvidable juntos.', en: 'Let’s create something unforgettable together.' })}</p>
 						<a className={cx('link')} href="mailto:contacto@rectangulo.com.mx">
 							contacto@rectangulo.com.mx
 						</a>

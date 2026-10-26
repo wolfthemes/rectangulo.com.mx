@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind';
 import { ALL_FILTER } from '../../constants/work-filters';
+import { useT } from '../../lib/i18n';
 import styles from './WorkFilters.module.scss';
 
 let cx = classNames.bind(styles);
@@ -18,9 +19,10 @@ function deriveFilters(works) {
 // screens the row scrolls sideways natively, which gives the swipe.
 export default function WorkFilters({ active, onChange, works = [] }) {
 	const filters = deriveFilters(works);
+	const t = useT();
 
 	return (
-		<ul className={cx('component')} aria-label="Filter work by category">
+		<ul className={cx('component')} aria-label={t({ es: 'Filtrar trabajo por categoría', en: 'Filter work by category' })}>
 			{filters.map((filter) => (
 				<li key={filter}>
 					<button
@@ -29,7 +31,7 @@ export default function WorkFilters({ active, onChange, works = [] }) {
 						aria-pressed={filter === active}
 						onClick={() => onChange(filter)}
 					>
-						{filter}
+						{filter === ALL_FILTER ? t({ es: 'Todo', en: 'All' }) : filter}
 					</button>
 				</li>
 			))}

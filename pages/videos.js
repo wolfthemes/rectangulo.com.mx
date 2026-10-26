@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { Header, Footer, Main, SEO, NavigationMenu, VideoGrid } from '../components';
 
@@ -7,6 +8,7 @@ import { Header, Footer, Main, SEO, NavigationMenu, VideoGrid } from '../compone
 // are separate queries so a GraphQL error on one doesn't fail the whole
 // combined response and take the nav down with it.
 export default function VideosPage() {
+	const t = useT();
 	const { data } = useQuery(VideosPage.query, {
 		variables: VideosPage.variables(),
 	});
@@ -31,7 +33,7 @@ export default function VideosPage() {
 
 	return (
 		<>
-			<SEO title={`Motion — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={`${t({ es: 'Motion', en: 'Motion' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<VideoGrid videos={videos} />

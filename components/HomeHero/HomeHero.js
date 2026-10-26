@@ -1,7 +1,10 @@
 import { useEffect, useLayoutEffect, useRef } from 'react';
 import classNames from 'classnames/bind';
 import gsap from 'gsap';
+import Link from 'next/link';
 import { onScrollFrame, getLenis } from '../../lib/scroll';
+import { LanguageSwitcher } from '../LanguageSwitcher';
+import { useT } from '../../lib/i18n';
 import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './HomeHero.module.scss';
 
@@ -20,9 +23,9 @@ const SECTION_VH = 1.5;
 const VIDEO_WAIT_MS = 2500;
 
 const MENU = [
-	{ label: 'Work', href: '/portfolio' },
-	{ label: 'Services', href: '/services' },
-	{ label: 'Projects', href: '/projects' },
+	{ label: { es: 'Trabajo', en: 'Work' }, href: '/portfolio' },
+	{ label: { es: 'Servicios', en: 'Services' }, href: '/services' },
+	{ label: { es: 'Proyectos', en: 'Projects' }, href: '/projects' },
 ];
 
 const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
@@ -64,6 +67,7 @@ function waitForVideo(reel) {
 // React state per frame) — same reasoning as GalleryBanner's rAF loop: this
 // runs at scroll cadence and a re-render per frame would be wasted work.
 export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
+	const t = useT();
 	const sectionRef = useRef(null);
 	const reelRef = useRef(null);
 	const wordmarkRef = useRef(null);
@@ -278,12 +282,13 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">
 						{MENU.map(({ label, href }) => (
-							<a key={href} href={href}>{label}</a>
+							<Link key={href} href={href}>{t(label)}</Link>
 						))}
 					</nav>
 					{SOCIAL_LINKS.map(({ short, label, href }) => (
 						<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
 					))}
+					<LanguageSwitcher />
 				</div>
 
 				<div ref={statementRef} className={cx('statement')} style={{ visibility: 'hidden' }}>
@@ -298,7 +303,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 						onClick={onViewShowreel}
 						disabled={!onViewShowreel}
 					>
-						View Showreel
+						{t({ es: 'Ver showreel', en: 'View Showreel' })}
 					</button>
 				</div>
 			</div>
