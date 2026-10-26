@@ -145,7 +145,17 @@ export default function HomeFeaturedWork({ works }) {
 					</div>
 				</div>
 
-				<ProjectViewer work={viewing} onClose={() => setViewing(null)} />
+				<ProjectViewer
+				work={viewing}
+				onClose={() => {
+					setViewing(null);
+					// mouseenter/mouseleave only fire on real pointer movement, and the
+					// overlay appears over the link without the cursor moving — so the
+					// link never gets its mouseleave and stays "active" after closing.
+					// Clear it explicitly; the next real hover sets it again.
+					setActiveIndex(null);
+				}}
+			/>
 
 				<Link href="/portfolio" className={`${cx('view-all')} link-underline`}>
 					{t({ es: 'Ver todo el trabajo', en: 'View all work' })} <span aria-hidden="true">→</span>
