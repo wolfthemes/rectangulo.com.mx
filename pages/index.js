@@ -17,6 +17,15 @@ import {
 	VideoModal,
 } from '../components';
 
+// Featured work: the `_work_featured` posts first (newest first, same
+// order the query already returns), topped up with the latest non-featured
+// posts if fewer than 5 are flagged — capped at 5 either way.
+function pickFeaturedWorks(works) {
+	const featured = works.filter((work) => work.workFeatured);
+	const rest = works.filter((work) => !work.workFeatured);
+	return [...featured, ...rest].slice(0, 5);
+}
+
 // ponytail: scaffold stage — mirrors pages/portfolio.js's Next.js-first
 // pattern (chrome query separate from content query, so a `works` error
 // never takes the nav down with it). No demoreel file or final statement
@@ -41,7 +50,7 @@ export default function HomePage() {
 	const { title: siteTitle, description: siteDescription } = data?.generalSettings ?? {};
 	const primaryMenu = data?.headerMenuItems?.nodes ?? [];
 	const footerMenu = data?.footerMenuItems?.nodes ?? [];
-	const works = worksLoading ? null : (worksData?.works?.edges?.map((edge) => edge.node) ?? []);
+	const works = worksLoading ? null : pickFeaturedWorks(worksData?.works?.edges?.map((edge) => edge.node) ?? []);
 
 	return (
 		<>
@@ -83,14 +92,14 @@ HomePage.query = gql`
 	}
 `;
 
-// first: 5 — Featured Work is a curated slice (brief section 05), not the
-// full archive (that's /portfolio). No orderby yet; add one (e.g. a
-// "featured" flag/menu_order) once there are enough posts for curation to
-// matter — right now it's just the 9 seed posts.
+// first: 20 — pool big enough to find the `_work_featured` posts and still
+// have latest ones left to pad with; pickFeaturedWorks() above caps the
+// result at 5. Bump if the site ever has more than ~20 works and featured
+// ones stop showing up (unlikely before then).
 HomePage.worksQuery = gql`
 	${HomeFeaturedWork.fragments.entry}
 	query GetFeaturedWorks {
-		works(first: 5) {
+		works(first: 20) {
 			edges {
 				node {
 					featuredImage {

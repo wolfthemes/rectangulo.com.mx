@@ -162,6 +162,7 @@ HomeFeaturedWork.fragments = {
 			title
 			slug
 			date
+			workFeatured
 			workTypes {
 				nodes {
 					name
