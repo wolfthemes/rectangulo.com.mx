@@ -1,7 +1,13 @@
 @import 'styles/tokens';
 
 .component {
-	position: relative;
+	// Fixed + inset, not relative: a top-layer dialog laid out as `relative`
+	// keeps its in-flow static position, so showModal()/close() scroll the
+	// document to align that position with the viewport — the page-jump bug.
+	// `fixed` matches the UA's own `dialog:modal` default and takes it out of
+	// flow entirely, so opening/closing never touches document scroll.
+	position: fixed;
+	inset: 0;
 	width: 100vw;
 	height: 100vh;
 	max-width: none;
