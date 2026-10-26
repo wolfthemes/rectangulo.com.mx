@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
+import { rewriteContentLinks } from '../../lib/seo/site';
 
 const SANITIZE_OPTIONS = {
 	USE_PROFILES: { html: true },
@@ -21,7 +22,7 @@ const SafeHtml = forwardRef(function SafeHtml(
 				FORBID_TAGS: SANITIZE_OPTIONS.FORBID_TAGS.filter((tag) => tag !== 'form'),
 			}
 		: SANITIZE_OPTIONS;
-	const sanitizedHtml = DOMPurify.sanitize(html, options);
+	const sanitizedHtml = rewriteContentLinks(DOMPurify.sanitize(html, options));
 
 	return <Tag ref={ref} {...props} dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />;
 });

@@ -45,7 +45,7 @@ export default function HomePage() {
 
 	return (
 		<>
-			<SEO title={siteTitle} description={siteDescription} />
+			<SEO />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} hidden />
 			<Main>
 				<HomeHero

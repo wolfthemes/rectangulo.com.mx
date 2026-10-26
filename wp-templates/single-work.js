@@ -4,9 +4,10 @@ import { useFaustQuery } from '@faustwp/core';
 import { Container, Footer, Header, Heading, Main, NavigationMenu, SEO } from '../components';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { SeoFragment } from '../fragments/Seo';
 import { FeaturedImage } from '../components/FeaturedImage';
-import { youtubeId } from '../lib/youtube';
 import { useT } from '../lib/i18n';
+import { youtubeId } from '../lib/youtube';
 import { getSafeHttpUrl } from '../utils/urls';
 import styles from './single-work.module.scss';
 
@@ -45,10 +46,13 @@ const GET_LAYOUT_QUERY = gql`
 // hood, aliased to `work` so the rest of this file is unchanged.
 const GET_WORK_QUERY = gql`
 	${FeaturedImage.fragments.entry}
+	${SeoFragment}
 	query GetWork($databaseId: ID!, $asPreview: Boolean = false) {
 		work: contentNode(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
 			... on Work {
 				title
+				excerpt
+				...SeoFragment
 				workClient
 				workYear
 				workObjetivo
@@ -91,11 +95,11 @@ export default function Component(props) {
 	// Hooks must run unconditionally on every render (rules-of-hooks) — the
 	// `?? {}` covers the render(s) before FaustContext has this query's
 	// result yet (e.g. props.loading, or a Link prefetch racing the fetch).
+	const t = useT();
 	const { work } = useFaustQuery(GET_WORK_QUERY) ?? {};
 	const { generalSettings, headerMenuItems, footerMenuItems } =
 		useFaustQuery(GET_LAYOUT_QUERY) ?? {};
 
-	const t = useT();
 	if (props.loading) {
 		return <>{t({ es: 'Cargando...', en: 'Loading...' })}</>;
 	}
@@ -110,9 +114,11 @@ export default function Component(props) {
 	return (
 		<>
 			<SEO
-				title={title ? `${title} — ${siteTitle}` : siteTitle}
-				description={siteDescription}
-				imageUrl={featuredImage?.node?.sourceUrl}
+				type="work"
+				title={title}
+				description={work?.excerpt}
+				image={featuredImage?.node}
+				node={work}
 			/>
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>

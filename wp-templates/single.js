@@ -13,6 +13,7 @@ import {
 } from '../components';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { SeoFragment } from '../fragments/Seo';
 
 const GET_LAYOUT_QUERY = gql`
 	${BlogInfoFragment}
@@ -36,11 +37,13 @@ const GET_LAYOUT_QUERY = gql`
 
 const GET_POST_QUERY = gql`
 	${FeaturedImage.fragments.entry}
+	${SeoFragment}
 	query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
 		post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
 			title
 			content
-			date
+			excerpt
+			...SeoFragment
 			author {
 				node {
 					name
@@ -73,9 +76,12 @@ export default function Component(props) {
 	return (
 		<>
 			<SEO
-				title={siteTitle}
-				description={siteDescription}
-				imageUrl={featuredImage?.node?.sourceUrl}
+				type="article"
+				title={title}
+				description={post?.excerpt || content}
+				image={featuredImage?.node}
+				node={post}
+				author={author?.node?.name}
 			/>
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>

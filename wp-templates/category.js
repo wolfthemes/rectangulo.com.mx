@@ -21,7 +21,7 @@ export default function Component(props) {
 
 	return (
 		<>
-			<SEO title={siteTitle} description={siteDescription} />
+			<SEO title={`Category: ${name}`} noindex />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<>

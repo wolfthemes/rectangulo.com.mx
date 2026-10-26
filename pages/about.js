@@ -34,7 +34,7 @@ export default function AboutPage() {
 
 	return (
 		<>
-			<SEO title={`${t({ es: 'Nosotros', en: 'About' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={t({ es: 'Nosotros', en: 'About' })} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<AboutHero />

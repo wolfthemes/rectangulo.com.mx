@@ -31,7 +31,7 @@ export default function PortfolioPage() {
 
 	return (
 		<>
-			<SEO title={`${t({ es: 'Trabajo', en: 'Portfolio' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={t({ es: 'Trabajo', en: 'Portfolio' })} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				{works?.length ? <WorkFilmstrip works={works} /> : <PortfolioGrid works={works} />}

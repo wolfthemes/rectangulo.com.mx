@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client';
 import * as MENUS from '../constants/menus';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { SeoFragment } from '../fragments/Seo';
 import {
 	Header,
 	Footer,
@@ -26,11 +27,7 @@ export default function Component(props) {
 
 	return (
 		<>
-			<SEO
-				title={siteTitle}
-				description={siteDescription}
-				imageUrl={featuredImage?.node?.sourceUrl}
-			/>
+			<SEO title={title} description={content} image={featuredImage?.node} node={props?.data?.page} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<>
@@ -58,6 +55,7 @@ Component.query = gql`
 	${BlogInfoFragment}
 	${NavigationMenu.fragments.entry}
 	${FeaturedImage.fragments.entry}
+	${SeoFragment}
 	query GetPageData(
 		$databaseId: ID!
 		$headerLocation: MenuLocationEnum
@@ -67,6 +65,7 @@ Component.query = gql`
 		page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
 			title
 			content
+			...SeoFragment
 			...FeaturedImageFragment
 		}
 		generalSettings {

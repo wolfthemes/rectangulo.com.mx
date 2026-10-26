@@ -33,7 +33,7 @@ export default function ServicesPage() {
 
 	return (
 		<>
-			<SEO title={`${t({ es: 'Servicios', en: 'Services' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={t({ es: 'Servicios', en: 'Services' })} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<ClientLogosCarousel />

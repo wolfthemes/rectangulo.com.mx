@@ -64,14 +64,6 @@
 	box-sizing: border-box;
 }
 
-// Matches HomeHero's own load-in curtain. The actual guard against a white
-// flash is pages/_document.js's inline style (this stylesheet can itself
-// load a beat late, e.g. dev mode's JS-injected CSS) — this is just the
-// steady-state value once the stylesheet is in.
-html {
-	background-color: var(--wpe--color--accent);
-}
-
 body {
 	margin: 0;
 	background-color: var(--wpe--main--background-color);

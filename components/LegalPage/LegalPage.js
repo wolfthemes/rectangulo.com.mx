@@ -28,7 +28,7 @@ export default function LegalPage({ title, children }) {
 
 	return (
 		<>
-			<SEO title={`${title} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={title} />
 			<Header title={siteTitle} description={siteDescription} menuItems={data?.headerMenuItems?.nodes ?? []} />
 			<Main>
 				<Container>

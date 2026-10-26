@@ -32,3 +32,14 @@ Once the backend is live, run `npm run generate` to fill in `possibleTypes.json`
 | `npm run lint`        | Lint JS/TS                                                 |
 | `npm run lint:styles` | Lint SCSS                                                  |
 | `npm run format`      | Format with Prettier                                       |
+
+## SEO
+
+Head tags, JSON-LD, `/sitemap.xml` and `/robots.txt` live in `lib/seo/` + `components/SEO/`. Per-environment env vars (Vercel):
+
+| Var                    | Stage                                | Prod                       |
+| ---------------------- | ------------------------------------ | -------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | `https://rectangulo-com-mx.vercel.app` | `https://rectangulo.com.mx` |
+| `NEXT_PUBLIC_SITE_ENV` | unset                                | `production`               |
+
+Anything not `production` is `noindex` (meta + `X-Robots-Tag`) with `Disallow: /`. New template: spread `SeoFragment` (`fragments/Seo.js`) in its query and render `<SEO title description image type node />`. Check a deploy with `node scripts/seo-check.js <url>`.

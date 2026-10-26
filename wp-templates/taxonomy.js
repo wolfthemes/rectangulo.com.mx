@@ -27,7 +27,7 @@ export default function Component(props) {
 
 	return (
 		<>
-			<SEO title={name ? `${name} — ${siteTitle}` : siteTitle} description={siteDescription} />
+			<SEO title={name} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<EntryHeader title={name} />

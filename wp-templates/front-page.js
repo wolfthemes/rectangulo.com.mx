@@ -14,7 +14,7 @@ export default function Component() {
 
 	return (
 		<>
-			<SEO title={siteTitle} description={siteDescription} />
+			<SEO />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<Container>

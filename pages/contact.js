@@ -19,7 +19,7 @@ export default function ContactPage() {
 
 	return (
 		<>
-			<SEO title={`${t({ es: 'Contacto', en: 'Contact' })} — ${siteTitle ?? 'Rectángulo'}`} description={siteDescription} />
+			<SEO title={t({ es: 'Contacto', en: 'Contact' })} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<ContactHero />
