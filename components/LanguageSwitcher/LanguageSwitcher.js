@@ -7,8 +7,11 @@ import styles from './LanguageSwitcher.module.scss';
 
 let cx = classNames.bind(styles);
 
-// ES | EN toggle. Links to the same page in the other locale (asPath is
-// locale-less); the active one is marked, not clickable-looking.
+// ES | EN toggle. Records the choice in NEXT_LOCALE so the geo redirect
+// (proxy.js) never overrides it. data-no-transition: PageTransition's capture-phase
+// click interceptor would swallow onClick, and a same-page language swap needs no curtain.
+// Links to the same page in the other locale (asPath is locale-less); the
+// active one is marked, not clickable-looking.
 export default function LanguageSwitcher({ className }) {
 	const { asPath, locale } = useRouter();
 	const t = useT();
@@ -22,6 +25,10 @@ export default function LanguageSwitcher({ className }) {
 						href={asPath}
 						locale={code}
 						scroll={false}
+						data-no-transition
+						onClick={() => {
+							document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=31536000; samesite=lax`;
+						}}
 						lang={code}
 						hrefLang={code}
 						className={cx('link', { active: code === locale })}
