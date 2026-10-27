@@ -31,7 +31,9 @@
 // recipe as the shared `.grain` utility (styles/_utilities.scss), duplicated
 // locally because that utility flips `position` to `relative`, which would
 // fight .pinned's `sticky`. .pinned's own `overflow: hidden` above clips the
-// oversized, animated pseudo-element back to the hero's bounds.
+// oversized, animated pseudo-element back to the hero's bounds. No
+// opacity/blend-mode: the PNG is the texture, full strength, same as the
+// shared utility.
 .pinned::after {
 	content: '';
 	position: absolute;
@@ -39,10 +41,8 @@
 	left: -40%;
 	width: 180%;
 	height: 180%;
-	z-index: 1;
+	z-index: 999999;
 	pointer-events: none;
-	opacity: 0.15;
-	mix-blend-mode: overlay;
 	background-image: url('/images/noise.png');
 	animation: grain-shift 1s steps(4) infinite;
 }

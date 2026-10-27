@@ -47,7 +47,8 @@
 // noise.png + jitter recipe as the shared `.grain` utility
 // (styles/_utilities.scss), duplicated locally since `.bar` already owns
 // `position: fixed` — `overflow: hidden` here clips the oversized, animated
-// pseudo-element back to the bar's own bounds.
+// pseudo-element back to the bar's own bounds. No opacity/blend-mode: the
+// PNG is the texture, full strength, same as the shared utility.
 .red {
 	background: var(--wpe--color--accent);
 	overflow: hidden;
@@ -59,8 +60,8 @@
 		left: -40%;
 		width: 180%;
 		height: 180%;
-		opacity: 0.18;
-		mix-blend-mode: overlay;
+		z-index: 999999;
+		pointer-events: none;
 		background-image: url('/images/noise.png');
 		animation: grain-shift 1s steps(4) infinite;
 	}

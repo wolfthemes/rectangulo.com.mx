@@ -87,31 +87,27 @@
 
 // Animated film-grain overlay (HOME p.5, SERVICES p.2, WORK p.2 of the
 // briefs — hero, red-band sections, etc.). Add `.grain` to any positioned
-// section; the noise sits on a pseudo-element above the background but
-// below content, and never intercepts pointer events. Oversized and jittered
-// via public/images/noise.png rather than a static texture, so it reads as
-// moving film grain instead of a fixed speckle; `overflow: hidden` on the
+// section. Oversized and jittered via public/images/noise.png (the PNG
+// itself is the faint, semi-transparent texture — no opacity/blend-mode
+// here, that's what was making it invisible); `overflow: hidden` on the
 // host clips the oversized, animated pseudo-element back to the section's
 // own bounds. Elements that can't take `position: relative` (fighting their
-// own sticky/fixed) duplicate the `::before`/`@keyframes` pair below locally
+// own sticky/fixed) duplicate the `::after`/`@keyframes` pair below locally
 // instead of using this class — see HomeHero and PageTransition's `.red`.
 .grain {
 	position: relative;
 	overflow: hidden;
-	isolation: isolate;
 }
 
-.grain::before {
+.grain::after {
 	content: '';
 	position: absolute;
 	top: -40%;
 	left: -40%;
 	width: 180%;
 	height: 180%;
-	z-index: -1;
+	z-index: 999999;
 	pointer-events: none;
-	opacity: 0.12;
-	mix-blend-mode: overlay;
 	background-image: url('/images/noise.png');
 	animation: grain-shift 1s steps(4) infinite;
 }
@@ -131,7 +127,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.grain::before {
+	.grain::after {
 		animation: none;
 	}
 }
