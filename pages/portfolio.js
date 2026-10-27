@@ -1,9 +1,13 @@
 import Link from 'next/link';
 import { gql, useQuery } from '@apollo/client';
+import classNames from 'classnames/bind';
 import * as MENUS from '../constants/menus';
 import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { Header, Footer, Main, SEO, NavigationMenu, ServicesCTA, WorkFilmstrip, WorkItemMedia } from '../components';
+import styles from './portfolio.module.scss';
+
+let cx = classNames.bind(styles);
 
 // ponytail: same Next.js-first pattern as pages/about.js and pages/contact.js
 // — Header/Footer pull real WP menu/site data. `works` is its own query, kept
@@ -32,7 +36,7 @@ export default function PortfolioPage() {
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<WorkFilmstrip works={works ?? []} />
-				<Link href="/portfolio/archive" className="link-underline">
+				<Link href="/portfolio/archive" className={`${cx('viewAll')} link-underline`}>
 					{t({ es: 'Ver todos los trabajos', en: 'View all works' })} <span aria-hidden="true">→</span>
 				</Link>
 				<ServicesCTA

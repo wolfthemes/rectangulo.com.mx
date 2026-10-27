@@ -1,0 +1,13 @@
+@import 'styles/breakpoints';
+
+// Matches WorkFilmstrip's .track / .counter and WorkFilters' .component at
+// the same breakpoint, so this lines up with the first filter and the first
+// carousel tile's left edge instead of sitting flush with the page edge.
+.viewAll {
+	display: inline-block;
+	padding: 0 1rem;
+
+	@media (min-width: $breakpoint-medium) {
+		padding: 0 2rem;
+	}
+}
