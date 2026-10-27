@@ -14,6 +14,19 @@
 	color: $c-base;
 }
 
+// Bottom fade so the statement text and showreel button stay readable over
+// whatever the reel is showing at that frame — same reasoning as the text
+// shadow below, belt and suspenders rather than relying on either alone.
+.pinned::before {
+	content: '';
+	position: absolute;
+	inset: auto 0 0;
+	z-index: 1;
+	height: 40%;
+	pointer-events: none;
+	background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}
+
 // Film-grain overlay (HOME brief p.5). Local, not the shared `.grain`
 // utility — that one flips `position` to `relative`, which would fight
 // .pinned's `sticky`.
@@ -146,6 +159,7 @@
 	p {
 		font-size: fs(base);
 		opacity: 0.85;
+		text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 	}
 }
 
@@ -159,4 +173,5 @@
 	text-transform: uppercase;
 	padding: 0.6rem 1.4rem;
 	cursor: pointer;
+	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 }
