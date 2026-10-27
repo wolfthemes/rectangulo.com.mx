@@ -13,7 +13,7 @@ export default function ContactHero() {
 
 	return (
 		<section className={cx('component')}>
-			<div className={cx('band')}>
+			<div className={`${cx('band')} grain`}>
 				<Container>
 					<Heading level="h1" className={cx('heading')}>
 						{t({ es: <>Trabajemos<br />juntos</>, en: <>Let’s work<br />together</> })}

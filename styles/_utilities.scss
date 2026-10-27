@@ -85,24 +85,55 @@
 	}
 }
 
-// Film-grain overlay (HOME p.5, WORK p.2 of the briefs). Add `.grain` to any
-// positioned section; the noise sits on a pseudo-element above the
-// background but below content, and never intercepts pointer events.
-// Inline feTurbulence SVG: no extra asset or request.
+// Animated film-grain overlay (HOME p.5, SERVICES p.2, WORK p.2 of the
+// briefs — hero, red-band sections, etc.). Add `.grain` to any positioned
+// section; the noise sits on a pseudo-element above the background but
+// below content, and never intercepts pointer events. Oversized and jittered
+// via public/images/noise.png rather than a static texture, so it reads as
+// moving film grain instead of a fixed speckle; `overflow: hidden` on the
+// host clips the oversized, animated pseudo-element back to the section's
+// own bounds. Elements that can't take `position: relative` (fighting their
+// own sticky/fixed) duplicate the `::before`/`@keyframes` pair below locally
+// instead of using this class — see HomeHero and PageTransition's `.red`.
 .grain {
 	position: relative;
+	overflow: hidden;
 	isolation: isolate;
 }
 
 .grain::before {
 	content: '';
 	position: absolute;
-	inset: 0;
+	top: -40%;
+	left: -40%;
+	width: 180%;
+	height: 180%;
 	z-index: -1;
 	pointer-events: none;
 	opacity: 0.12;
 	mix-blend-mode: overlay;
-	background-image: var(--grain-image);
+	background-image: url('/images/noise.png');
+	animation: grain-shift 1s steps(4) infinite;
+}
+
+@keyframes grain-shift {
+	0% { transform: translate(0, 0); }
+	10% { transform: translate(-5%, -5%); }
+	20% { transform: translate(-10%, 5%); }
+	30% { transform: translate(5%, -10%); }
+	40% { transform: translate(-5%, 15%); }
+	50% { transform: translate(-10%, 5%); }
+	60% { transform: translate(15%, 0); }
+	70% { transform: translate(0, 10%); }
+	80% { transform: translate(-15%, 0); }
+	90% { transform: translate(10%, 5%); }
+	100% { transform: translate(5%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.grain::before {
+		animation: none;
+	}
 }
 
 // Text-button hover effect (HOME's "View all work" first, reused anywhere

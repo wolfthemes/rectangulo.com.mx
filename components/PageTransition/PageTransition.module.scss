@@ -43,16 +43,45 @@
 	bottom: 0;
 }
 
-// Red variant for entering SERVICES (brief: red band + grain/noise).
+// Red variant for entering SERVICES (brief: red band + grain/noise). Same
+// noise.png + jitter recipe as the shared `.grain` utility
+// (styles/_utilities.scss), duplicated locally since `.bar` already owns
+// `position: fixed` — `overflow: hidden` here clips the oversized, animated
+// pseudo-element back to the bar's own bounds.
 .red {
 	background: var(--wpe--color--accent);
+	overflow: hidden;
 
 	&::before {
 		content: '';
 		position: absolute;
-		inset: 0;
+		top: -40%;
+		left: -40%;
+		width: 180%;
+		height: 180%;
 		opacity: 0.18;
 		mix-blend-mode: overlay;
-		background-image: var(--grain-image);
+		background-image: url('/images/noise.png');
+		animation: grain-shift 1s steps(4) infinite;
+	}
+}
+
+@keyframes grain-shift {
+	0% { transform: translate(0, 0); }
+	10% { transform: translate(-5%, -5%); }
+	20% { transform: translate(-10%, 5%); }
+	30% { transform: translate(5%, -10%); }
+	40% { transform: translate(-5%, 15%); }
+	50% { transform: translate(-10%, 5%); }
+	60% { transform: translate(15%, 0); }
+	70% { transform: translate(0, 10%); }
+	80% { transform: translate(-15%, 0); }
+	90% { transform: translate(10%, 5%); }
+	100% { transform: translate(5%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.red::before {
+		animation: none;
 	}
 }

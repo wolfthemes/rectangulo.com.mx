@@ -27,18 +27,44 @@
 	background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 }
 
-// Film-grain overlay (HOME brief p.5). Local, not the shared `.grain`
-// utility — that one flips `position` to `relative`, which would fight
-// .pinned's `sticky`.
+// Animated film-grain overlay (HOME brief p.5) — same noise.png + jitter
+// recipe as the shared `.grain` utility (styles/_utilities.scss), duplicated
+// locally because that utility flips `position` to `relative`, which would
+// fight .pinned's `sticky`. .pinned's own `overflow: hidden` above clips the
+// oversized, animated pseudo-element back to the hero's bounds.
 .pinned::after {
 	content: '';
 	position: absolute;
-	inset: 0;
+	top: -40%;
+	left: -40%;
+	width: 180%;
+	height: 180%;
 	z-index: 1;
 	pointer-events: none;
 	opacity: 0.15;
 	mix-blend-mode: overlay;
-	background-image: var(--grain-image);
+	background-image: url('/images/noise.png');
+	animation: grain-shift 1s steps(4) infinite;
+}
+
+@keyframes grain-shift {
+	0% { transform: translate(0, 0); }
+	10% { transform: translate(-5%, -5%); }
+	20% { transform: translate(-10%, 5%); }
+	30% { transform: translate(5%, -10%); }
+	40% { transform: translate(-5%, 15%); }
+	50% { transform: translate(-10%, 5%); }
+	60% { transform: translate(15%, 0); }
+	70% { transform: translate(0, 10%); }
+	80% { transform: translate(-15%, 0); }
+	90% { transform: translate(10%, 5%); }
+	100% { transform: translate(5%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pinned::after {
+		animation: none;
+	}
 }
 
 // Load-in intro: red curtain at rest, lifted (yPercent, set from JS) to

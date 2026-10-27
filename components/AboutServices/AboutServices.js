@@ -31,7 +31,7 @@ export default function AboutServices() {
 	const t = useT();
 
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
 				<div className={cx('quoteRow')}>
 					<blockquote className={cx('quote')}>
