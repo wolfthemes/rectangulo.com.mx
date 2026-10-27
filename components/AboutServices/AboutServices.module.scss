@@ -4,8 +4,11 @@
 .component {
 	background-color: $c-accent;
 	color: $c-base;
-	padding-top: var(--wpe--section--padding-y);
-	padding-bottom: var(--wpe--section--padding-y);
+
+	// Fluid, not the flat --wpe--section--padding-y: matches ServicesTeam's
+	// own red band so both read as the same kind of section, and gives this
+	// one enough breathing room not to feel cramped against the red fill.
+	padding: clamp(3rem, 10vw, 7rem) 0;
 }
 
 .quoteRow {
