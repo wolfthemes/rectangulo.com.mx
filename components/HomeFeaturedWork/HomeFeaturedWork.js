@@ -20,7 +20,7 @@ const FOLLOW_QUERY = '(min-width: 1024px) and (hover: hover) and (pointer: fine)
 const LERP = 0.15;
 
 // Brief section 05/06: a curated, numbered selection (not the full archive —
-// that's /portfolio) with a hover preview; a click opens the ProjectViewer
+// that's /projects) with a hover preview; a click opens the ProjectViewer
 // overlay in place (the link href is only the new-tab / no-JS fallback).
 export default function HomeFeaturedWork({ works }) {
 	const t = useT();
@@ -157,7 +157,7 @@ export default function HomeFeaturedWork({ works }) {
 				}}
 			/>
 
-				<Link href="/portfolio" className={`${cx('view-all')} link-underline`}>
+				<Link href="/projects" className={`${cx('view-all')} link-underline`}>
 					{t({ es: 'Ver todo el trabajo', en: 'View all work' })} <span aria-hidden="true">→</span>
 				</Link>
 			</Container>

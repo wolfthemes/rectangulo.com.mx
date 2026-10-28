@@ -26,7 +26,7 @@ function pickFeaturedWorks(works) {
 	return [...featured, ...rest].slice(0, 5);
 }
 
-// ponytail: scaffold stage — mirrors pages/portfolio.js's Next.js-first
+// ponytail: scaffold stage — mirrors pages/projects.js's Next.js-first
 // pattern (chrome query separate from content query, so a `works` error
 // never takes the nav down with it). No demoreel file or final statement
 // copy from the client yet; HomeHero already renders fine without a

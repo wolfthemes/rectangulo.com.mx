@@ -6,7 +6,7 @@ import { Header, Footer, Main, EntryHeader, NavigationMenu, PortfolioGrid, Video
 // ponytail: generic fallback for the custom `work` taxonomies (WorkType,
 // WorkService) and the `video_type` taxonomy (VideoType) — Category/Tag keep
 // their own dedicated templates, so this only ever matches those. Same card
-// grid as pages/portfolio.js / pages/videos.js so a term archive looks like
+// grid as pages/projects.js / pages/videos.js so a term archive looks like
 // its post type's main archive. Which grid renders depends on which edge the
 // query resolved (`works` vs `videos`) — a term is only ever one or the other.
 export default function Component(props) {

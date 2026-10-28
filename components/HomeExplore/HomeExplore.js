@@ -6,18 +6,10 @@ import styles from './HomeExplore.module.scss';
 
 let cx = classNames.bind(styles);
 
-// Brief section 04: three oversized links as the primary content-area nav —
-// PROJECTS has no CPT on the backend yet (only `work`/`video`), so it links
-// out as a plain page for now; swap once that content type exists.
+// Brief section 04: oversized links as the primary content-area nav.
 // Images: real BTS stills (not fabricated stock) standing in for proper art
 // direction per section until the client provides that.
 const PATHS = [
-	{
-		label: { es: 'Trabajo', en: 'Work' },
-		href: '/portfolio',
-		description: { es: 'Proyectos realizados para clientes y colaboraciones.', en: 'Completed client and collaboration work.' },
-		image: '/images/BEHIND THE SCENES/GENERAL BTS/_0010100.jpg',
-	},
 	{
 		label: { es: 'Servicios', en: 'Services' },
 		href: '/services',
@@ -27,7 +19,7 @@ const PATHS = [
 	{
 		label: { es: 'Proyectos', en: 'Projects' },
 		href: '/projects',
-		description: { es: 'Propiedad intelectual original: series, películas y Aahh! La Brava.', en: 'Original IP — series, films and Aahh! La Brava.' },
+		description: { es: 'Proyectos realizados para clientes y colaboraciones.', en: 'Completed client and collaboration work.' },
 		image: '/images/BEHIND THE SCENES/GENERAL BTS/_0010042.jpg',
 	},
 ];

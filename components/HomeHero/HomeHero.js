@@ -23,7 +23,6 @@ const SECTION_VH = 1.5;
 const VIDEO_WAIT_MS = 2500;
 
 const MENU = [
-	{ label: { es: 'Trabajo', en: 'Work' }, href: '/portfolio' },
 	{ label: { es: 'Servicios', en: 'Services' }, href: '/services' },
 	{ label: { es: 'Proyectos', en: 'Projects' }, href: '/projects' },
 ];

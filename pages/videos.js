@@ -4,7 +4,7 @@ import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { Header, Footer, Main, SEO, NavigationMenu, VideoGrid } from '../components';
 
-// Same Next.js-first pattern as pages/portfolio.js — chrome and `videos`
+// Same Next.js-first pattern as pages/projects.js — chrome and `videos`
 // are separate queries so a GraphQL error on one doesn't fail the whole
 // combined response and take the nav down with it.
 export default function VideosPage() {

@@ -4,10 +4,10 @@ import { useT } from '../../lib/i18n';
 import { BlogInfoFragment } from '../../fragments/GeneralSettings';
 import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, WorkItemMedia } from '../../components';
 
-// Work Archives: the full `work` CPT archive (the page assigned as
+// Project Archives: the full `work` CPT archive (the page assigned as
 // portfolio_page_id on the backend) — every post, grid layout, no curation
-// or cap. pages/portfolio.js ("Works") is the curated carousel that links
-// here via "View all works".
+// or cap. pages/projects.js ("Projects") is the curated carousel that links
+// here via "View all projects".
 export default function WorkArchivesPage() {
 	const t = useT();
 	const { data } = useQuery(WorkArchivesPage.query, {
@@ -27,7 +27,7 @@ export default function WorkArchivesPage() {
 
 	return (
 		<>
-			<SEO title={t({ es: 'Archivo de trabajos', en: 'Work Archives' })} />
+			<SEO title={t({ es: 'Archivo de proyectos', en: 'Project Archives' })} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<PortfolioGrid works={works} />
