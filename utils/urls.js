@@ -1,6 +1,11 @@
 export function getSafeHttpUrl(value) {
 	if (!value) return null;
 
+	// A same-origin relative path (e.g. /videos/hero.mp4) — not "//host/...",
+	// which `new URL` below would otherwise accept as protocol-relative to an
+	// arbitrary host. Used as-is: whatever origin is serving the page.
+	if (value.startsWith('/') && !value.startsWith('//')) return value;
+
 	try {
 		const url = new URL(value);
 		return url.protocol === 'http:' || url.protocol === 'https:' ? url.href : null;
