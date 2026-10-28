@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { HERO_DEMOREEL_URL, SHOWREEL_URL } from '../constants/media';
+import { scrollTo } from '../lib/scroll';
 import * as MENUS from '../constants/menus';
 import { useT } from '../lib/i18n';
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
@@ -51,6 +52,18 @@ export default function HomePage() {
 	const primaryMenu = data?.headerMenuItems?.nodes ?? [];
 	const footerMenu = data?.footerMenuItems?.nodes ?? [];
 	const works = worksLoading ? null : pickFeaturedWorks(worksData?.works?.edges?.map((edge) => edge.node) ?? []);
+
+	// HomeHero's pin/shrink math and load-in intro both assume a fresh load
+	// starts at the top — a reload or back/forward navigation landing with
+	// the browser's restored mid-page scroll position (or an in-page anchor
+	// like #contact) desyncs them, producing the stuck-mid-intro glitch
+	// (oversized wordmark overlapping later sections). Runs before
+	// _app.js's initSmoothScroll (child layout effects fire first), so Lenis
+	// starts in sync with the reset position instead of the stale one.
+	useLayoutEffect(() => {
+		if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+		scrollTo(0, { immediate: true });
+	}, []);
 
 	return (
 		<>
