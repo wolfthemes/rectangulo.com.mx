@@ -38,18 +38,18 @@ function GallerySlideshow({ images }) {
 	);
 }
 
-// Grid tile background, driven by the work's post format: "video" plays its
-// video meta, "gallery" cycles its gallery meta as a slideshow, everything
-// else — including a video/gallery format work whose meta is empty — falls
-// back to the plain featured image.
+// Grid tile background, driven by the work's own post meta rather than its
+// post format taxonomy — a work can carry a video meta without the format
+// term being set to "video" (or vice versa), so go by what's actually there:
+// a self-hosted video file plays, else a gallery cycles as a slideshow, else
+// the plain featured image.
 // `manual`: the parent starts/stops the video (play only while in view).
 export default function WorkItemMedia({ work, manual = false }) {
-	const formatSlug = work?.postFormats?.nodes?.[0]?.slug;
 	const videoUrl = getSafeHttpUrl(work?.workVideoUrl);
 	const gallery = work?.workGallery ?? [];
 	const featuredImage = work?.featuredImage?.node;
 
-	if (formatSlug === 'post-format-video' && videoUrl && VIDEO_FILE_PATTERN.test(videoUrl)) {
+	if (videoUrl && VIDEO_FILE_PATTERN.test(videoUrl)) {
 		return (
 			<video
 				className={cx('video')}
@@ -64,7 +64,7 @@ export default function WorkItemMedia({ work, manual = false }) {
 		);
 	}
 
-	if (formatSlug === 'post-format-gallery' && gallery.length > 0) {
+	if (gallery.length > 0) {
 		return (
 			<>
 				<img
@@ -97,11 +97,6 @@ WorkItemMedia.fragments = {
 			workGallery {
 				sourceUrl
 				altText
-			}
-			postFormats {
-				nodes {
-					slug
-				}
 			}
 		}
 	`,
