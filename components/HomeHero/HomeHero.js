@@ -227,10 +227,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				wordmarkRef.current.style.transform = `scale(${1 - progress * 0.7})`;
 			}
 
-			// Nav fades in as the wordmark collapses into its corner mark — same
-			// band as before the load-in intro existed, nav was never part of
-			// that timeline.
-			const showNav = band(progress, 0, 0.55);
+			// Nav fades in as the wordmark collapses into its corner mark — starts
+			// once the wordmark has already shrunk a fair bit (not from scroll 0),
+			// so the nav doesn't appear while the mark is still near full size.
+			const showNav = band(progress, 0.25, 0.65);
 			if (navRef.current) {
 				navRef.current.style.opacity = showNav;
 				navRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
