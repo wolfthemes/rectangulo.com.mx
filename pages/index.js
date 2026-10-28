@@ -58,6 +58,7 @@ export default function HomePage() {
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} hidden />
 			<Main>
 				<HomeHero
+				menuItems={primaryMenu}
 				demoreelUrl={HERO_DEMOREEL_URL}
 				statement={t(STATEMENT)}
 				onViewShowreel={() => setShowreelOpen(true)}

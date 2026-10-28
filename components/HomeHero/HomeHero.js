@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { onScrollFrame, getLenis } from '../../lib/scroll';
 import { LanguageSwitcher } from '../LanguageSwitcher';
-import { useT } from '../../lib/i18n';
+import { NAV_LABELS, useT } from '../../lib/i18n';
 import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './HomeHero.module.scss';
 
@@ -21,11 +21,6 @@ const SECTION_VH = 1.5;
 // reel in regardless (slow connection, failed load, or a placeholder div
 // with no `readyState` at all) — the intro must never hang indefinitely.
 const VIDEO_WAIT_MS = 2500;
-
-const MENU = [
-	{ label: { es: 'Servicios', en: 'Services' }, href: '/services' },
-	{ label: { es: 'Proyectos', en: 'Projects' }, href: '/projects' },
-];
 
 const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
 // Remaps progress from [from, to] to [0, 1], clamped — the small helper
@@ -65,8 +60,10 @@ function waitForVideo(reel) {
 // the brand statement + "View Showreel" CTA. Imperative style writes (no
 // React state per frame) — same reasoning as GalleryBanner's rAF loop: this
 // runs at scroll cadence and a re-render per frame would be wasted work.
-export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
+export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuItems = [] }) {
 	const t = useT();
+	// WP's menu query can append ghost items without a __typename (see NavigationMenu).
+	const navItems = menuItems.filter((item) => item.__typename && item.path);
 	const sectionRef = useRef(null);
 	const reelRef = useRef(null);
 	const wordmarkRef = useRef(null);
@@ -280,8 +277,8 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel }) {
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">
-						{MENU.map(({ label, href }) => (
-							<Link key={href} href={href}>{t(label)}</Link>
+						{navItems.map(({ id, path, label }) => (
+							<Link key={id ?? path} href={path}>{t(NAV_LABELS[path.replace(/\/+$/, '')]) ?? label}</Link>
 						))}
 					</nav>
 					{SOCIAL_LINKS.map(({ short, label, href }) => (

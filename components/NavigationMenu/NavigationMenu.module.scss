@@ -59,14 +59,16 @@
 		white-space: nowrap;
 		text-align: center;
 		text-transform: uppercase;
-		font-family: var(--wpe--font-family--display);
-		font-weight: fw(bold);
+
+		// Same type as the HOME hero nav (body font, tracked) so the menu reads
+		// identically on every page.
+		letter-spacing: 0.08em;
 
 		// Top nav — kept small. The footer nav is a completely separate
 		// treatment (giant display type, own hover), see `footer &` below —
 		// deliberately not sharing this size/color so the two never end up
 		// fighting over which file's same-specificity rule wins.
-		font-size: fs(xs);
+		font-size: fs(sm);
 
 		// Remove link underline when component is inside header or footer.
 		header &,
