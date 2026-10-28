@@ -78,7 +78,7 @@ export default function Component(props) {
 
 	return (
 		<>
-			<SEO type="video" title={title} image={featuredImage?.node} node={video} />
+			<SEO noindex title={title} image={featuredImage?.node} node={video} />
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<Container>

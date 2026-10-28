@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { buildSeo } from '../../lib/seo/buildSeo';
+import { SITE_NAME } from '../../lib/seo/site';
 import JsonLd from './JsonLd';
 
 /**
@@ -32,7 +33,7 @@ export default function SEO({ image, ...props }) {
 				))}
 
 				<meta property="og:type" content={seo.ogType} />
-				<meta property="og:site_name" content="Rectángulo" />
+				<meta property="og:site_name" content={SITE_NAME} />
 				<meta property="og:locale" content={seo.ogLocale} />
 				<meta property="og:url" content={seo.canonical} />
 				<meta property="og:title" content={seo.ogTitle} />
