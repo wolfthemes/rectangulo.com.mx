@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { CREDIT_FIELDS } from '../../constants/credits';
-import { extractContentVideoUrl, getSafeHttpUrl } from '../../utils/urls';
+import { extractContentVideoUrl, resolveVideoFileUrl } from '../../utils/urls';
 import { SafeHtml } from '../SafeHtml';
 import { VideoModal } from '../VideoModal';
 import { useT } from '../../lib/i18n';
@@ -19,9 +19,9 @@ export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 	// Full-size meta first, then the preview, then whatever video the post
 	// content itself embeds — only reached once no video meta exists at all.
 	const videoSrc =
-		getSafeHttpUrl(work?.workVideoFullUrl) ||
-		getSafeHttpUrl(work?.workVideoUrl) ||
-		getSafeHttpUrl(extractContentVideoUrl(work?.content));
+		resolveVideoFileUrl(work?.workVideoFullUrl) ||
+		resolveVideoFileUrl(work?.workVideoUrl) ||
+		resolveVideoFileUrl(extractContentVideoUrl(work?.content));
 
 	return (
 		<VideoModal open={Boolean(work)} onClose={onClose} src={videoSrc} title={work?.title}>

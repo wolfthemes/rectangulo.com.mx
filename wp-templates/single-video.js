@@ -7,7 +7,7 @@ import { SeoFragment } from '../fragments/Seo';
 import { FeaturedImage } from '../components/FeaturedImage';
 import { useT } from '../lib/i18n';
 import { youtubeId } from '../lib/youtube';
-import { getSafeHttpUrl } from '../utils/urls';
+import { resolveVideoFileUrl } from '../utils/urls';
 import styles from './single-video.module.scss';
 
 const GET_LAYOUT_QUERY = gql`
@@ -73,7 +73,7 @@ export default function Component(props) {
 	const footerMenu = footerMenuItems?.nodes ?? [];
 	const { title, featuredImage, videoFullUrl, videoTypes } = video ?? {};
 	const ytId = youtubeId(videoFullUrl);
-	const safeVideoFullUrl = getSafeHttpUrl(videoFullUrl);
+	const safeVideoFullUrl = resolveVideoFileUrl(videoFullUrl);
 	const type = videoTypes?.nodes?.map((node) => node.name).join(', ');
 
 	return (

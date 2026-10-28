@@ -8,7 +8,7 @@ import { SeoFragment } from '../fragments/Seo';
 import { FeaturedImage } from '../components/FeaturedImage';
 import { useT } from '../lib/i18n';
 import { youtubeId } from '../lib/youtube';
-import { getSafeHttpUrl } from '../utils/urls';
+import { resolveVideoFileUrl } from '../utils/urls';
 import styles from './single-work.module.scss';
 
 const GET_LAYOUT_QUERY = gql`
@@ -109,7 +109,7 @@ export default function Component(props) {
 	const footerMenu = footerMenuItems?.nodes ?? [];
 	const { title, featuredImage, workVideoUrl } = work ?? {};
 	const ytId = youtubeId(workVideoUrl);
-	const safeWorkVideoUrl = getSafeHttpUrl(workVideoUrl);
+	const safeWorkVideoUrl = resolveVideoFileUrl(workVideoUrl);
 
 	return (
 		<>

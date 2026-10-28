@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { gql } from '@apollo/client';
 import classNames from 'classnames/bind';
 import { VIDEO_FILE_PATTERN } from '../../constants/media';
-import { extractContentVideoUrl, getSafeHttpUrl } from '../../utils/urls';
+import { extractContentVideoUrl, resolveVideoFileUrl } from '../../utils/urls';
 import styles from './WorkItemMedia.module.scss';
 
 let cx = classNames.bind(styles);
@@ -47,7 +47,7 @@ function GallerySlideshow({ images }) {
 export default function WorkItemMedia({ work, manual = false }) {
 	// Preview meta first; only look at post content once no meta exists at all.
 	const videoUrl =
-		getSafeHttpUrl(work?.workVideoUrl) || getSafeHttpUrl(extractContentVideoUrl(work?.content));
+		resolveVideoFileUrl(work?.workVideoUrl) || resolveVideoFileUrl(extractContentVideoUrl(work?.content));
 	const gallery = work?.workGallery ?? [];
 	const featuredImage = work?.featuredImage?.node;
 

@@ -6,7 +6,7 @@ import { Container } from '../Container';
 import { revealOnEnter } from '../../lib/page-enter';
 import { getLenis } from '../../lib/scroll';
 import { youtubeId } from '../../lib/youtube';
-import { getSafeHttpUrl } from '../../utils/urls';
+import { resolveVideoFileUrl } from '../../utils/urls';
 import { useT } from '../../lib/i18n';
 import styles from './VideoGrid.module.scss';
 
@@ -22,7 +22,7 @@ function Card({ video, index, onOpen, imgRef }) {
 	// Self-hosted file preview, rendered directly as a <video> src — the
 	// YouTube/Vimeo case below builds its iframe src from an extracted id,
 	// not the raw URL, so it doesn't need this.
-	const preview = getSafeHttpUrl(video.preview);
+	const preview = resolveVideoFileUrl(video.preview);
 	const [hovered, setHovered] = useState(false);
 	const videoRef = useRef(null);
 
@@ -126,7 +126,7 @@ const Frame = forwardRef(function Frame({ video, cardEl, viewportEl, onClose }, 
 				<video
 					ref={videoRef}
 					className={cx('media')}
-					src={getSafeHttpUrl(video.full)}
+					src={resolveVideoFileUrl(video.full)}
 					controls
 					playsInline
 					poster={video.image}
