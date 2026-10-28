@@ -114,10 +114,8 @@ WorkItemMedia.fragments = {
 			workVideoUrl
 			workVideoFullUrl
 			workClient
-			workCredits {
-				key
-				value
-			}
+			# workCredits {key value} is not exposed by the backend schema right now
+			# (querying it fails the whole request) — re-add once it's back.
 			workYear
 			workFormato
 			content
