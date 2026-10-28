@@ -25,6 +25,8 @@ const LERP = 0.15;
 export default function HomeFeaturedWork({ works }) {
 	const t = useT();
 	const [activeIndex, setActiveIndex] = useState(null);
+	// Index into `works`, not the work itself — same shape as WorkFilmstrip's
+	// `viewing`, so ProjectViewer gets the same onPrev/onNext here too.
 	const [viewing, setViewing] = useState(null);
 	// Gates the preview's visibility, not just its hover state: on the
 	// fixed+transform desktop layout, `active` can flip true via a scroll
@@ -96,6 +98,7 @@ export default function HomeFeaturedWork({ works }) {
 	if (!works?.length) return null;
 
 	const active = activeIndex != null ? works[activeIndex] : null;
+	const viewed = viewing != null ? works[viewing] : null;
 
 	return (
 		<section className={cx('component')}>
@@ -120,7 +123,7 @@ export default function HomeFeaturedWork({ works }) {
 											// PageTransition's capture-phase interceptor out of the way.
 											if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 											e.preventDefault();
-											setViewing(work);
+											setViewing(i);
 										}}
 										onMouseEnter={() => setActiveIndex(i)}
 										onMouseLeave={() => setActiveIndex((cur) => (cur === i ? null : cur))}
@@ -146,7 +149,7 @@ export default function HomeFeaturedWork({ works }) {
 				</div>
 
 				<ProjectViewer
-				work={viewing}
+				work={viewed}
 				onClose={() => {
 					setViewing(null);
 					// mouseenter/mouseleave only fire on real pointer movement, and the
@@ -155,6 +158,8 @@ export default function HomeFeaturedWork({ works }) {
 					// Clear it explicitly; the next real hover sets it again.
 					setActiveIndex(null);
 				}}
+				onPrev={viewing > 0 ? () => setViewing(viewing - 1) : undefined}
+				onNext={viewing != null && viewing < works.length - 1 ? () => setViewing(viewing + 1) : undefined}
 			/>
 
 				<Link href="/projects" className={`${cx('view-all')} link-underline`}>
