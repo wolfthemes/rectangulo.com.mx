@@ -2,19 +2,40 @@
 @import 'styles/tokens';
 
 .component {
-	padding: clamp(3rem, 10vw, 7rem) 0;
+	// Own stacking context: the sticky panels can never paint over the
+	// pinned Stage 01 section that follows.
+	position: relative;
+	z-index: 0;
 }
 
 .service {
+	padding: clamp(2rem, 6vw, 4rem) 0;
+	background-color: $c-ink;
+	border-top: 1px solid $c-border;
+
+	// 2-tone dark: near-black / slightly lifted charcoal.
+	&:nth-child(even) {
+		background-color: color-mix(in srgb, $c-surface, white 7%);
+	}
+
+	// Curtain stack: every panel is one viewport tall and sticks at the top,
+	// so the next one (later in DOM = higher in paint order) covers it.
+	@media (min-width: $breakpoint-medium) {
+		position: sticky;
+		top: 0;
+		display: flex;
+		align-items: center;
+		height: 100vh;
+		height: 100svh;
+		padding: 0;
+		box-shadow: 0 -2rem 3rem -1rem rgba(0, 0, 0, 0.25);
+	}
+}
+
+.inner {
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
-	padding: clamp(2rem, 6vw, 4rem) 0;
-	border-top: 1px solid $c-border;
-
-	&:last-child {
-		border-bottom: 1px solid $c-border;
-	}
 
 	@media (min-width: $breakpoint-medium) {
 		flex-direction: row;

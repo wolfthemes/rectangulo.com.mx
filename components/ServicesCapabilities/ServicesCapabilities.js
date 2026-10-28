@@ -6,11 +6,11 @@ import styles from './ServicesCapabilities.module.scss';
 
 let cx = classNames.bind(styles);
 
-// ponytail: brief section 03 — one service per scroll-driven visual loop.
-// This scaffold stacks the six sections as plain static blocks (no loop
-// video, no scroll-triggered transition between them yet); swap each
-// `.loop` placeholder for a real autoplay clip and wire scroll pinning once
-// footage exists — same gap as WORK's filmstrip and HOME's hero.
+// ponytail: brief section 03 — one service per viewport-sized panel; each
+// next panel slides up over the previous one (curtain/card stack) via pure
+// CSS `position: sticky`, no JS. Swap each `.loop` placeholder for a real
+// autoplay clip once footage exists. Stack is desktop-only (>= medium);
+// mobile stays a plain list so tall content never clips.
 const SERVICES = [
 	{
 		number: '03.1',
@@ -144,20 +144,22 @@ export default function ServicesCapabilities() {
 
 	return (
 		<section className={cx('component')}>
-			<Container>
-				{SERVICES.map(({ number, title, description, capabilities, cta }) => (
-					<article key={number} className={cx('service')}>
-						<div className={cx('loop')} aria-hidden="true" />
-						<div className={cx('info')}>
-							<span className={cx('number')}>{number}</span>
-							<h3 className={cx('title')}>{t(title)}</h3>
-							<p className={cx('description')}>{t(description)}</p>
-							<p className={cx('capabilities')}>{t(capabilities).join(' · ')}</p>
-							{cta && <Link href={cta.href} className={cx('cta')}>{t(cta.label)}</Link>}
+			{SERVICES.map(({ number, title, description, capabilities, cta }) => (
+				<article key={number} className={cx('service')}>
+					<Container>
+						<div className={cx('inner')}>
+							<div className={cx('loop')} aria-hidden="true" />
+							<div className={cx('info')}>
+								<span className={cx('number')}>{number}</span>
+								<h3 className={cx('title')}>{t(title)}</h3>
+								<p className={cx('description')}>{t(description)}</p>
+								<p className={cx('capabilities')}>{t(capabilities).join(' · ')}</p>
+								{cta && <Link href={cta.href} className={cx('cta')}>{t(cta.label)}</Link>}
+							</div>
 						</div>
-					</article>
-				))}
-			</Container>
+					</Container>
+				</article>
+			))}
 		</section>
 	);
 }

@@ -2,18 +2,11 @@
 @import 'styles/tokens';
 
 .component {
+	// Above the Services curtain stack (z-index 0) so its pin never sits under it.
+	position: relative;
+	z-index: 1;
+	background-color: $c-ink;
 	padding-bottom: var(--wpe--section--padding-y);
-}
-
-.heading {
-	width: 100%;
-	margin: 0 0 2.5rem;
-	line-height: 0.95;
-	font-size: clamp(2.5rem, 9vw, 6rem);
-
-	// A single long word has nowhere to wrap at a space — without this it
-	// overflows the viewport at this font size instead of breaking.
-	overflow-wrap: break-word;
 }
 
 // Pinned by FondoInfinitoDiagram (see its pinRef prop) for the scroll

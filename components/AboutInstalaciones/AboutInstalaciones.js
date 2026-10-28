@@ -20,12 +20,6 @@ export default function AboutInstalaciones() {
 
 	return (
 		<section className={cx('component')}>
-			<Container>
-				<Heading level="h2" className={cx(['heading', 'is-animated-heading'])}>
-					{t({ es: 'Instalaciones', en: 'Facilities' })}
-					</Heading>
-			</Container>
-
 			<div ref={pinRef} className={cx('scrollStage')}>
 				<Container className={cx('scrollStageInner')}>
 					<div className={cx('diagramCol')}>

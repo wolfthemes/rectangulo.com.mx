@@ -69,6 +69,7 @@ export default function FondoInfinitoDiagram({ pinRef }) {
 				end: '+=200%',
 				scrub: 1,
 				pin: true,
+				invalidateOnRefresh: true,
 			},
 		});
 
@@ -98,7 +99,15 @@ export default function FondoInfinitoDiagram({ pinRef }) {
 
 		const unsubscribe = onScrollFrame(() => ScrollTrigger.update());
 
+		// The pin start is a measured scroll offset: anything above this section
+		// that changes height after mount (Services' viewport-tall curtain panels,
+		// late CSS/fonts) leaves it stale and the pin fires too early. Re-measure
+		// whenever the page height changes.
+		const ro = new ResizeObserver(() => ScrollTrigger.refresh());
+		ro.observe(document.body);
+
 		return () => {
+			ro.disconnect();
 			unsubscribe();
 			tl.scrollTrigger?.kill();
 			tl.kill();
