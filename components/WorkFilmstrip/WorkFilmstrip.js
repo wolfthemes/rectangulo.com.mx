@@ -44,7 +44,7 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 	const year = work.workYear || (work.date && new Date(work.date).getFullYear());
 
 	return (
-		<li ref={ref} className={cx('tile')}>
+		<li ref={ref} className={cx('tile')} style={{ '--i': index }}>
 			<button type="button" className={cx('open')} onClick={() => onOpen(index)}>
 				<WorkItemMedia work={work} manual />
 				<span className={cx('index')}>
@@ -68,6 +68,8 @@ export default function WorkFilmstrip({ works }) {
 	const t = useT();
 	const [filter, setFilter] = useState(ALL_FILTER);
 	const [viewing, setViewing] = useState(null);
+	// Only play the reveal after a filter change, not on first load.
+	const [switched, setSwitched] = useState(false);
 	const [visible, setVisible] = useState(() => new Set());
 	const [pinned, setPinned] = useState(false);
 	const outerRef = useRef(null);
@@ -139,6 +141,7 @@ export default function WorkFilmstrip({ works }) {
 
 	const changeFilter = (next) => {
 		setFilter(next);
+		setSwitched(true);
 		setVisible(new Set());
 		// Back to the top of the strip so the new result starts at tile 01.
 		if (trackRef.current) trackRef.current.scrollLeft = 0;
@@ -158,7 +161,8 @@ export default function WorkFilmstrip({ works }) {
 			<div ref={outerRef} className={cx('outer')}>
 				<div className={cx('stage')}>
 					{shown.length ? (
-						<ul ref={trackRef} className={cx('track')}>
+						// key: remount on filter change so every tile replays its reveal.
+						<ul key={filter} ref={trackRef} className={cx('track', { switched })}>
 							{shown.map((work, i) => (
 								<Tile
 									key={work.slug}
