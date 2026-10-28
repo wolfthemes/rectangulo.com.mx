@@ -1,5 +1,62 @@
 @import 'styles/tokens';
 
+// Entrance: each line of the info panel masks up from below as it fades in,
+// staggered by --i (set per element in ProjectViewer.js). Same cubic-bezier
+// as WorkFilmstrip's frame-in, for one consistent "projected into place" feel
+// across the site.
+@keyframes mask-up {
+	from {
+		clip-path: inset(100% 0 0 0);
+		opacity: 0;
+	}
+
+	to {
+		clip-path: inset(0);
+		opacity: 1;
+	}
+}
+
+@keyframes simple-fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+// .info (VideoModal.module.scss) is itself a flex column so .sheet's
+// margin-top: auto there can push it to the bottom edge — .content has to
+// keep passing that through, not just stack as a plain block, or the sheet
+// ends up stranded under the stagger with dead space below it instead.
+.content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.content > * {
+	animation: mask-up 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+	animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+// More info + prev/next: last, and just a plain fade — no mask, no stagger.
+.actions {
+	animation: simple-fade 0.3s ease both;
+	animation-delay: 520ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.content > * {
+		animation: none;
+	}
+
+	.actions {
+		animation: none;
+	}
+}
+
 // Production-dossier reference: everything in the info panel reads as the
 // same typewriter sheet, sized down the hierarchy rather than switching
 // families (title/category/credits all share --wpe--font-family--mono).

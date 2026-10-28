@@ -38,6 +38,13 @@ export default function HomeFeaturedWork({ works }) {
 	const [ready, setReady] = useState(false);
 	const layoutRef = useRef(null);
 	const previewRef = useRef(null);
+	// Captured at click time: seeds ProjectViewer's thumbnail-morph entrance.
+	const [sourceRect, setSourceRect] = useState(null);
+	// Bumped on every fresh open (the list is inert behind the dialog once
+	// one is, so a list click only ever happens from closed) — lets
+	// ProjectViewer replay its entrance stagger without also replaying on a
+	// future prev/next, which stays open and never re-hits this handler.
+	const [openKey, setOpenKey] = useState(0);
 
 	// Keyed on works?.length, not []: `works` is still null while the query
 	// loads, so the component renders nothing yet and layoutRef.current is
@@ -123,6 +130,16 @@ export default function HomeFeaturedWork({ works }) {
 											// PageTransition's capture-phase interceptor out of the way.
 											if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
 											e.preventDefault();
+											// Only this item's own preview is a valid morph source — if this
+											// item isn't the hovered/active one (e.g. opened via keyboard
+											// focus + Enter without a hover), there's nothing on screen to
+											// morph from.
+											setSourceRect(
+												activeIndex === i && ready && previewRef.current
+													? previewRef.current.getBoundingClientRect()
+													: null
+											);
+											setOpenKey((k) => k + 1);
 											setViewing(i);
 										}}
 										onMouseEnter={() => setActiveIndex(i)}
@@ -150,6 +167,8 @@ export default function HomeFeaturedWork({ works }) {
 
 				<ProjectViewer
 				work={viewed}
+				sourceRect={sourceRect}
+				openKey={openKey}
 				onClose={() => {
 					setViewing(null);
 					// mouseenter/mouseleave only fire on real pointer movement, and the

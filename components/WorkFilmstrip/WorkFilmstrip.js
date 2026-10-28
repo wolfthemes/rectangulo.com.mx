@@ -68,6 +68,9 @@ export default function WorkFilmstrip({ works }) {
 	const t = useT();
 	const [filter, setFilter] = useState(ALL_FILTER);
 	const [viewing, setViewing] = useState(null);
+	// Bumped on every open so ProjectViewer/VideoModal's entrance (close
+	// button, video reveal) replays each time — see HomeFeaturedWork.js.
+	const [openKey, setOpenKey] = useState(0);
 	// Only play the reveal after a filter change, not on first load.
 	const [switched, setSwitched] = useState(false);
 	const [visible, setVisible] = useState(() => new Set());
@@ -169,7 +172,10 @@ export default function WorkFilmstrip({ works }) {
 									work={work}
 									index={i}
 									total={matched.length}
-									onOpen={setViewing}
+									onOpen={(i) => {
+										setOpenKey((k) => k + 1);
+										setViewing(i);
+									}}
 									onVisible={onVisible}
 								/>
 							))}
@@ -184,6 +190,7 @@ export default function WorkFilmstrip({ works }) {
 
 			<ProjectViewer
 				work={viewed}
+				openKey={openKey}
 				onClose={() => setViewing(null)}
 				onPrev={viewing > 0 ? () => setViewing(viewing - 1) : undefined}
 				onNext={viewing != null && viewing < shown.length - 1 ? () => setViewing(viewing + 1) : undefined}

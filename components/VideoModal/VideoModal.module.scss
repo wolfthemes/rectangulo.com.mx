@@ -17,16 +17,6 @@
 	border: 0;
 	background: #000;
 	color: $c-base;
-	opacity: 0;
-	transition: opacity 0.4s ease;
-
-	&[open] {
-		opacity: 1;
-
-		@starting-style {
-			opacity: 0;
-		}
-	}
 
 	&::backdrop {
 		background: #000;
@@ -43,11 +33,33 @@
 	}
 
 	@media (prefers-reduced-motion: reduce) {
-		transition: none;
-
 		&::backdrop {
 			transition: none;
 		}
+	}
+}
+
+@keyframes simple-fade {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.close {
+		animation: none;
+	}
+
+	.morph {
+		transition: none;
+	}
+
+	.videoBox {
+		animation: none;
 	}
 }
 
@@ -70,6 +82,40 @@
 	background-size: calc(100% / 7) 100%;
 }
 
+@keyframes curtain-drop {
+	from {
+		clip-path: inset(0 0 100% 0);
+	}
+
+	to {
+		clip-path: inset(0);
+	}
+}
+
+// Curtain: the panel (close button, info, media slot) wipes down into view
+// top-first, like a cinema curtain rising in reverse. Lives on its own
+// wrapper rather than on .component so the morph clone (a sibling, below)
+// can fly across the screen unclipped while this is still revealing.
+// A plain `animation` here, not `transition` + [open] + @starting-style: the
+// dialog's native display:none <-> block toggle restarts a CSS animation
+// reliably on every single open, but an interrupted transition (closing
+// before the opening one finishes, which a quick couple of open/close
+// cycles does) can leave clip-path stuck mid-wipe — clipping the video to
+// invisible along with it, which read as "the video doesn't start" as much
+// as "the animation stopped".
+.curtain {
+	position: relative;
+	z-index: 1;
+	height: 100%;
+	animation: curtain-drop 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.curtain {
+		animation: none;
+	}
+}
+
 .close {
 	appearance: none;
 	position: absolute;
@@ -84,11 +130,33 @@
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	cursor: pointer;
+
+	// A plain CSS transition + [open] here (like .curtain above) only
+	// replays reliably on a true mount/display change, not on the second
+	// and later times a native <dialog> opens — it never leaves the DOM in
+	// between, so there's no re-mount to trigger @starting-style's "newly
+	// displayed" condition again. Keyed remount (VideoModal.js) + a real
+	// `animation` sidesteps that: every fresh key is a genuine new element.
+	animation: simple-fade 0.3s ease both;
+	animation-delay: 0.52s;
+}
+
+// The morph clone: the hover preview's own thumbnail, flown from its
+// on-screen rect (set inline from JS) to .media's rect. Unclipped sibling of
+// .curtain — see the comment there.
+.morph {
+	position: fixed;
+	z-index: 5;
+	object-fit: cover;
+	pointer-events: none;
+	transition:
+		left 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+		top 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+		width 0.55s cubic-bezier(0.65, 0, 0.35, 1),
+		height 0.55s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .layout {
-	position: relative;
-	z-index: 1;
 	display: flex;
 	height: 100%;
 	align-items: stretch;
@@ -130,12 +198,28 @@
 	@media (width <= 768px) {
 		order: 1;
 	}
+}
+
+// The exact video-sized box — what the morph clone's target rect and this
+// reveal fade are both measured/applied against, so the clone's last frame
+// and the real video's first frame land on precisely the same rect.
+.videoBox {
+	width: 100%;
+	aspect-ratio: 16 / 9;
+
+	// Same reliable-replay reasoning as .close above.
+	animation: simple-fade 0.4s ease both;
+
+	// Matches the morph clone's travel time (0.55s) — whether or not this
+	// particular open actually had a thumbnail to morph from, the video
+	// always settles in only once that beat has had time to play out.
+	animation-delay: 0.55s;
 
 	video,
 	iframe {
 		display: block;
 		width: 100%;
-		aspect-ratio: 16 / 9;
+		height: 100%;
 		border: 0;
 		background: #000;
 	}
