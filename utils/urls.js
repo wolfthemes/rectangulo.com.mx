@@ -30,3 +30,14 @@ export function getSafeEmbedUrl(value) {
 
 	return allowedHosts.has(hostname) ? safeUrl : null;
 }
+
+// Last-resort fallback when a work has no video meta at all: the first
+// self-hosted <video>/<source> src, or YouTube/Vimeo <iframe> src, found in
+// its rendered post content (WP block editor video/embed blocks).
+const CONTENT_VIDEO_PATTERN =
+	/<(?:video|source)[^>]+src=["']([^"']+)["']|<iframe[^>]+src=["']([^"']*(?:youtube\.com|youtu\.be|vimeo\.com)[^"']*)["']/i;
+
+export function extractContentVideoUrl(html) {
+	const match = CONTENT_VIDEO_PATTERN.exec(html ?? '');
+	return match ? match[1] || match[2] || null : null;
+}

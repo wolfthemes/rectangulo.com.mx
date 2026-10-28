@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import { CREDIT_FIELDS } from '../../constants/credits';
-import { getSafeHttpUrl } from '../../utils/urls';
+import { extractContentVideoUrl, getSafeHttpUrl } from '../../utils/urls';
 import { SafeHtml } from '../SafeHtml';
 import { VideoModal } from '../VideoModal';
 import { useT } from '../../lib/i18n';
@@ -16,9 +16,15 @@ export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 	const category = work?.workTypes?.nodes?.[0]?.name;
 	const year = work?.date && new Date(work.date).getFullYear();
 	const credits = work ? CREDIT_FIELDS.filter(([key]) => work[key]) : [];
+	// Full-size meta first, then the preview, then whatever video the post
+	// content itself embeds — only reached once no video meta exists at all.
+	const videoSrc =
+		getSafeHttpUrl(work?.workVideoFullUrl) ||
+		getSafeHttpUrl(work?.workVideoUrl) ||
+		getSafeHttpUrl(extractContentVideoUrl(work?.content));
 
 	return (
-		<VideoModal open={Boolean(work)} onClose={onClose} src={getSafeHttpUrl(work?.workVideoUrl)} title={work?.title}>
+		<VideoModal open={Boolean(work)} onClose={onClose} src={videoSrc} title={work?.title}>
 			<h2 className={cx('title')}>{work?.title}</h2>
 			{category && <p className={cx('category')}>({category})</p>}
 			{work?.excerpt && (

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { gql } from '@apollo/client';
 import classNames from 'classnames/bind';
 import { VIDEO_FILE_PATTERN } from '../../constants/media';
-import { getSafeHttpUrl } from '../../utils/urls';
+import { extractContentVideoUrl, getSafeHttpUrl } from '../../utils/urls';
 import styles from './WorkItemMedia.module.scss';
 
 let cx = classNames.bind(styles);
 
 // ponytail: a grid tile only has room for a real <video> background, not an
-// embed — a video-format work whose meta is a YouTube/Vimeo link falls back
-// to the featured image rather than an autoplaying iframe.
+// embed — a work whose only video is a YouTube/Vimeo link falls back to the
+// featured image rather than an autoplaying iframe.
 function GallerySlideshow({ images }) {
 	const [index, setIndex] = useState(0);
 
@@ -45,7 +45,9 @@ function GallerySlideshow({ images }) {
 // the plain featured image.
 // `manual`: the parent starts/stops the video (play only while in view).
 export default function WorkItemMedia({ work, manual = false }) {
-	const videoUrl = getSafeHttpUrl(work?.workVideoUrl);
+	// Preview meta first; only look at post content once no meta exists at all.
+	const videoUrl =
+		getSafeHttpUrl(work?.workVideoUrl) || getSafeHttpUrl(extractContentVideoUrl(work?.content));
 	const gallery = work?.workGallery ?? [];
 	const featuredImage = work?.featuredImage?.node;
 
@@ -94,6 +96,8 @@ WorkItemMedia.fragments = {
 	entry: gql`
 		fragment WorkMediaFragment on Work {
 			workVideoUrl
+			workVideoFullUrl
+			content
 			workGallery {
 				sourceUrl
 				altText
