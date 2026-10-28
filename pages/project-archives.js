@@ -1,8 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
-import * as MENUS from '../../constants/menus';
-import { useT } from '../../lib/i18n';
-import { BlogInfoFragment } from '../../fragments/GeneralSettings';
-import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, WorkItemMedia } from '../../components';
+import * as MENUS from '../constants/menus';
+import { useT } from '../lib/i18n';
+import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { Header, Footer, Main, SEO, NavigationMenu, PortfolioGrid, WorkItemMedia } from '../components';
 
 // Project Archives: the full `work` CPT archive (the page assigned as
 // portfolio_page_id on the backend) — every post, grid layout, no curation

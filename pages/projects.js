@@ -15,7 +15,7 @@ let cx = classNames.bind(styles);
 // fails the whole combined response (Apollo returns no data at all), which
 // previously took the nav down with it whenever the CPT wasn't queryable yet.
 // This is the curated "Projects" page (carousel, capped at 7 by WorkFilmstrip
-// itself); /projects/archive is the full grid of every work post.
+// itself); /project-archives is the full grid of every work post.
 export default function ProjectsPage() {
 	const t = useT();
 	const { data } = useQuery(ProjectsPage.query, {
@@ -36,7 +36,7 @@ export default function ProjectsPage() {
 			<Header title={siteTitle} description={siteDescription} menuItems={primaryMenu} />
 			<Main>
 				<WorkFilmstrip works={works ?? []} />
-				<Link href="/projects/archive" className={`${cx('viewAll')} link-underline`}>
+				<Link href="/project-archives" className={`${cx('viewAll')} link-underline`}>
 					{t({ es: 'Ver todos los proyectos', en: 'View all projects' })} <span aria-hidden="true">→</span>
 				</Link>
 				<ServicesCTA
