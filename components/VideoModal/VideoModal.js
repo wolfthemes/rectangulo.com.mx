@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { VIDEO_FILE_PATTERN } from '../../constants/media';
 import { getSafeEmbedUrl, getSafeHttpUrl } from '../../utils/urls';
 import { useT } from '../../lib/i18n';
+import { youtubeId } from '../../lib/youtube';
 import styles from './VideoModal.module.scss';
 
 let cx = classNames.bind(styles);
@@ -14,7 +15,10 @@ export default function VideoModal({ open, onClose, src, title, children }) {
 	const t = useT();
 	// Files play in <video>; anything else must be an allow-listed embed host.
 	const fileUrl = VIDEO_FILE_PATTERN.test(src ?? '') ? getSafeHttpUrl(src) : null;
-	const embedUrl = fileUrl ? null : getSafeEmbedUrl(src);
+	const ytId = fileUrl ? null : youtubeId(src);
+	// A plain youtube.com/watch?v= URL won't play in an <iframe> — only the
+	// /embed/ form does (same rewrite single-work.js's inline player uses).
+	const embedUrl = fileUrl ? null : ytId ? `https://www.youtube.com/embed/${ytId}` : getSafeEmbedUrl(src);
 
 	useEffect(() => {
 		const dialog = ref.current;
