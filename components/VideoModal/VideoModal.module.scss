@@ -92,7 +92,11 @@
 	display: flex;
 	height: 100%;
 	align-items: stretch;
-	padding: 4rem 0 0;
+
+	// .close is already position: absolute — it needs no reserved row of its
+	// own, that top padding was just dead space pushing the video down.
+	// Floats over the media/info instead, same as a fullscreen player's
+	// overlay controls.
 
 	@media (width <= 768px) {
 		flex-direction: column;
