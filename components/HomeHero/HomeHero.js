@@ -317,6 +317,9 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 						disabled={!onViewShowreel}
 					>
 						{t({ es: 'Ver showreel', en: 'View Showreel' })}
+						<svg className={cx('showreelSvg')} aria-hidden="true">
+							<rect className={cx('showreelShape')} width="100%" height="100%" pathLength="1" />
+						</svg>
 					</button>
 				</div>
 

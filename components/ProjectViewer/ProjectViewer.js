@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind';
+import Link from 'next/link';
 import { CREDIT_FIELDS } from '../../constants/credits';
 import { extractContentVideoUrl, resolveVideoFileUrl } from '../../utils/urls';
 import { SafeHtml } from '../SafeHtml';
@@ -14,8 +15,15 @@ let cx = classNames.bind(styles);
 export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 	const t = useT();
 	const category = work?.workTypes?.nodes?.[0]?.name;
-	const year = work?.date && new Date(work.date).getFullYear();
-	const credits = work ? CREDIT_FIELDS.filter(([key]) => work[key]) : [];
+	const year = work?.workYear || (work?.date && new Date(work.date).getFullYear());
+	// Custom fields by key; the dedicated Client meta wins over a `client` custom field.
+	const custom = Object.fromEntries((work?.workCredits ?? []).map(({ key, value }) => [key, value]));
+	if (work?.workClient) custom.client = work.workClient;
+	const known = CREDIT_FIELDS.filter(([key]) => custom[key]).map(([key, label]) => [key, t(label), custom[key]]);
+	const extra = Object.entries(custom)
+		.filter(([key]) => !CREDIT_FIELDS.some(([k]) => k === key))
+		.map(([key, value]) => [key, key.replace(/[_-]+/g, ' '), value]);
+	const credits = [...known, ...extra];
 	// Full-size meta first, then the preview, then whatever video the post
 	// content itself embeds — only reached once no video meta exists at all.
 	const videoSrc =
@@ -34,21 +42,29 @@ export default function ProjectViewer({ work, onClose, onPrev, onNext }) {
 			)}
 
 			<div className={cx('sheet')}>
-				{year && <p className={cx('year')}>{year}</p>}
+				{(year || work?.workFormato) && (
+					<p className={cx('year')}>{[year, work?.workFormato].filter(Boolean).join(' · ')}</p>
+				)}
 				{credits.length > 0 && (
 					<>
 						<p className={cx('creditsHeading')}>{t({ es: 'Créditos', en: 'Credits' })}</p>
 						<dl className={cx('credits')}>
-							{credits.map(([key, label]) => (
+							{credits.map(([key, label, value]) => (
 								<div key={key} className={cx('creditRow')}>
-									<dt>{t(label)}</dt>
-									<dd>{work[key]}</dd>
+									<dt>{label}</dt>
+									<dd>{value}</dd>
 								</div>
 							))}
 						</dl>
 					</>
 				)}
 			</div>
+
+			{work?.slug && (
+				<Link href={`/work/${work.slug}`} className={cx('moreInfo')}>
+					{t({ es: 'Más información', en: 'More info' })}
+				</Link>
+			)}
 
 			{(onPrev || onNext) && (
 				<nav className={cx('nav')} aria-label={t({ es: 'Navegación de proyectos', en: 'Project navigation' })}>

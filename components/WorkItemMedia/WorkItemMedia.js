@@ -113,6 +113,13 @@ WorkItemMedia.fragments = {
 		fragment WorkMediaFragment on Work {
 			workVideoUrl
 			workVideoFullUrl
+			workClient
+			workCredits {
+				key
+				value
+			}
+			workYear
+			workFormato
 			content
 			workGallery {
 				sourceUrl

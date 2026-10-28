@@ -1,6 +1,7 @@
 // Credit fields shown in the project viewer / WORK popup (WORK p.7-8), in
-// display order. Each key is read straight off the work node (see T031);
-// empty ones are hidden by ProjectViewer.
+// display order. Keys are WP custom field names (work.workCredits), except
+// `client` which also falls back on workClient. Empty ones are hidden by
+// ProjectViewer; custom fields not listed here are appended with their key.
 export const CREDIT_FIELDS = [
 	['client', { es: 'Cliente', en: 'Client' }],
 	['agency', { es: 'Agencia', en: 'Agency' }],
