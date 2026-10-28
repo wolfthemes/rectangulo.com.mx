@@ -38,6 +38,33 @@ function GallerySlideshow({ images }) {
 	);
 }
 
+// A freshly mounted <video> (every hover swap in HomeFeaturedWork re-mounts
+// one from scratch) has to buffer and decode before its first real frame
+// paints — `poster` only covers the gap up to that point, not the extra beat
+// `autoPlay` itself can take to kick in on top of it, so the tile flashed to
+// a flat black box in between. Keep the featured image permanently
+// underneath and only fade the video in once it's actually playing.
+function VideoBackground({ src, poster, alt, manual }) {
+	const [playing, setPlaying] = useState(false);
+
+	return (
+		<>
+			<img className={cx('fallback')} src={poster} alt={alt || ''} loading="lazy" />
+			<video
+				className={cx('video', { playing })}
+				src={src}
+				poster={poster}
+				autoPlay={!manual}
+				muted
+				loop
+				playsInline
+				preload={manual ? 'none' : 'auto'}
+				onPlaying={() => setPlaying(true)}
+			/>
+		</>
+	);
+}
+
 // Grid tile background, driven by the work's own post meta rather than its
 // post format taxonomy — a work can carry a video meta without the format
 // term being set to "video" (or vice versa), so go by what's actually there:
@@ -52,18 +79,7 @@ export default function WorkItemMedia({ work, manual = false }) {
 	const featuredImage = work?.featuredImage?.node;
 
 	if (videoUrl && VIDEO_FILE_PATTERN.test(videoUrl)) {
-		return (
-			<video
-				className={cx('video')}
-				src={videoUrl}
-				poster={featuredImage?.sourceUrl}
-				autoPlay={!manual}
-				muted
-				loop
-				playsInline
-				preload={manual ? "none" : "auto"}
-			/>
-		);
+		return <VideoBackground src={videoUrl} poster={featuredImage?.sourceUrl} alt={featuredImage?.altText} manual={manual} />;
 	}
 
 	if (gallery.length > 0) {

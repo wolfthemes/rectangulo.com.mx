@@ -9,6 +9,18 @@
 	object-fit: cover;
 }
 
+// Sits over .fallback (the featured image, rendered first in the DOM) until
+// VideoBackground's `playing` state flips — covers the gap between mount and
+// the video's first real painted frame instead of flashing black.
+.video {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+
+	&.playing {
+		opacity: 1;
+	}
+}
+
 .slideshow {
 	position: absolute;
 	inset: 0;

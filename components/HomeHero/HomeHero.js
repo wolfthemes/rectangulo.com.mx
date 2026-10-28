@@ -69,6 +69,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 	const wordmarkRef = useRef(null);
 	const navRef = useRef(null);
 	const statementRef = useRef(null);
+	const scrollCueRef = useRef(null);
 	const curtainRef = useRef(null);
 	// Flips once the load-in intro finishes — guards the scroll-driven effect
 	// below from writing to the same elements the intro's GSAP timeline is
@@ -94,7 +95,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 			// drives the convergence.
 			const cs = getComputedStyle(el);
 			const paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-			const available = parent.clientWidth - paddingX;
+			// -1px safety margin: scrollWidth rounds to whole pixels, so a size
+			// that converges to an exact fit can still round up a fraction over —
+			// enough to clip the last glyph against the viewport edge.
+			const available = parent.clientWidth - paddingX - 1;
 			const textWidth = el.scrollWidth - paddingX;
 			if (available <= 0 || !textWidth) return;
 			const current = parseFloat(cs.fontSize);
@@ -237,6 +241,14 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				statementRef.current.style.opacity = showStatement;
 				statementRef.current.style.visibility = showStatement > 0 ? 'visible' : 'hidden';
 			}
+
+			// Scroll cue: gone almost as soon as the visitor acts on it — a tiny
+			// band, not tied to the statement/nav timing above.
+			const showCue = 1 - band(progress, 0, 0.08);
+			if (scrollCueRef.current) {
+				scrollCueRef.current.style.opacity = showCue;
+				scrollCueRef.current.style.visibility = showCue > 0 ? 'visible' : 'hidden';
+			}
 		};
 
 		if (reduce) {
@@ -256,6 +268,11 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				) : (
 					<div ref={reelRef} className={cx('reel', 'reel--placeholder')} />
 				)}
+
+				{/* Same reasoning as .pinned::before's bottom fade — keeps the nav
+				    (top-left wordmark, top-right social links) readable over
+				    whatever the reel is showing, mirrored to the top edge. */}
+				<div className={cx('topFade')} aria-hidden="true" />
 
 				<div className={cx('lines')} aria-hidden="true" />
 				<div ref={curtainRef} className={cx('curtain')} aria-hidden="true" />
@@ -301,6 +318,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 					>
 						{t({ es: 'Ver showreel', en: 'View Showreel' })}
 					</button>
+				</div>
+
+				<div ref={scrollCueRef} className={cx('scrollCue')} aria-hidden="true" style={{ visibility: 'hidden' }}>
+					{t({ es: 'Scroll', en: 'Scroll' })}
 				</div>
 			</div>
 		</section>

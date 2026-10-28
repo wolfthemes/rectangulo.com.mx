@@ -27,6 +27,18 @@
 	background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 }
 
+// Top fade, mirroring .pinned::before below — keeps the wordmark/social nav
+// readable over the reel. A sibling element, not another pseudo-element:
+// ::before/::after on .pinned are already spoken for (bottom fade, grain).
+.topFade {
+	position: absolute;
+	inset: 0 0 auto;
+	z-index: 1;
+	height: 30%;
+	pointer-events: none;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
+}
+
 // Animated film-grain overlay (HOME brief p.5) — same noise.png + jitter
 // recipe as the shared `.grain` utility (styles/_utilities.scss), duplicated
 // locally because that utility flips `position` to `relative`, which would
@@ -187,6 +199,19 @@
 		opacity: 0.85;
 		text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
 	}
+}
+
+.scrollCue {
+	position: absolute;
+	z-index: 2;
+	bottom: 1.5rem;
+	right: var(--wpe--container--padding-x);
+	font-size: fs(xs);
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	opacity: 0.85;
+	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+	transition: opacity 0.3s ease;
 }
 
 .showreel {
