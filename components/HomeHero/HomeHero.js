@@ -4,6 +4,7 @@ import gsap from 'gsap';
 import Link from 'next/link';
 import { onScrollFrame, getLenis } from '../../lib/scroll';
 import { LanguageSwitcher } from '../LanguageSwitcher';
+import { DrawButton } from '../DrawButton';
 import { NAV_LABELS, useT } from '../../lib/i18n';
 import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './HomeHero.module.scss';
@@ -310,17 +311,9 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 					    03's "View Showreel" opens the complete piece) — disabled until
 					    a caller passes onViewShowreel, rather than a button that does
 					    nothing when clicked. */}
-					<button
-						type="button"
-						className={cx('showreel')}
-						onClick={onViewShowreel}
-						disabled={!onViewShowreel}
-					>
+					<DrawButton onClick={onViewShowreel} disabled={!onViewShowreel}>
 						{t({ es: 'Ver showreel', en: 'View Showreel' })}
-						<svg className={cx('showreelSvg')} aria-hidden="true">
-							<rect className={cx('showreelShape')} width="100%" height="100%" pathLength="1" />
-						</svg>
-					</button>
+					</DrawButton>
 				</div>
 
 				<div ref={scrollCueRef} className={cx('scrollCue')} aria-hidden="true" style={{ visibility: 'hidden' }}>
