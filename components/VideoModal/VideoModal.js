@@ -32,7 +32,17 @@ export default function VideoModal({ open, onClose, src, title, children, source
 		const dialog = ref.current;
 		if (!dialog) return;
 		const wasOpen = dialog.open;
-		if (open && !dialog.open) dialog.showModal();
+		// showModal() throws if the dialog believes it's still open (e.g. a
+		// browser still finishing the previous close) — don't let that wedge
+		// every future open.
+		if (open && !dialog.open) {
+			try {
+				dialog.showModal();
+			} catch {
+				dialog.close();
+				dialog.showModal();
+			}
+		}
 		if (!open && dialog.open) dialog.close();
 
 		if (open && !wasOpen && sourceRect && poster) {
