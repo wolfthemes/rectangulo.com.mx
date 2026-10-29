@@ -45,7 +45,11 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 
 	return (
 		<li ref={ref} className={cx('tile')} style={{ '--i': index }}>
-			<button type="button" className={cx('open')} onClick={() => onOpen(index)}>
+			<button
+				type="button"
+				className={cx('open')}
+				onClick={(e) => onOpen(index, e.currentTarget.getBoundingClientRect())}
+			>
 				<WorkItemMedia work={work} manual />
 				<span className={cx('index')}>
 					{/* Brief p.6: the 7th tile also carries the active filter's total
@@ -71,6 +75,10 @@ export default function WorkFilmstrip({ works }) {
 	// Bumped on every open so ProjectViewer/VideoModal's entrance (close
 	// button, video reveal) replays each time — see HomeFeaturedWork.js.
 	const [openKey, setOpenKey] = useState(0);
+	// Captured at click time: seeds ProjectViewer's thumbnail-morph entrance,
+	// same as HomeFeaturedWork's sourceRect — here the tile itself is the
+	// on-screen thumbnail, so the clicked button's own rect is the source.
+	const [sourceRect, setSourceRect] = useState(null);
 	// Only play the reveal after a filter change, not on first load.
 	const [switched, setSwitched] = useState(false);
 	const [visible, setVisible] = useState(() => new Set());
@@ -172,7 +180,8 @@ export default function WorkFilmstrip({ works }) {
 									work={work}
 									index={i}
 									total={matched.length}
-									onOpen={(i) => {
+									onOpen={(i, rect) => {
+										setSourceRect(rect);
 										setOpenKey((k) => k + 1);
 										setViewing(i);
 									}}
@@ -190,6 +199,7 @@ export default function WorkFilmstrip({ works }) {
 
 			<ProjectViewer
 				work={viewed}
+				sourceRect={sourceRect}
 				openKey={openKey}
 				onClose={() => setViewing(null)}
 				onPrev={viewing > 0 ? () => setViewing(viewing - 1) : undefined}
