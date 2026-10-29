@@ -15,27 +15,19 @@
 	margin: 0;
 	padding: 0;
 	border: 0;
-	background: #000;
+
+	// Transparent: the solid black + grid lines now live on .curtain::before,
+	// which slides into place instead of this just snapping on with the
+	// dialog's own display toggle — see that rule below.
+	background: transparent;
 	color: $c-base;
 
+	// Stays transparent too — .curtain::before is the only thing that ever
+	// paints black, so the page underneath stays visible until it slides
+	// over it, instead of the backdrop pre-dimming the area that hasn't been
+	// covered yet.
 	&::backdrop {
-		background: #000;
-		opacity: 0;
-		transition: opacity 0.4s ease;
-	}
-
-	&[open]::backdrop {
-		opacity: 1;
-
-		@starting-style {
-			opacity: 0;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		&::backdrop {
-			transition: none;
-		}
+		background: transparent;
 	}
 }
 
@@ -63,15 +55,40 @@
 	}
 }
 
-// Production-dossier reference: the same column rules run the full height of
-// the overlay, under both the info panel and the video — not just a motif
-// inside one or the other.
-.component::before {
+@keyframes curtain-fall {
+	from {
+		transform: translateY(-100%);
+	}
+
+	to {
+		transform: translateY(0);
+	}
+}
+
+// Curtain: a literal solid panel (production-dossier grid lines included)
+// that drops in from above the viewport like a cinema curtain falling into
+// place, over the live page, before anything else inside it plays. Its own
+// pseudo-element rather than .curtain's background directly, so it paints
+// first (behind .layout/.close in DOM order) without needing an explicit
+// z-index, and a sibling of the morph clone below rather than a container
+// for it, so that clone can fly across the screen unclipped while this is
+// still dropping. A plain `animation`, not `transition` + [open] +
+// @starting-style: the dialog's native display:none <-> block toggle
+// restarts a CSS animation reliably on every single open, but an
+// interrupted transition (closing before the opening one finishes, which a
+// quick couple of open/close cycles does) can leave it stuck mid-drop.
+.curtain {
+	position: relative;
+	z-index: 1;
+	height: 100%;
+}
+
+.curtain::before {
 	content: '';
 	position: absolute;
 	inset: 0;
-	z-index: 0;
 	pointer-events: none;
+	background-color: #000;
 	background-image: repeating-linear-gradient(
 		to right,
 		rgba(255, 255, 255, 0.12) 0,
@@ -80,38 +97,15 @@
 		transparent 100%
 	);
 	background-size: calc(100% / 7) 100%;
-}
 
-@keyframes curtain-drop {
-	from {
-		clip-path: inset(0 0 100% 0);
-	}
-
-	to {
-		clip-path: inset(0);
-	}
-}
-
-// Curtain: the panel (close button, info, media slot) wipes down into view
-// top-first, like a cinema curtain rising in reverse. Lives on its own
-// wrapper rather than on .component so the morph clone (a sibling, below)
-// can fly across the screen unclipped while this is still revealing.
-// A plain `animation` here, not `transition` + [open] + @starting-style: the
-// dialog's native display:none <-> block toggle restarts a CSS animation
-// reliably on every single open, but an interrupted transition (closing
-// before the opening one finishes, which a quick couple of open/close
-// cycles does) can leave clip-path stuck mid-wipe — clipping the video to
-// invisible along with it, which read as "the video doesn't start" as much
-// as "the animation stopped".
-.curtain {
-	position: relative;
-	z-index: 1;
-	height: 100%;
-	animation: curtain-drop 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+	// Resting state the animation falls back to when disabled below — kept
+	// in sync with the keyframe's own `to`.
+	transform: translateY(0);
+	animation: curtain-fall 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.curtain {
+	.curtain::before {
 		animation: none;
 	}
 }
