@@ -83,6 +83,30 @@
 	height: 100%;
 }
 
+// Closing: a plain fade of the whole panel — curtain background, video and
+// info together — rather than running the opening sequence in reverse.
+// `both` so it holds at opacity 0 for the beat VideoModal.js still waits
+// out before actually calling dialog.close().
+.curtain.closing {
+	animation: simple-fade-out 0.4s ease both;
+}
+
+@keyframes simple-fade-out {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.curtain.closing {
+		animation: none;
+	}
+}
+
 .curtain::before {
 	content: '';
 	position: absolute;
@@ -101,7 +125,7 @@
 	// Resting state the animation falls back to when disabled below — kept
 	// in sync with the keyframe's own `to`.
 	transform: translateY(0);
-	animation: curtain-fall 0.5s cubic-bezier(0.65, 0, 0.35, 1) both;
+	animation: curtain-fall 0.8s cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -131,8 +155,8 @@
 	// between, so there's no re-mount to trigger @starting-style's "newly
 	// displayed" condition again. Keyed remount (VideoModal.js) + a real
 	// `animation` sidesteps that: every fresh key is a genuine new element.
-	animation: simple-fade 0.3s ease both;
-	animation-delay: 0.52s;
+	animation: simple-fade 0.4s ease both;
+	animation-delay: 0.85s;
 }
 
 // The morph clone: the hover preview's own thumbnail, flown from its
@@ -144,10 +168,10 @@
 	object-fit: cover;
 	pointer-events: none;
 	transition:
-		left 0.55s cubic-bezier(0.65, 0, 0.35, 1),
-		top 0.55s cubic-bezier(0.65, 0, 0.35, 1),
-		width 0.55s cubic-bezier(0.65, 0, 0.35, 1),
-		height 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+		left 0.9s cubic-bezier(0.65, 0, 0.35, 1),
+		top 0.9s cubic-bezier(0.65, 0, 0.35, 1),
+		width 0.9s cubic-bezier(0.65, 0, 0.35, 1),
+		height 0.9s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .layout {
@@ -202,12 +226,12 @@
 	aspect-ratio: 16 / 9;
 
 	// Same reliable-replay reasoning as .close above.
-	animation: simple-fade 0.4s ease both;
+	animation: simple-fade 0.5s ease both;
 
-	// Matches the morph clone's travel time (0.55s) — whether or not this
+	// Matches the morph clone's travel time (0.9s) — whether or not this
 	// particular open actually had a thumbnail to morph from, the video
 	// always settles in only once that beat has had time to play out.
-	animation-delay: 0.55s;
+	animation-delay: 0.9s;
 
 	video,
 	iframe {

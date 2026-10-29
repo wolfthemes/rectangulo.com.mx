@@ -8,12 +8,33 @@ import styles from './VideoModal.module.scss';
 
 let cx = classNames.bind(styles);
 
+// Matches .closing's fade-out duration (VideoModal.module.scss) — the real
+// dialog.close() waits this long so the fade actually gets to play instead
+// of the native close just snapping the dialog away under it.
+const CLOSE_FADE_MS = 400;
+
 // Native <dialog>: showModal() gives focus trap, Esc-to-close and inert
 // background for free. `children` renders beside the video (project info).
 export default function VideoModal({ open, onClose, src, title, children, sourceRect, poster, openKey }) {
 	const ref = useRef(null);
 	const videoBoxRef = useRef(null);
+	const curtainRef = useRef(null);
+	// Guards against Esc/close-button firing twice mid-fade — a plain ref,
+	// not state: toggling .closing is a direct DOM class flip (below) rather
+	// than a render, so there's nothing for this to trigger either.
+	const closingRef = useRef(false);
 	const t = useT();
+	// Set on the close button / Esc instead of calling dialog.close()
+	// straight away, so .closing's fade-out (VideoModal.module.scss) has a
+	// beat to play before the native close actually tears the dialog down.
+	// Reset in the main effect below as soon as a fresh open starts.
+	const requestClose = () => {
+		if (closingRef.current) return;
+		closingRef.current = true;
+		curtainRef.current?.classList.add(cx('closing'));
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		setTimeout(() => ref.current?.close(), reduce ? 0 : CLOSE_FADE_MS);
+	};
 	// Files play in <video>; anything else must be an allow-listed embed host.
 	const fileUrl = VIDEO_FILE_PATTERN.test(src ?? '') ? getSafeHttpUrl(src) : null;
 	const ytId = fileUrl ? null : youtubeId(src);
@@ -56,6 +77,11 @@ export default function VideoModal({ open, onClose, src, title, children, source
 			return;
 		}
 
+		// A fresh open always follows a real close (openKey only bumps on a
+		// genuine click) — clear any leftover fade state before it replays.
+		closingRef.current = false;
+		curtainRef.current?.classList.remove(cx('closing'));
+
 		if (handledKeyRef.current === openKey) return;
 		handledKeyRef.current = openKey;
 
@@ -96,22 +122,33 @@ export default function VideoModal({ open, onClose, src, title, children, source
 	// it regardless.
 	useEffect(() => {
 		if (morphRect === null) return undefined;
-		const timeout = setTimeout(() => setMorphRect(null), 650);
+		const timeout = setTimeout(() => setMorphRect(null), 1000);
 		return () => clearTimeout(timeout);
 	}, [morphRect]);
 
 	return (
-		<dialog ref={ref} className={cx('component')} onClose={onClose} aria-label={title}>
-			{/* Curtain: clip-path reveal lives here rather than on .component
-			    itself, so the morph clone below (a sibling, not a descendant)
-			    isn't clipped along with it and can fly freely across the
-			    screen while the panel underneath is still wiping in. Keyed: a
-			    real remount each open, same reasoning as .close/.videoBox below
-			    — this component never unmounts on its own, and restarting a CSS
-			    animation by relying on the dialog's native display toggling
-			    proved unreliable across repeated open/close cycles. */}
-			<div key={openKey} className={cx('curtain')}>
-				<button type="button" className={cx('close')} onClick={() => ref.current?.close()}>
+		<dialog
+			ref={ref}
+			className={cx('component')}
+			onClose={onClose}
+			onCancel={(e) => {
+				// Esc fires 'cancel' and closes natively right after — pre-empt
+				// that so it goes through the same fade-out as the button.
+				e.preventDefault();
+				requestClose();
+			}}
+			aria-label={title}
+		>
+			{/* Curtain: lives here rather than on .component itself, so the morph
+			    clone below (a sibling, not a descendant) isn't clipped along
+			    with it and can fly freely across the screen while the panel
+			    underneath is still dropping in. Keyed: a real remount each open,
+			    same reasoning as .close/.videoBox below — this component never
+			    unmounts on its own, and restarting a CSS animation by relying on
+			    the dialog's native display toggling proved unreliable across
+			    repeated open/close cycles. */}
+			<div key={openKey} ref={curtainRef} className={cx('curtain')}>
+				<button type="button" className={cx('close')} onClick={requestClose}>
 					{t({ es: 'Cerrar', en: 'Close' })}
 				</button>
 				<div className={cx('layout')}>
