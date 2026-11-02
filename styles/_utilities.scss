@@ -132,6 +132,26 @@
 	}
 }
 
+// Static film-grain overlay, driven by the animated filmgrain.gif itself
+// rather than a CSS keyframe — the gif already carries its own motion, so
+// this is just a low-opacity texture layer with no transform/animation.
+// Add `.filmgrain` to any positioned section (first use: HomeHero's hero).
+.filmgrain {
+	position: relative;
+	overflow: hidden;
+}
+
+.filmgrain::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 999999;
+	pointer-events: none;
+	opacity: 0.15;
+	background-image: url('/images/filmgrain.gif');
+	background-size: cover;
+}
+
 // Text-button hover effect (HOME's "View all work" first, reused anywhere
 // a plain text link needs the same treatment). Underline sits hidden at
 // rest, sweeps in from the left on hover/focus, retreats back out to the

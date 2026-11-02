@@ -263,7 +263,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 
 	return (
 		<section ref={sectionRef} className={cx('component')} style={{ height: `${SECTION_VH * 100}vh` }}>
-			<div className={cx('pinned')}>
+			<div className={`${cx('pinned')} filmgrain`}>
 				{demoreelUrl ? (
 					<video ref={reelRef} className={cx('reel')} src={demoreelUrl} autoPlay muted loop playsInline />
 				) : (

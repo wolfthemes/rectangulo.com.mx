@@ -14,6 +14,14 @@
 	color: $c-base;
 }
 
+// Re-assert sticky over the shared `.filmgrain` utility's `position:
+// relative` (styles/_utilities.scss) — two classes beats one on
+// specificity, so this wins regardless of stylesheet order.
+.pinned:global(.filmgrain) {
+	position: sticky;
+	overflow: hidden;
+}
+
 // Bottom fade so the statement text and showreel button stay readable over
 // whatever the reel is showing at that frame — same reasoning as the text
 // shadow below, belt and suspenders rather than relying on either alone.
@@ -37,46 +45,6 @@
 	height: 30%;
 	pointer-events: none;
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
-}
-
-// Animated film-grain overlay (HOME brief p.5) — same noise.png + jitter
-// recipe as the shared `.grain` utility (styles/_utilities.scss), duplicated
-// locally because that utility flips `position` to `relative`, which would
-// fight .pinned's `sticky`. .pinned's own `overflow: hidden` above clips the
-// oversized, animated pseudo-element back to the hero's bounds. No
-// opacity/blend-mode: the PNG is the texture, full strength, same as the
-// shared utility.
-.pinned::after {
-	content: '';
-	position: absolute;
-	top: -40%;
-	left: -40%;
-	width: 180%;
-	height: 180%;
-	z-index: 999999;
-	pointer-events: none;
-	background-image: url('/images/noise.png');
-	animation: grain-shift 1s steps(4) infinite;
-}
-
-@keyframes grain-shift {
-	0% { transform: translate(0, 0); }
-	10% { transform: translate(-5%, -5%); }
-	20% { transform: translate(-10%, 5%); }
-	30% { transform: translate(5%, -10%); }
-	40% { transform: translate(-5%, 15%); }
-	50% { transform: translate(-10%, 5%); }
-	60% { transform: translate(15%, 0); }
-	70% { transform: translate(0, 10%); }
-	80% { transform: translate(-15%, 0); }
-	90% { transform: translate(10%, 5%); }
-	100% { transform: translate(5%, 0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.pinned::after {
-		animation: none;
-	}
 }
 
 // Load-in intro: red curtain at rest, lifted (yPercent, set from JS) to
