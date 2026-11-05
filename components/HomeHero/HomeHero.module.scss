@@ -89,6 +89,15 @@
 	width: 100%;
 	margin: 0;
 
+	// The fixed, exactly-viewport-width box this sits in can't itself
+	// overflow — but the nowrap text inside it is sized by the fit-to-width
+	// script in HomeHero.js, and if that ever computes a hair too large
+	// (e.g. right after the viewport's scrollbar is hidden/shown again by
+	// MobileNav's scroll lock) the text pokes past the box's own edge.
+	// Being position:fixed, that escapes `body`'s overflow-x: hidden in
+	// most browsers — clip it here instead of relying on fit() being exact.
+	overflow: hidden;
+
 	// Matches Container's gutter. The fit-to-width script in HomeHero.js
 	// already accounts for this padding when sizing the font, so it stays
 	// exact regardless of the value here.
