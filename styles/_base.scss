@@ -64,8 +64,22 @@
 	box-sizing: border-box;
 }
 
+html {
+	// Reserves the vertical scrollbar's width permanently instead of letting
+	// it appear/disappear (e.g. MobileNav's scroll lock toggling overflow) —
+	// without this, that toggle changes the viewport width mid-session, which
+	// re-triggers HomeHero's fit-to-width wordmark sizing against a
+	// temporarily wider viewport and leaves it oversized once the real
+	// scrollbar returns, overflowing horizontally.
+	scrollbar-gutter: stable;
+}
+
 body {
 	margin: 0;
+	// No section on this site needs horizontal scroll — a hard backstop
+	// against any element (a fit-to-width text, a fixed overlay) nudging a
+	// few pixels past the viewport and surfacing a horizontal scrollbar.
+	overflow-x: hidden;
 	background-color: var(--wpe--main--background-color);
 	color: var(--wpe--main--color);
 	font-family: var(--wpe--font-family--body);

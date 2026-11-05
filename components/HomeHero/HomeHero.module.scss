@@ -94,6 +94,13 @@
 	// exact regardless of the value here.
 	padding: 0 var(--wpe--container--padding-x);
 
+	// Reserve room for the MobileNav hamburger (also top-right, see
+	// .mobileNav below) so the fit-to-width wordmark doesn't scale out to
+	// the same edge and run underneath it.
+	@media (max-width: $breakpoint-small - 1px) {
+		padding-right: calc(var(--wpe--container--padding-x) + 3.5rem);
+	}
+
 	// Same token h1-h6 use (styles/_base.scss) — StretchPro with its real
 	// fallback stack, instead of a hardcoded duplicate of just the one name.
 	font-family: var(--wpe--font-family--display);
@@ -123,6 +130,22 @@
 
 .reel--placeholder {
 	background: linear-gradient(135deg, #1a1a1a, #000);
+}
+
+.mobileNav {
+	position: fixed;
+	z-index: 20;
+	top: 1.5rem;
+	right: var(--wpe--container--padding-x);
+	color: $c-base;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.4s ease;
+
+	&.visible {
+		opacity: 1;
+		visibility: visible;
+	}
 }
 
 .social {

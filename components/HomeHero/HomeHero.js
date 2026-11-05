@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import gsap from 'gsap';
 import Link from 'next/link';
 import { onScrollFrame, getLenis } from '../../lib/scroll';
 import { LanguageSwitcher } from '../LanguageSwitcher';
+import { MobileNav } from '../MobileNav';
 import { DrawButton } from '../DrawButton';
 import { NAV_LABELS, useT } from '../../lib/i18n';
 import { SOCIAL_LINKS } from '../../constants/contact';
@@ -65,6 +66,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 	const t = useT();
 	// WP's menu query can append ghost items without a __typename (see NavigationMenu).
 	const navItems = menuItems.filter((item) => item.__typename && item.path);
+	// Mobile hamburger (MobileNav) isn't scroll-gated like `.social` below —
+	// a mobile visitor needs a way to navigate before they've scrolled at
+	// all — it just waits for the load-in intro to clear first.
+	const [introFinished, setIntroFinished] = useState(false);
 	const sectionRef = useRef(null);
 	const reelRef = useRef(null);
 	const wordmarkRef = useRef(null);
@@ -133,6 +138,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 			gsap.set(chars, { opacity: 1, y: 0 });
 			if (reel) gsap.set(reel, { opacity: 1 });
 			introDone.current = true;
+			// Deferred: setState synchronously inside a layout effect body
+			// triggers React's cascading-render lint; a reduced-motion visitor
+			// loses nothing by getting the hamburger one tick later.
+			queueMicrotask(() => setIntroFinished(true));
 			return undefined;
 		}
 
@@ -186,6 +195,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 			]);
 			if (cancelled) return;
 			introDone.current = true;
+			setIntroFinished(true);
 			lenis?.start();
 		})();
 
@@ -292,6 +302,8 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 						</span>
 					))}
 				</h1>
+
+				<MobileNav className={cx('mobileNav', { visible: introFinished })} menuItems={menuItems} />
 
 				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">

@@ -1,0 +1,145 @@
+@import 'styles/breakpoints';
+@import 'styles/tokens';
+
+// Panel width/slide distance share one value so the ::before background
+// and the menu content below always travel together.
+$panel-width: min(85vw, 22rem);
+
+.component {
+	display: inline-flex;
+}
+
+.toggle {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+	gap: 5px;
+	width: 2rem;
+	height: 1.5rem;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	position: relative;
+	z-index: 1;
+
+	// Buttons don't inherit `color` from the UA stylesheet by default, so
+	// `currentColor` on .bar below can't be left to inherit from a parent
+	// wrapper (Header's dark bar, HomeHero's dark reel) — stated explicitly.
+	color: $c-base;
+}
+
+.bar {
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: currentColor;
+	border-radius: 1px;
+}
+
+.backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 40;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+
+	&.open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+	}
+}
+
+.panel {
+	position: fixed;
+	inset: 0 0 0 auto;
+	z-index: 41;
+	width: $panel-width;
+	overflow-y: auto;
+	pointer-events: none;
+
+	// The sliding surface — kept separate from the content below so the
+	// panel's arrival (slide) and the menu's arrival (fade) read as two
+	// distinct beats, curtain-then-reveal, instead of one flat slide.
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		background-color: $c-ink;
+		transform: translateX(100%);
+		transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+	}
+
+	&.open {
+		pointer-events: auto;
+
+		&::before {
+			transform: translateX(0);
+		}
+
+		.menuWrap {
+			opacity: 1;
+			transition-delay: 0.2s;
+		}
+	}
+}
+
+.menuWrap {
+	position: relative;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	// Top padding clears the close button (top: 1.5rem, see .close) with
+	// real breathing room on top of that, not just enough to not touch it.
+	padding: 7rem 2.5rem 3rem;
+	opacity: 0;
+	transition: opacity 0.35s ease;
+}
+
+.close {
+	position: absolute;
+	top: 1.5rem;
+	right: 2rem;
+	background: none;
+	border: none;
+	color: $c-base;
+	font-size: 2rem;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0.25rem;
+}
+
+.menu {
+	:global(.component) {
+		background-color: transparent;
+	}
+
+	:global(.menu) {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	:global(li) {
+		width: 100%;
+	}
+
+	:global(a) {
+		width: 100%;
+		text-align: left;
+		padding: 0.6rem 0;
+		font-size: fs(lg);
+	}
+}
+
+@media (min-width: $breakpoint-small) {
+	.component {
+		display: none;
+	}
+}

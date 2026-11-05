@@ -20,6 +20,7 @@ export { HomeHero } from './HomeHero';
 export { LanguageSwitcher } from './LanguageSwitcher';
 export { LegalPage } from './LegalPage';
 export { Main } from './Main';
+export { MobileNav } from './MobileNav';
 export { NavigationMenu } from './NavigationMenu';
 export { ParallaxSection } from './ParallaxSection';
 export { PortfolioGrid } from './PortfolioGrid';
