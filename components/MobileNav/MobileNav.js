@@ -18,7 +18,18 @@ let cx = classNames.bind(styles);
 // context could still land on top of it. A portal sidesteps that entirely.
 export default function MobileNav({ menuItems, className }) {
 	const [isOpen, setIsOpen] = useState(false);
+	// `document` exists on the client even during the very first hydration
+	// pass, while SSR has no `document` at all — branching render output on
+	// that directly (`typeof document !== 'undefined'`) renders the portal
+	// on the client's first pass but not the server's, which is exactly the
+	// "server HTML didn't match" hydration error. Gating on a flag that's
+	// only ever flipped true after mount keeps that first client render
+	// identical to the server's, and adds the portal one render later.
+	const [mounted, setMounted] = useState(false);
 	const t = useT();
+
+	// eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: client-only mount flag, not a cascading-render bug.
+	useEffect(() => setMounted(true), []);
 
 	// Panel covers the viewport while open — lock the page behind it instead
 	// of leaving two independent scroll positions to fight over. Lenis drives
@@ -52,7 +63,7 @@ export default function MobileNav({ menuItems, className }) {
 				<span className={cx('bar')} />
 			</button>
 
-			{typeof document !== 'undefined' &&
+			{mounted &&
 				createPortal(
 					<>
 						<div className={cx('backdrop', { open: isOpen })} onClick={close} aria-hidden="true" />
