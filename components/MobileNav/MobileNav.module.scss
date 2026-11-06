@@ -60,7 +60,8 @@ $panel-width: min(85vw, 22rem);
 	inset: 0 0 0 auto;
 	z-index: 41;
 	width: $panel-width;
-	overflow-y: auto;
+	// overflow-y: auto;
+	overflow: hidden;
 	pointer-events: none;
 
 	// The sliding surface — kept separate from the content below so the
