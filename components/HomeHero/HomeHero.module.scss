@@ -157,12 +157,15 @@
 // Social links (left) and nav menu (right) — two independent fixed blocks,
 // both anchored for the same reason as .wordmark: stay put as a persistent
 // frame once the pin releases, instead of scrolling away. Brief (HOME -
-// Initial Layout): social stays left, Work/Projects/About stays right.
+// Initial Layout): social stays left, Work/Projects/About stays right,
+// both directly under the logo. `top` is written from HomeHero.js (tracking
+// the wordmark's own rect), not CSS, since the logo's rendered height/
+// position changes (load-in rise, then scroll shrink) and a static offset
+// can't track either.
 .social,
 .nav {
 	position: fixed;
 	z-index: 20;
-	top: 1.5rem;
 	display: flex;
 	gap: 1rem;
 	font-size: fs(sm);

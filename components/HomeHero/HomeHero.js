@@ -135,6 +135,8 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 		const curtain = curtainRef.current;
 		const wordmark = wordmarkRef.current;
 		const reel = reelRef.current;
+		const social = socialRef.current;
+		const nav = navRef.current;
 		if (!curtain || !wordmark) return undefined;
 
 		const chars = wordmark.querySelectorAll('.char');
@@ -144,6 +146,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 			gsap.set(curtain, { autoAlpha: 0 });
 			gsap.set(chars, { opacity: 1, y: 0 });
 			if (reel) gsap.set(reel, { opacity: 1 });
+			gsap.set([social, nav].filter(Boolean), { autoAlpha: 1 });
 			introDone.current = true;
 			// Deferred: setState synchronously inside a layout effect body
 			// triggers React's cascading-render lint; a reduced-motion visitor
@@ -155,12 +158,11 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 		// Closed/hidden starting state, written directly (not via CSS) so
 		// there's no flash-of-visible-before-hidden race waiting on a browser
 		// paint — same reasoning PageTransition's own curtain bars document.
-		// The wordmark itself stays hidden a beat longer still (see below). Nav
-		// is untouched here — it's not part of the intro at all, still only
-		// the existing scroll-driven fade below (same as before the intro).
+		// The wordmark itself stays hidden a beat longer still (see below).
 		gsap.set(curtain, { yPercent: 0 });
 		gsap.set(chars, { opacity: 0, y: '0.6em' });
 		gsap.set(wordmark, { autoAlpha: 0 });
+		gsap.set([social, nav].filter(Boolean), { autoAlpha: 0 });
 		if (reel) gsap.set(reel, { opacity: 0 });
 
 		const lenis = getLenis();
@@ -201,14 +203,24 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				reel ? gsap.to(reel, { opacity: 1, duration: 0.9, ease: 'power2.out' }) : Promise.resolve(),
 			]);
 			if (cancelled) return;
+			// introDone flips first so the scroll handler's per-frame position
+			// tracking (see the effect below) is already live and keeps social/
+			// nav flush against the wordmark's bottom edge from their very first
+			// visible frame, not a frame behind it. Reveal is quick (not tied to
+			// scroll) — they should land right as the logo settles at the top,
+			// not wait for the visitor to start scrolling.
 			introDone.current = true;
+			const restBottom = wordmark.getBoundingClientRect().bottom + 12;
+			gsap.set([social, nav].filter(Boolean), { top: restBottom });
+			await gsap.to([social, nav].filter(Boolean), { autoAlpha: 1, duration: 0.3, ease: 'power2.out' });
+			if (cancelled) return;
 			setIntroFinished(true);
 			lenis?.start();
 		})();
 
 		return () => {
 			cancelled = true;
-			gsap.killTweensOf([curtain, wordmark, reel, ...chars].filter(Boolean));
+			gsap.killTweensOf([curtain, wordmark, reel, social, nav, ...chars].filter(Boolean));
 			lenis?.start();
 		};
 	}, []);
@@ -245,18 +257,16 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				wordmarkRef.current.style.transform = `scale(${1 - progress * 0.7})`;
 			}
 
-			// Social (left) + nav (right) fade in together as the wordmark
-			// shrinks — starts once it's already shrunk a fair bit (not from
-			// scroll 0), so neither appears while the mark is still near full
-			// size.
-			const showNav = band(progress, 0.25, 0.65);
-			if (socialRef.current) {
-				socialRef.current.style.opacity = showNav;
-				socialRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
-			}
-			if (navRef.current) {
-				navRef.current.style.opacity = showNav;
-				navRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
+			// Social (left) + nav (right) sit directly under the logo's bottom
+			// edge, tracked from the wordmark's own rect each frame rather than a
+			// guessed offset — stays flush against it whether full-size on load
+			// or shrunk after scrolling. Their reveal (show/hide) is owned by the
+			// load-in intro's own GSAP tween above, not this scroll handler —
+			// this only ever repositions them once visible.
+			if (wordmarkRef.current) {
+				const wordmarkBottom = wordmarkRef.current.getBoundingClientRect().bottom + 12;
+				if (socialRef.current) socialRef.current.style.top = `${wordmarkBottom}px`;
+				if (navRef.current) navRef.current.style.top = `${wordmarkBottom}px`;
 			}
 
 			// Brand statement + View Showreel — lands before the pin releases.
@@ -325,7 +335,6 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 					{SOCIAL_LINKS.map(({ short, label, href }) => (
 						<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
 					))}
-					<LanguageSwitcher />
 				</div>
 
 				<div ref={navRef} className={cx('nav')} style={{ visibility: 'hidden' }}>
@@ -334,6 +343,7 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 							<Link key={id ?? path} href={path}>{t(NAV_LABELS[path.replace(/\/+$/, '')]) ?? label}</Link>
 						))}
 					</nav>
+					<LanguageSwitcher />
 				</div>
 
 				<div ref={statementRef} className={cx('statement')} style={{ visibility: 'hidden' }}>
