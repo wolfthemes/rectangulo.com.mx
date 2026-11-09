@@ -12,9 +12,11 @@ import {
 	AboutInstalaciones,
 	ParallaxSection,
 	AboutServices,
+	ServicesCapabilities,
 	AboutGallery,
 	AboutTeam,
 	ClientLogosCarousel,
+	ServicesCTA,
 } from '../components';
 
 // ponytail: Next.js-first build. Header/Footer pull real WP menu/site data
@@ -41,6 +43,12 @@ export default function AboutPage() {
 				<AboutInstalaciones />
 				<ParallaxSection />
 				<AboutServices />
+				{/* Brief (ABOUT - Services Integration): Services' capabilities
+				    breakdown folded in here, right after the teaser. ServicesTeam
+				    is deliberately left out — it's the same two people AboutTeam
+				    already lists below, just with longer bios; keeping both would
+				    show the team twice. */}
+				<ServicesCapabilities />
 				<AboutGallery />
 				<AboutTeam />
 				{/* Two-property wrapper — not worth its own component/module file
@@ -50,6 +58,7 @@ export default function AboutPage() {
 				>
 					<ClientLogosCarousel />
 				</section>
+				<ServicesCTA />
 			</Main>
 			<Footer title={siteTitle} menuItems={footerMenu} />
 		</>

@@ -8,7 +8,9 @@ import styles from './PageTransition.module.scss';
 const DURATION = 0.45;
 const HOLD = 0.12;
 // Routes whose entry curtain is the red/grain band (SERVICES brief p.2).
-const RED_ROUTES = ['/services'];
+// /services merged into /about (client revision brief: ABOUT - Services
+// Integration) — no standalone route left to tint.
+const RED_ROUTES = [];
 
 export default function PageTransition() {
 	const router = useRouter();
