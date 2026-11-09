@@ -342,12 +342,12 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				</div>
 
 				<div ref={navRef} className={cx('nav')} style={{ visibility: 'hidden' }}>
-					<LanguageSwitcher />
 					<nav className={cx('menu')} aria-label="Hero">
 						{navItems.map(({ id, path, label }) => (
 							<Link key={id ?? path} href={path}>{t(NAV_LABELS[path.replace(/\/+$/, '')]) ?? label}</Link>
 						))}
 					</nav>
+					<LanguageSwitcher />
 				</div>
 
 				<div ref={statementRef} className={cx('statement')} style={{ visibility: 'hidden' }}>
