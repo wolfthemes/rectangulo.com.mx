@@ -1,0 +1,21 @@
+@import 'styles/tokens';
+
+.component {
+	position: fixed;
+	inset: 0;
+	z-index: 999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: $c-accent;
+	pointer-events: none;
+}
+
+.logo {
+	width: clamp(10rem, 24vw, 18rem);
+	height: auto;
+
+	// Source mark is drawn dark (#171717); the loading screen needs it white
+	// on the brand red — no separate white asset, just invert it.
+	filter: brightness(0) invert(1);
+}
