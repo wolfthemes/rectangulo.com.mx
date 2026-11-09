@@ -7,8 +7,9 @@ import styles from './PageTransition.module.scss';
 
 const DURATION = 0.45;
 const HOLD = 0.12;
-// Routes whose entry curtain is the red/grain band (SERVICES brief p.2).
-const RED_ROUTES = ['/services'];
+// Routes whose entry curtain is the red/grain band (SERVICES brief p.2;
+// /about carries Services too).
+const RED_ROUTES = ['/services', '/about'];
 
 export default function PageTransition() {
 	const router = useRouter();

@@ -17,6 +17,7 @@ import {
 	AboutTeam,
 	ClientLogosCarousel,
 	ServicesCTA,
+	ServicesTeam,
 } from '../components';
 
 // ponytail: Next.js-first build. Header/Footer pull real WP menu/site data
@@ -43,13 +44,12 @@ export default function AboutPage() {
 				<AboutInstalaciones />
 				<ParallaxSection />
 				<AboutServices />
-				{/* Brief (ABOUT - Services Integration): Services' capabilities
-				    breakdown folded in here, right after the teaser. ServicesTeam
-				    is deliberately left out — it's the same two people AboutTeam
-				    already lists below, just with longer bios; keeping both would
-				    show the team twice. */}
+				{/* Brief (ABOUT - Services Integration): every Services section is
+				    folded in here. /services stays routable as a reference but is
+				    out of the nav. */}
 				<ServicesCapabilities />
 				<AboutGallery />
+				<ServicesTeam />
 				<AboutTeam />
 				{/* Two-property wrapper — not worth its own component/module file
 				    just to continue AboutTeam's red band under the logo strip. */}

@@ -12,7 +12,7 @@ let cx = classNames.bind(styles);
 const PATHS = [
 	{
 		label: { es: 'Servicios', en: 'Services' },
-		href: '/services',
+		href: '/about',
 		description: { es: 'Capacidades disponibles para nuestros clientes.', en: 'Capabilities available to clients.' },
 		image: '/images/BEHIND THE SCENES/GENERAL BTS/_MG_2036.jpg',
 	},

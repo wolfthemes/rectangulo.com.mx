@@ -31,7 +31,10 @@ export default function NavigationMenu({ menuItems, className, onItemClick }) {
 	const currentPath = normalizePath(router.asPath);
 
 	// Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
-	const hierarchicalMenuItems = flatListToHierarchical(menuItems);
+	// Services was merged into /about; /services stays as a reference page, out of the nav.
+	const hierarchicalMenuItems = flatListToHierarchical(
+		menuItems.filter((item) => normalizePath(item.path) !== '/services'),
+	);
 
 	function renderMenu(items) {
 		return (

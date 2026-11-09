@@ -2,7 +2,6 @@
 @import 'styles/tokens';
 
 .component {
-	padding-top: clamp(4rem, 8vw, 7rem);
 	padding-bottom: var(--wpe--section--padding-y);
 }
 
@@ -11,8 +10,9 @@
 .opener {
 	display: block;
 	width: 100%;
-	height: clamp(16rem, 48vw, 34rem);
+	height: clamp(20rem, 66vw, 56rem);
 	object-fit: cover;
+	object-position: center top; // keep the heads in frame
 	margin-bottom: clamp(2rem, 5vw, 3.5rem);
 }
 
