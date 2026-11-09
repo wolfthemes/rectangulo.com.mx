@@ -68,7 +68,11 @@ export default function PageTransition() {
 		const close = (onDone, pathname) => {
 			// Tint before the bars start closing; pathname is only known on
 			// click-driven navs, programmatic ones come through routeChangeStart.
-			bars.forEach((bar) => bar.classList.toggle(styles.red, RED_ROUTES.includes(stripLocale(pathname))));
+			bars.forEach((bar) => {
+				const red = RED_ROUTES.includes(stripLocale(pathname));
+				bar.classList.toggle(styles.red, red);
+				bar.classList.toggle('grain', red);
+			});
 			closed.current = false;
 			routed.current = false;
 			revealCall?.kill();

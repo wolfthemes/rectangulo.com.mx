@@ -87,69 +87,47 @@
 
 // Animated film-grain overlay (HOME p.5, SERVICES p.2, WORK p.2 of the
 // briefs — hero, red-band sections, etc.). Add `.grain` to any positioned
-// section. Oversized and jittered via public/images/noise.png (the PNG
-// itself is the faint, semi-transparent texture — no opacity/blend-mode
-// here, that's what was making it invisible); `overflow: hidden` on the
-// host clips the oversized, animated pseudo-element back to the section's
-// own bounds. Elements that can't take `position: relative` (fighting their
-// own sticky/fixed) duplicate the `::after`/`@keyframes` pair below locally
-// instead of using this class — see HomeHero and PageTransition's `.red`.
-.grain {
+// element — the ONE grain overlay for the whole site, nothing else may
+// redefine it. Oversized and drifted via public/images/static-noise.png;
+// `overflow: hidden` on the host clips the oversized, animated pseudo-element back to the section's
+// own bounds. `:where()` keeps the `position: relative` default at zero
+// specificity, so a host that is already fixed/sticky/absolute keeps its own.
+:where(.grain) {
 	position: relative;
+}
+
+.grain {
 	overflow: hidden;
 }
 
 .grain::after {
 	content: '';
 	position: absolute;
-	top: -40%;
-	left: -40%;
-	width: 180%;
-	height: 180%;
+	top: -100%;
+	left: -100%;
+	width: 300%;
+	height: 300%;
 	z-index: 999999;
 	pointer-events: none;
-	background-image: url('/images/noise.png');
-	animation: grain-shift 1s steps(4) infinite;
+	opacity: 0.06;
+	background-image: url('/images/static-noise.png');
+	animation: grain-shift 8s steps(10) infinite;
 }
 
+// Slow, small-amplitude drift (figurefilm.co.uk's grain recipe: 300% layer,
+// 0.06 opacity, 8s steps(10)) — the steps() timing makes it flicker like
+// film, not slide.
 @keyframes grain-shift {
 	0% { transform: translate(0, 0); }
-	10% { transform: translate(-5%, -5%); }
-	20% { transform: translate(-10%, 5%); }
-	30% { transform: translate(5%, -10%); }
-	40% { transform: translate(-5%, 15%); }
-	50% { transform: translate(-10%, 5%); }
-	60% { transform: translate(15%, 0); }
-	70% { transform: translate(0, 10%); }
-	80% { transform: translate(-15%, 0); }
-	90% { transform: translate(10%, 5%); }
-	100% { transform: translate(5%, 0); }
+	10%, 30%, 50%, 70%, 90% { transform: translate(-5%, -10%); }
+	20%, 40%, 60%, 80% { transform: translate(-15%, -20%); }
+	100% { transform: translate(0, 0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.grain::after {
 		animation: none;
 	}
-}
-
-// Static film-grain overlay, driven by the animated filmgrain.gif itself
-// rather than a CSS keyframe — the gif already carries its own motion, so
-// this is just a low-opacity texture layer with no transform/animation.
-// Add `.filmgrain` to any positioned section (first use: HomeHero's hero).
-.filmgrain {
-	position: relative;
-	overflow: hidden;
-}
-
-.filmgrain::after {
-	content: '';
-	position: absolute;
-	inset: 0;
-	z-index: 999999;
-	pointer-events: none;
-	opacity: 0.15;
-	background-image: url('/images/filmgrain.gif');
-	background-size: cover;
 }
 
 // Text-button hover effect (HOME's "View all work" first, reused anywhere

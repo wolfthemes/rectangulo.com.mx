@@ -39,10 +39,11 @@
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
 }
 
-// Load-in intro: red curtain at rest, lifted (yPercent, set from JS) to
+// Load-in intro: red curtain at rest, faded out (autoAlpha, set from JS) to
 // reveal .pinned's own dark backdrop underneath. pointer-events: none since
 // everything it covers is itself hidden/invisible for the same duration —
-// nothing underneath can be interacted with either way.
+// nothing underneath can be interacted with either way. Grain comes from
+// the shared `.grain` utility (styles/_utilities.scss).
 .curtain {
 	position: fixed;
 	inset: 0;
@@ -154,15 +155,15 @@
 	}
 }
 
-// Social links (left) and nav menu (right) — two independent fixed blocks,
-// both anchored for the same reason as .wordmark: stay put as a persistent
-// frame once the pin releases, instead of scrolling away. Brief (HOME -
-// Initial Layout): social stays left, Work/Projects/About stays right.
-.social,
-.nav {
+// Social links. Brief (HOME - Loading Screen step 3): appears directly
+// under the logo once docked, left side. `top` is written from
+// HomeHero.js (tracking the wordmark's own rect), not CSS, since the
+// logo's rendered height/position changes (load-in dock, then scroll
+// shrink) and a static offset can't track either.
+.social {
 	position: fixed;
 	z-index: 20;
-	top: 1.5rem;
+	left: var(--wpe--container--padding-x);
 	display: flex;
 	gap: 1rem;
 	font-size: fs(sm);
@@ -175,12 +176,22 @@
 	}
 }
 
-.social {
-	left: var(--wpe--container--padding-x);
-}
-
+// Language switcher + menu, right side. Brief (HOME - Loading Screen step
+// 3): mirrors .social on the left, same reasoning for the JS-written `top`.
 .nav {
+	position: fixed;
+	z-index: 20;
 	right: var(--wpe--container--padding-x);
+	display: flex;
+	gap: 1rem;
+	font-size: fs(sm);
+	letter-spacing: 0.08em;
+	align-items: center;
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
 }
 
 .menu {
