@@ -73,6 +73,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 	const sectionRef = useRef(null);
 	const reelRef = useRef(null);
 	const wordmarkRef = useRef(null);
+	// Brief (HOME - Initial Layout): social links stay left, the Work/
+	// Projects/About menu stays right — two independent fixed blocks instead
+	// of one combined corner, both driven by the same scroll-progress band.
+	const socialRef = useRef(null);
 	const navRef = useRef(null);
 	const statementRef = useRef(null);
 	const scrollCueRef = useRef(null);
@@ -229,18 +233,24 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				reelRef.current.style.transform = `translate3d(0, ${(progress - 0.5) * 15}%, 0) scale(1.15)`;
 			}
 
-			// Wordmark shrinks into the top-left corner across the whole pin —
-			// it's what the pin's scroll distance is sized to, so it finishes
-			// exactly as the section releases, not partway through a longer
-			// scroll. Scale only — transform-origin: top left (CSS) anchors it.
+			// Wordmark shrinks while staying centered at the top across the whole
+			// pin — it's what the pin's scroll distance is sized to, so it
+			// finishes exactly as the section releases, not partway through a
+			// longer scroll. Scale only — transform-origin: top center (CSS)
+			// anchors it.
 			if (wordmarkRef.current) {
 				wordmarkRef.current.style.transform = `scale(${1 - progress * 0.7})`;
 			}
 
-			// Nav fades in as the wordmark collapses into its corner mark — starts
-			// once the wordmark has already shrunk a fair bit (not from scroll 0),
-			// so the nav doesn't appear while the mark is still near full size.
+			// Social (left) + nav (right) fade in together as the wordmark
+			// shrinks — starts once it's already shrunk a fair bit (not from
+			// scroll 0), so neither appears while the mark is still near full
+			// size.
 			const showNav = band(progress, 0.25, 0.65);
+			if (socialRef.current) {
+				socialRef.current.style.opacity = showNav;
+				socialRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
+			}
 			if (navRef.current) {
 				navRef.current.style.opacity = showNav;
 				navRef.current.style.visibility = showNav > 0 ? 'visible' : 'hidden';
@@ -305,16 +315,19 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 
 				<MobileNav className={cx('mobileNav', { visible: introFinished })} menuItems={menuItems} />
 
-				<div ref={navRef} className={cx('social')} style={{ visibility: 'hidden' }}>
+				<div ref={socialRef} className={cx('social')} style={{ visibility: 'hidden' }}>
+					{SOCIAL_LINKS.map(({ short, label, href }) => (
+						<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
+					))}
+					<LanguageSwitcher />
+				</div>
+
+				<div ref={navRef} className={cx('nav')} style={{ visibility: 'hidden' }}>
 					<nav className={cx('menu')} aria-label="Hero">
 						{navItems.map(({ id, path, label }) => (
 							<Link key={id ?? path} href={path}>{t(NAV_LABELS[path.replace(/\/+$/, '')]) ?? label}</Link>
 						))}
 					</nav>
-					{SOCIAL_LINKS.map(({ short, label, href }) => (
-						<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
-					))}
-					<LanguageSwitcher />
 				</div>
 
 				<div ref={statementRef} className={cx('statement')} style={{ visibility: 'hidden' }}>

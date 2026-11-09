@@ -103,11 +103,12 @@
 	// exact regardless of the value here.
 	padding: 0 var(--wpe--container--padding-x);
 
-	// Reserve room for the MobileNav hamburger (also top-right, see
-	// .mobileNav below) so the fit-to-width wordmark doesn't scale out to
-	// the same edge and run underneath it.
+	// Reserve room for the MobileNav hamburger (top-right, see .mobileNav
+	// below) on both sides equally, so the centered wordmark doesn't scale
+	// out from under it while staying visually centered rather than
+	// skewing toward one edge.
 	@media (max-width: $breakpoint-small - 1px) {
-		padding-right: calc(var(--wpe--container--padding-x) + 3.5rem);
+		padding: 0 calc(var(--wpe--container--padding-x) + 3.5rem);
 	}
 
 	// Same token h1-h6 use (styles/_base.scss) — StretchPro with its real
@@ -116,9 +117,13 @@
 	font-size: clamp(3.5rem, 14vw, 11rem);
 	line-height: 0.9;
 	text-transform: uppercase;
-	text-align: left;
+
+	// Centered, not left-anchored (brief: HOME - Initial Layout) — the logo
+	// is the focal point both full-screen and shrunk, always centered at
+	// the top rather than collapsing into a corner mark.
+	text-align: center;
 	white-space: nowrap;
-	transform-origin: top left;
+	transform-origin: top center;
 	will-change: transform;
 
 	// Not the shared .is-animated-chars CSS (see the JSX comment on why) —
@@ -157,18 +162,19 @@
 	}
 }
 
-.social {
-	// Fixed for the same reason as .wordmark — stays put as a persistent
-	// top-right nav once the pin releases, instead of scrolling away.
+// Social links (left) and nav menu (right) — two independent fixed blocks,
+// both anchored for the same reason as .wordmark: stay put as a persistent
+// frame once the pin releases, instead of scrolling away. Brief (HOME -
+// Initial Layout): social stays left, Work/Projects/About stays right.
+.social,
+.nav {
 	position: fixed;
 	z-index: 20;
 	top: 1.5rem;
-	right: 1.5rem;
 	display: flex;
 	gap: 1rem;
 	font-size: fs(sm);
 	letter-spacing: 0.08em;
-
 	align-items: center;
 
 	a {
@@ -177,10 +183,17 @@
 	}
 }
 
+.social {
+	left: var(--wpe--container--padding-x);
+}
+
+.nav {
+	right: var(--wpe--container--padding-x);
+}
+
 .menu {
 	display: flex;
 	gap: 1rem;
-	margin-right: 1.5rem;
 	text-transform: uppercase;
 }
 
