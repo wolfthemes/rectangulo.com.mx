@@ -19,7 +19,9 @@ export default function HomeCTA() {
 				    the page — a plain stretched span, not a font-ligature trick,
 				    so the word still reads correctly if the display font fails
 				    to load. */}
-				<Link href="/contact" className={cx('link')}>
+				{/* Contact merged into Footer (brief: FOOTER - Contact Integration) —
+				no standalone /contact page to link to anymore. */}
+				<Link href="#contact" className={cx('link')}>
 					{t({
 						es: <>Colabor<span className={cx('flourish')}>e</span>mos</>,
 						en: <>Let&rsquo;s<br />Collaborat<span className={cx('flourish')}>e</span></>,

@@ -27,7 +27,9 @@ export default function ServicesCTA({
 			<Container>
 				<h2 className={cx('heading')}>{heading}</h2>
 				<p className={cx('body')}>{body}</p>
-				<Link href="/contact" className={`${cx('link')} link-underline`}>
+				{/* Contact merged into Footer (brief: FOOTER - Contact Integration) —
+					no standalone /contact page to link to anymore. */}
+				<Link href="#contact" className={`${cx('link')} link-underline`}>
 					{label} <span aria-hidden="true">→</span>
 				</Link>
 			</Container>

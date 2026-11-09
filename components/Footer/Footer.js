@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { Container, NavigationMenu } from '../../components';
+import { Container, Heading, NavigationMenu } from '../../components';
 import { CONTACT_EMAIL, CONTACT_PHONE, LOCATION, SOCIAL_LINKS } from '../../constants/contact';
 import { useT } from '../../lib/i18n';
 import styles from './Footer.module.scss';
@@ -13,7 +13,19 @@ export default function Footer({ title, menuItems }) {
 	const t = useT();
 
 	return (
-		<footer className={`${cx('component')} grain`}>
+		<footer id="contact" className={`${cx('component')} grain`}>
+			{/* Brief (FOOTER - Contact Integration): "Let's Work Together" as
+			    the footer's focal point — was ContactHero's standalone-page
+			    red band, now the lead element here on every page instead. */}
+			<div className={cx('band')}>
+				<Container>
+					<Heading level="h2" className={cx('bandHeading')}>
+						{t({ es: <>Trabajemos<br />juntos</>, en: <>Let&rsquo;s work<br />together</> })}
+					</Heading>
+					{/* Wordmark, doubled letters per the StretchPro brand trick. */}
+					<p className={cx('bandWordmark')}>Reectanguloo</p>
+				</Container>
+			</div>
 			<Container>
 				<div className={cx('top')}>
 					<NavigationMenu className={cx('nav')} menuItems={menuItems} />
