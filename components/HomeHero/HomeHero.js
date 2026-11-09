@@ -6,7 +6,7 @@ import { onScrollFrame, getLenis } from '../../lib/scroll';
 import { LanguageSwitcher } from '../LanguageSwitcher';
 import { MobileNav } from '../MobileNav';
 import { DrawButton } from '../DrawButton';
-import { NAV_LABELS, useT } from '../../lib/i18n';
+import { HIDDEN_NAV_PATHS, NAV_LABELS, useT } from '../../lib/i18n';
 import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './HomeHero.module.scss';
 
@@ -65,7 +65,10 @@ function waitForVideo(reel) {
 export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuItems = [] }) {
 	const t = useT();
 	// WP's menu query can append ghost items without a __typename (see NavigationMenu).
-	const navItems = menuItems.filter((item) => item.__typename && item.path);
+	// Brief (HOME - Initial Layout): this nav carries only Work, Projects, About.
+	const navItems = menuItems.filter(
+		(item) => item.__typename && item.path && !HIDDEN_NAV_PATHS.includes(item.path.replace(/\/+$/, ''))
+	);
 	// Mobile hamburger (MobileNav) isn't scroll-gated like `.social` below —
 	// a mobile visitor needs a way to navigate before they've scrolled at
 	// all — it just waits for the load-in intro to clear first.
@@ -257,16 +260,25 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				wordmarkRef.current.style.transform = `scale(${1 - progress * 0.7})`;
 			}
 
-			// Social (left) + nav (right) sit directly under the logo's bottom
-			// edge, tracked from the wordmark's own rect each frame rather than a
-			// guessed offset — stays flush against it whether full-size on load
-			// or shrunk after scrolling. Their reveal (show/hide) is owned by the
-			// load-in intro's own GSAP tween above, not this scroll handler —
-			// this only ever repositions them once visible.
+			// Social (left) + nav (right) start flush under the logo's bottom
+			// edge (full size, right after the load-in intro) and slide up into
+			// the same row as the logo as it shrinks — by the time the pin
+			// releases they read as one sticky header bar (figurefilm.co.uk ref),
+			// not a block stacked under a tiny corner mark. Tracked from the
+			// wordmark's own rect each frame, not a guessed offset, since its
+			// rendered size/position changes with the shrink; `progress` itself
+			// (not a separate band) drives the blend so it finishes exactly as
+			// the shrink does. Their reveal (show/hide) is owned by the load-in
+			// intro's own GSAP tween above, not this scroll handler — this only
+			// ever repositions them once visible.
 			if (wordmarkRef.current) {
-				const wordmarkBottom = wordmarkRef.current.getBoundingClientRect().bottom + 12;
-				if (socialRef.current) socialRef.current.style.top = `${wordmarkBottom}px`;
-				if (navRef.current) navRef.current.style.top = `${wordmarkBottom}px`;
+				const wmRect = wordmarkRef.current.getBoundingClientRect();
+				const belowTop = wmRect.bottom + 12;
+				[socialRef, navRef].forEach((ref) => {
+					if (!ref.current) return;
+					const alignedTop = wmRect.top + (wmRect.height - ref.current.offsetHeight) / 2;
+					ref.current.style.top = `${belowTop + (alignedTop - belowTop) * progress}px`;
+				});
 			}
 
 			// Brand statement + View Showreel — lands before the pin releases.

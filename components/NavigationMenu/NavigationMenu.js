@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { gql } from '@apollo/client';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NAV_LABELS, useT } from '../../lib/i18n';
+import { HIDDEN_NAV_PATHS, NAV_LABELS, useT } from '../../lib/i18n';
 import styles from './NavigationMenu.module.scss';
 import stylesFromWP from './NavigationMenuClassesFromWP.module.scss';
 import { flatListToHierarchical } from '@faustwp/core';
@@ -31,9 +31,8 @@ export default function NavigationMenu({ menuItems, className, onItemClick }) {
 	const currentPath = normalizePath(router.asPath);
 
 	// Based on https://www.wpgraphql.com/docs/menus/#hierarchical-data
-	// Services was merged into /about; /services stays as a reference page, out of the nav.
 	const hierarchicalMenuItems = flatListToHierarchical(
-		menuItems.filter((item) => normalizePath(item.path) !== '/services'),
+		menuItems.filter((item) => !HIDDEN_NAV_PATHS.includes(normalizePath(item.path))),
 	);
 
 	function renderMenu(items) {
