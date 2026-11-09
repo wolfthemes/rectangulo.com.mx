@@ -78,6 +78,10 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 						: String(index + 1).padStart(2, '0')}
 				</span>
 				<span className={cx('hover')}>
+					<svg className={cx('play')} viewBox="0 0 24 24" aria-hidden="true">
+						<circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" strokeWidth="1.5" />
+						<path d="M10 8v8l6.5-4z" fill="currentColor" />
+					</svg>
 					<span className={cx('title')}>{work.title}</span>
 					<span>{[category, year].filter(Boolean).join(' · ')}</span>
 					<span className={cx('view')}>{t({ es: 'Ver proyecto', en: 'View project' })} →</span>

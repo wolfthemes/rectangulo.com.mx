@@ -40,8 +40,7 @@ export default function Preloader() {
 
 	return (
 		<div ref={rootRef} className={styles.component} aria-hidden="true">
-			{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
-			<img className={styles.logo} src="/images/logo.svg" alt="" />
+			<span className={styles.logo}>REECTANGULOO</span>
 		</div>
 	);
 }
