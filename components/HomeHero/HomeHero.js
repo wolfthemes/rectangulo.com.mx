@@ -105,10 +105,20 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 			// drives the convergence.
 			const cs = getComputedStyle(el);
 			const paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+			// Social (left) and nav (right) are fixed at the same top offset as
+			// the wordmark — reserve room for whichever is wider on both sides so
+			// a full-width fit never grows the wordmark text underneath them.
+			// Measured, not a guessed breakpoint number: their width depends on
+			// WP menu content and locale, which a static padding can't track.
+			const sideWidth = Math.max(
+				socialRef.current?.offsetWidth ?? 0,
+				navRef.current?.offsetWidth ?? 0
+			);
+			const reserve = sideWidth ? (sideWidth + 24) * 2 : 0;
 			// -1px safety margin: scrollWidth rounds to whole pixels, so a size
 			// that converges to an exact fit can still round up a fraction over —
 			// enough to clip the last glyph against the viewport edge.
-			const available = parent.clientWidth - paddingX - 1;
+			const available = parent.clientWidth - paddingX - reserve - 1;
 			const textWidth = el.scrollWidth - paddingX;
 			if (available <= 0 || !textWidth) return;
 			const current = parseFloat(cs.fontSize);
