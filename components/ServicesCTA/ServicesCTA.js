@@ -23,7 +23,7 @@ export default function ServicesCTA({
 	});
 	label ??= t({ es: 'Iniciar un proyecto', en: 'Start a Project' });
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
 				<h2 className={cx('heading')}>{heading}</h2>
 				<p className={cx('body')}>{body}</p>

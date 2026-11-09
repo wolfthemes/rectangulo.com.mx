@@ -10,7 +10,7 @@ export default function AboutGallery() {
 	const { sectionRef, imageRef } = useScrollZoom({ translateRange: 0, scaleRange: 0.15 });
 
 	return (
-		<section ref={sectionRef} className={cx('component')}>
+		<section ref={sectionRef} className={`${cx('component')} grain`}>
 			<img
 				ref={imageRef}
 				className={cx('image')}

@@ -14,14 +14,6 @@
 	color: $c-base;
 }
 
-// Re-assert sticky over the shared `.filmgrain` utility's `position:
-// relative` (styles/_utilities.scss) — two classes beats one on
-// specificity, so this wins regardless of stylesheet order.
-.pinned:global(.filmgrain) {
-	position: sticky;
-	overflow: hidden;
-}
-
 // Bottom fade so the statement text and showreel button stay readable over
 // whatever the reel is showing at that frame — same reasoning as the text
 // shadow below, belt and suspenders rather than relying on either alone.

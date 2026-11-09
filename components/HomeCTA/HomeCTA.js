@@ -12,7 +12,7 @@ export default function HomeCTA() {
 	const t = useT();
 
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
 				<Link href="/contact" className={cx('link')}>
 					{t({ es: <>Colaboremos</>, en: <>Let&rsquo;s<br />Collaborate</> })}

@@ -13,7 +13,7 @@ export default function Footer({ title, menuItems }) {
 	const t = useT();
 
 	return (
-		<footer className={cx('component')}>
+		<footer className={`${cx('component')} grain`}>
 			<Container>
 				<div className={cx('top')}>
 					<NavigationMenu className={cx('nav')} menuItems={menuItems} />

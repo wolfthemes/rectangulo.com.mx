@@ -283,7 +283,10 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 
 	return (
 		<section ref={sectionRef} className={cx('component')} style={{ height: `${SECTION_VH * 100}vh` }}>
-			<div className={`${cx('pinned')} filmgrain`}>
+			{/* No grain here (brief: GENERAL - Cinematic Grain Texture) — the
+			    hero video keeps its original, untouched appearance; every
+			    other section carries the `grain` utility instead. */}
+			<div className={cx('pinned')}>
 				{demoreelUrl ? (
 					<video ref={reelRef} className={cx('reel')} src={demoreelUrl} autoPlay muted loop playsInline />
 				) : (
