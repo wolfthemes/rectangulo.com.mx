@@ -4,7 +4,6 @@ export { AboutInstalaciones } from './AboutInstalaciones';
 export { AboutServices } from './AboutServices';
 export { AboutTeam } from './AboutTeam';
 export { ClientLogosCarousel } from './ClientLogosCarousel';
-export { ContactHero } from './ContactHero';
 export { Container } from './Container';
 export { ContentWrapper } from './ContentWrapper';
 export { EntryHeader } from './EntryHeader';

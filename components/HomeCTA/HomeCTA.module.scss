@@ -9,9 +9,10 @@
 	font-size: clamp(3rem, 12vw, 8rem);
 	line-height: 0.9;
 
-	// 900, not fw(bold) (700) — the token scale tops out at bold, this
-	// wants the actual heaviest cut (Gotham has a real Black weight file).
-	font-weight: 900;
+	// Display font, not Gotham Black — ties this heading's letterforms to
+	// the logo's own typography (brief: GENERAL - Typography Design), same
+	// family the wordmark uses.
+	font-family: var(--wpe--font-family--display);
 	text-transform: uppercase;
 
 	// $c-ink is tuned for light surfaces, not this dark page background —
@@ -23,4 +24,14 @@
 	&:hover {
 		color: $c-accent;
 	}
+}
+
+// Logo-style elongated stroke, borrowed for one letter of this one heading —
+// brief's "applying these treatments selectively rather than throughout all
+// text". Plain CSS stretch, not a font ligature, so the word still reads
+// correctly even if the display font fails to load.
+.flourish {
+	display: inline-block;
+	transform: scaleX(1.6);
+	transform-origin: left center;
 }

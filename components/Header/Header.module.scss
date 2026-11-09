@@ -36,12 +36,11 @@
 
 .logo {
 	display: block;
-	height: 1.75rem;
-	width: auto;
-
-	// The source SVG is a fixed dark fill (#171717) — invert it to white for
-	// this site's dark header rather than maintaining a recolored copy.
-	filter: brightness(0) invert(1);
+	font-family: var(--wpe--font-family--display);
+	font-weight: normal;
+	font-size: 1.75rem;
+	line-height: 1;
+	color: #fff;
 }
 
 .lang {
@@ -62,6 +61,7 @@
 		display: block;
 		width: auto;
 		order: 1;
+
 		// Pushes nav + switcher to the right edge, same as before the switcher existed.
 		margin-left: auto;
 	}

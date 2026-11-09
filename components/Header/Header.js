@@ -8,7 +8,7 @@ let cx = classNames.bind(styles);
 // ponytail: `hidden` (display:none) hides the default nav on HOME while
 // HomeHero's own fixed wordmark + MobileNav mount stands in for it — see
 // Header.js's usage there.
-export default function Header({ title = 'Rectángulo', menuItems, hidden }) {
+export default function Header({ menuItems, hidden }) {
 	return (
 		<header className={cx('component', { hidden })}>
 			<SkipNavigationLink />
@@ -17,8 +17,7 @@ export default function Header({ title = 'Rectángulo', menuItems, hidden }) {
 					<div className={cx('brand')}>
 						<Link legacyBehavior href="/">
 							<a className={cx('title')}>
-								{/* eslint-disable-next-line @next/next/no-img-element -- brand mark, not content */}
-								<img className={cx('logo')} src="/images/logo.svg" alt={title} />
+								<span className={cx('logo')}>REECTANGULOO</span>
 							</a>
 						</Link>
 					</div>

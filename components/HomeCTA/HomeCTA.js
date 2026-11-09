@@ -12,10 +12,20 @@ export default function HomeCTA() {
 	const t = useT();
 
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
-				<Link href="/contact" className={cx('link')}>
-					{t({ es: <>Colaboremos</>, en: <>Let&rsquo;s<br />Collaborate</> })}
+				{/* Brief (GENERAL - Typography Design): the logo's elongated-
+				    stroke "E" carried into one featured heading, not every E on
+				    the page — a plain stretched span, not a font-ligature trick,
+				    so the word still reads correctly if the display font fails
+				    to load. */}
+				{/* Contact merged into Footer (brief: FOOTER - Contact Integration) —
+				no standalone /contact page to link to anymore. */}
+				<Link href="#contact" className={cx('link')}>
+					{t({
+						es: <>Colabor<span className={cx('flourish')}>e</span>mos</>,
+						en: <>Let&rsquo;s<br />Collaborat<span className={cx('flourish')}>e</span></>,
+					})}
 				</Link>
 			</Container>
 		</section>

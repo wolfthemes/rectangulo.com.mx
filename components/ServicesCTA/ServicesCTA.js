@@ -23,11 +23,13 @@ export default function ServicesCTA({
 	});
 	label ??= t({ es: 'Iniciar un proyecto', en: 'Start a Project' });
 	return (
-		<section className={cx('component')}>
+		<section className={`${cx('component')} grain`}>
 			<Container>
 				<h2 className={cx('heading')}>{heading}</h2>
 				<p className={cx('body')}>{body}</p>
-				<Link href="/contact" className={`${cx('link')} link-underline`}>
+				{/* Contact merged into Footer (brief: FOOTER - Contact Integration) —
+					no standalone /contact page to link to anymore. */}
+				<Link href="#contact" className={`${cx('link')} link-underline`}>
 					{label} <span aria-hidden="true">→</span>
 				</Link>
 			</Container>

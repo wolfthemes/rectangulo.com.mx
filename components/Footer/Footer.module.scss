@@ -4,8 +4,42 @@
 .component {
 	color: var(--wpe--footer--color);
 	background: var(--wpe--footer--background-color);
-	padding-top: var(--wpe--section--padding-y);
 	padding-bottom: var(--wpe--section--padding-y);
+}
+
+// Full-bleed, no top padding on .component — sits flush against whatever's
+// above it, same as ContactHero's band did as a standalone page.
+.band {
+	background-color: $c-accent;
+	padding-top: clamp(3rem, 8vw, 6rem);
+	padding-bottom: clamp(3rem, 8vw, 6rem);
+	margin-bottom: 3rem;
+	text-align: center;
+}
+
+.bandHeading {
+	margin: 0;
+
+	// Dossier reference uses Gotham Black here, not StretchPro — StretchPro
+	// is reserved for the "RECTANGULO" wordmark/logo below it.
+	font-family: var(--wpe--font-family--body);
+	font-weight: 900;
+	color: $c-ink;
+	line-height: 0.95;
+	font-size: clamp(2.5rem, 9vw, 6rem);
+	letter-spacing: -0.02em;
+}
+
+.bandWordmark {
+	margin: 1.5rem 0 0;
+	font-family: var(--wpe--font-family--display);
+	color: $c-ink;
+	font-size: clamp(1.125rem, 2.5vw, 1.75rem);
+
+	// No letter-spacing: it disables StretchPro's calt/liga substitution,
+	// which is what merges the doubled letters into the brand's ambigram
+	// shapes (see the "REECTANGULOO"/"INSTAALACIONEE" trick).
+	text-transform: uppercase;
 }
 
 .top {
