@@ -3,7 +3,7 @@
 ## Active
 
 - [ ] **GENERAL: Add cinematic grain texture** - fine, even, organic grain across all section backgrounds; hero video must stay untouched/grain-free
-- [ ] **GENERAL: Adjust color scheme** - signature red backgrounds, white/black type and icons depending on contrast, preserve grain over red
+- [x] ~~GENERAL: Adjust color scheme~~ (2026-11-09) - confirmed with user: red stays an accent (preloader, footer CTA, hero curtain, services tint), dark theme stays the base. No further change.
 - [ ] **GENERAL: Custom typography treatment on select headings** - incorporate logo letterform motifs (elongated strokes, stylized "E") into headings like "Let's Collaborate"; selective, not site-wide
 - [ ] **GENERAL: Swap REC logo for full RECTÁNGULO logo site-wide** - use full logo everywhere (Work page, etc.); restrict abbreviated REC mark to Footer only
 - [ ] **ABOUT: Merge Services into About page** - combine into single page, remove Services as standalone nav item/page
