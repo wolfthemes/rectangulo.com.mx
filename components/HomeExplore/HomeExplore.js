@@ -12,9 +12,7 @@ let cx = classNames.bind(styles);
 const PATHS = [
 	{
 		label: { es: 'Servicios', en: 'Services' },
-		// Services merged into About (brief: ABOUT - Services Integration) —
-		// no standalone /services route anymore.
-		href: '/about',
+		href: '/services',
 		description: { es: 'Capacidades disponibles para nuestros clientes.', en: 'Capabilities available to clients.' },
 		image: '/images/BEHIND THE SCENES/GENERAL BTS/_MG_2036.jpg',
 	},
