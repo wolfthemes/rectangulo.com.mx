@@ -6,27 +6,19 @@
 	padding-bottom: var(--wpe--section--padding-y);
 }
 
-.top {
-	display: flex;
-	align-items: center;
-	gap: 1.5rem;
-	margin-bottom: 3rem;
-
-	@media (min-width: $breakpoint-small) {
-		gap: 3rem;
-	}
-}
-
-.map {
-	width: clamp(5rem, 12vw, 11rem);
-	height: auto;
-	flex-shrink: 0;
+// Full-bleed, ahead of the Container's own gutters — the large-format
+// opener the brief asks for, with the heading/body following below it.
+.opener {
+	display: block;
+	width: 100%;
+	height: clamp(16rem, 48vw, 34rem);
+	object-fit: cover;
+	margin-bottom: clamp(2rem, 5vw, 3.5rem);
 }
 
 .heading {
-	flex: 1 1 auto;
 	width: 100%;
-	margin: 0;
+	margin: 0 0 1.5rem;
 	line-height: 0.95;
 	font-size: clamp(2.5rem, 9vw, 6rem);
 }
