@@ -19,6 +19,25 @@ const PIN_QUERY = '(min-width: 1024px) and (prefers-reduced-motion: no-preferenc
 // surfaces the fuller count (see Tile below), not more tiles.
 const MAX_TILES = 7;
 
+// WORK brief (Project Layout): alternate single-video blocks with blocks
+// split into two vertically stacked videos — [1, 2, 1, 2, ...], consuming
+// works in order; a trailing single work with no pair partner stays single.
+function buildSlots(works) {
+	const slots = [];
+	let i = 0;
+	let wantPair = false;
+	while (i < works.length) {
+		const size = wantPair && i + 1 < works.length ? 2 : 1;
+		slots.push(works.slice(i, i + size));
+		i += size;
+		wantPair = !wantPair;
+	}
+	return slots;
+}
+
+// No longer the <li> itself (a slot may hold two of these stacked) — the
+// IntersectionObserver/numbering/hover logic is unchanged, just the root
+// element and who wraps it.
 function Tile({ work, index, total, onOpen, onVisible }) {
 	const ref = useRef(null);
 	const t = useT();
@@ -44,7 +63,7 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 	const year = work.workYear || (work.date && new Date(work.date).getFullYear());
 
 	return (
-		<li ref={ref} className={cx('tile')} style={{ '--i': index }}>
+		<div ref={ref} className={cx('tile')} style={{ '--i': index }}>
 			<button
 				type="button"
 				className={cx('open')}
@@ -64,7 +83,7 @@ function Tile({ work, index, total, onOpen, onVisible }) {
 					<span className={cx('view')}>{t({ es: 'Ver proyecto', en: 'View project' })} →</span>
 				</span>
 			</button>
-		</li>
+		</div>
 	);
 }
 
@@ -174,20 +193,31 @@ export default function WorkFilmstrip({ works }) {
 					{shown.length ? (
 						// key: remount on filter change so every tile replays its reveal.
 						<ul key={filter} ref={trackRef} className={cx('track', { switched })}>
-							{shown.map((work, i) => (
-								<Tile
-									key={work.slug}
-									work={work}
-									index={i}
-									total={matched.length}
-									onOpen={(i, rect) => {
-										setSourceRect(rect);
-										setOpenKey((k) => k + 1);
-										setViewing(i);
-									}}
-									onVisible={onVisible}
-								/>
-							))}
+							{buildSlots(shown).map((slotWorks) => {
+								const start = shown.indexOf(slotWorks[0]);
+								const openTile = (i, rect) => {
+									setSourceRect(rect);
+									setOpenKey((k) => k + 1);
+									setViewing(i);
+								};
+								return (
+									<li
+										key={slotWorks[0].slug}
+										className={cx('slot', { pair: slotWorks.length === 2 })}
+									>
+										{slotWorks.map((work, j) => (
+											<Tile
+												key={work.slug}
+												work={work}
+												index={start + j}
+												total={matched.length}
+												onOpen={openTile}
+												onVisible={onVisible}
+											/>
+										))}
+									</li>
+								);
+							})}
 						</ul>
 					) : (
 						<p className={cx('empty')}>
