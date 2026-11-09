@@ -8,12 +8,14 @@ let cx = classNames.bind(styles);
 
 // ponytail: brief section 03 — one service per viewport-sized panel; each
 // next panel slides up over the previous one (curtain/card stack) via pure
-// CSS `position: sticky`, no JS. Swap each `.loop` placeholder for a real
-// autoplay clip once footage exists. Stack is desktop-only (>= medium);
+// CSS `position: sticky`, no JS. Each panel's background is a still from
+// public/images/services (no image yet for 03.6); swap for an autoplay clip
+// once footage exists. Stack is desktop-only (>= medium);
 // mobile stays a plain list so tall content never clips.
 const SERVICES = [
 	{
 		number: '03.1',
+		image: '/images/services/03-1-preproduccion.webp',
 		title: { es: 'Preproducción', en: 'Pre-production' },
 		description: {
 			es: 'Desarrollo de cada proyecto desde la idea inicial hasta un plan de producción creativo, técnico y ejecutable.',
@@ -36,6 +38,7 @@ const SERVICES = [
 	},
 	{
 		number: '03.2',
+		image: '/images/services/03-2-produccion.webp',
 		title: { es: 'Producción', en: 'Production' },
 		description: {
 			es: 'Producción audiovisual integral, desde equipos compactos hasta producciones de mayor escala.',
@@ -56,6 +59,7 @@ const SERVICES = [
 	},
 	{
 		number: '03.3',
+		image: '/images/services/03-3-postproduccion.webp',
 		title: { es: 'Postproducción', en: 'Post-production' },
 		description: {
 			es: 'Flujos de postproducción que llevan el material desde la edición hasta la masterización y entrega final.',
@@ -76,6 +80,7 @@ const SERVICES = [
 	},
 	{
 		number: '03.4',
+		image: '/images/services/03-4-eventos.webp',
 		title: { es: 'Eventos y producción en vivo', en: 'Events & Live Production' },
 		description: {
 			es: 'Diseño audiovisual, producción y operación técnica para eventos, congresos, activaciones y experiencias en vivo.',
@@ -98,6 +103,7 @@ const SERVICES = [
 	},
 	{
 		number: '03.5',
+		image: '/images/services/03-5-fotografia.webp',
 		title: { es: 'Fotografía', en: 'Photography' },
 		description: {
 			es: 'Producción fotográfica para campañas, marcas, productos, personas y contenido editorial.',
@@ -144,11 +150,14 @@ export default function ServicesCapabilities() {
 
 	return (
 		<section className={cx('component')}>
-			{SERVICES.map(({ number, title, description, capabilities, cta }) => (
-				<article key={number} className={cx('service')}>
+			{SERVICES.map(({ number, image, title, description, capabilities, cta }) => (
+				<article
+					key={number}
+					className={cx('service')}
+					style={image ? { backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2) 70%), url(${image})` } : undefined}
+				>
 					<Container>
 						<div className={cx('inner')}>
-							<div className={cx('loop')} aria-hidden="true" />
 							<div className={cx('info')}>
 								<span className={cx('number')}>{number}</span>
 								<h3 className={cx('title')}>{t(title)}</h3>

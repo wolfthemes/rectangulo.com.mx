@@ -9,9 +9,18 @@
 }
 
 .service {
-	padding: clamp(2rem, 6vw, 4rem) 0;
+	display: flex;
+	align-items: flex-end; // info sits bottom-left
+	min-height: 85svh;
+	padding: clamp(2rem, 6vw, 5rem) 0;
 	background-color: $c-ink;
+	background-size: cover;
+	background-position: center;
 	border-top: 1px solid $c-border;
+
+	> * {
+		width: 100%; // Container is a flex item: fill the panel so info hugs the left
+	}
 
 	// 2-tone dark: near-black / slightly lifted charcoal.
 	&:nth-child(even) {
@@ -23,36 +32,15 @@
 	@media (min-width: $breakpoint-medium) {
 		position: sticky;
 		top: 0;
-		display: flex;
-		align-items: center;
+		min-height: 0;
 		height: 100vh;
 		height: 100svh;
-		padding: 0;
 		box-shadow: 0 -2rem 3rem -1rem rgba(0, 0, 0, 0.25);
 	}
 }
 
 .inner {
-	display: flex;
-	flex-direction: column;
-	gap: 1.5rem;
-
-	@media (min-width: $breakpoint-medium) {
-		flex-direction: row;
-		gap: 3rem;
-		align-items: center;
-	}
-}
-
-.loop {
-	flex-shrink: 0;
-	width: 100%;
-	aspect-ratio: 16 / 10;
-	background-color: $c-surface;
-
-	@media (min-width: $breakpoint-medium) {
-		width: 22rem;
-	}
+	max-width: 44rem;
 }
 
 .info {
