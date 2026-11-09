@@ -7,7 +7,6 @@ import { initSmoothScroll, resizeSmoothScroll } from '../lib/scroll';
 import { observeAnimatedHeadings, splitAnimatedHeadings } from '../lib/animate-headings';
 import { onPageEnter } from '../lib/page-enter';
 import { PageTransition } from '../components/PageTransition';
-import { Preloader } from '../components/Preloader';
 import '@faustwp/core/dist/css/toolbar.css';
 import '../styles/global.scss';
 
@@ -37,7 +36,6 @@ export default function MyApp({ Component, pageProps }) {
 			<Head>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
-			<Preloader />
 			<PageTransition />
 			<Component {...pageProps} key={router.asPath} />
 		</FaustProvider>
