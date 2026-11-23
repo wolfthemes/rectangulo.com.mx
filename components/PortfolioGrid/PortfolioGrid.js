@@ -11,50 +11,33 @@ let cx = classNames.bind(styles);
 
 // ponytail: shown only once `works` has actually loaded and come back empty
 // (see the `works === null` check below) — never as a flash before real
-// posts arrive. Dossier's "Marcas que nos respaldan" slide, hand-picked
-// caption color per item.
+// posts arrive. Dossier's "Marcas que nos respaldan" slide.
 const PLACEHOLDER_PROJECTS = [
 	{
 		title: 'Prospecto Zubba',
 		excerpt: 'Presentar la nueva identidad visual de Zubba mediante una campaña que reforzara el lanzamiento del producto y modernizara la percepción de la marca.',
 		year: 2025,
 		image: '/images/stage-1/_1389483.jpg',
-		color: '#3a1140',
 	},
 	{
 		title: 'Donas Rösk',
 		excerpt: 'Generar una campaña digital que destacara la marca y diferenciara el producto dentro de su categoría.',
 		year: 2024,
 		image: '/images/stage-1/_1389486.jpg',
-		color: '#7a2020',
 	},
 	{
 		title: 'Oh La Lashes',
 		excerpt: 'Presentar el programa de membresía de la marca comunicando sus beneficios de forma clara y reforzando la percepción premium de la experiencia.',
 		year: 2025,
 		image: '/images/stage-1/_1389487.jpg',
-		color: '#3c4a1f',
 	},
 	{
 		title: 'DAC Congress',
 		excerpt: 'Realizamos una cobertura cinematográfica que integró conferencias, networking y momentos clave para generar contenido institucional y promocional de alto impacto.',
 		year: 2025,
 		image: '/images/stage-1/_1389489.jpg',
-		color: '#12233f',
 	},
 ];
-
-// Deterministic stand-in for real dominant-color extraction (no color meta
-// field on the CPT — see the theme's register-work-fields.php). Swap for an
-// actual sampler (e.g. a `node-vibrant`/`sharp` build step over
-// featuredImage) once that's worth building.
-const FALLBACK_COLORS = ['#3a1140', '#7a2020', '#3c4a1f', '#12233f', '#5c3a10', '#1f2a3c'];
-
-function colorFor(slug) {
-	let hash = 0;
-	for (let i = 0; i < slug.length; i++) hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
-	return FALLBACK_COLORS[hash % FALLBACK_COLORS.length];
-}
 
 // `works`: undefined/null while the query hasn't resolved yet, [] once it has
 // and there's genuinely nothing published — only the latter falls back to
@@ -70,7 +53,6 @@ export default function PortfolioGrid({ works }) {
 					// tags rather than dangerouslySetInnerHTML for a one-line caption.
 					excerpt: (work.excerpt ?? '').replace(/<[^>]+>/g, ''),
 					year: work.workYear,
-					color: colorFor(work.slug),
 					href: `/work/${work.slug}`,
 					work,
 				}))
@@ -87,7 +69,7 @@ export default function PortfolioGrid({ works }) {
 			<Container>
 				{projects && (
 					<ul className={cx('grid')}>
-						{projects.map(({ title, excerpt, year, image, color, href, work }) => {
+						{projects.map(({ title, excerpt, year, image, href, work }) => {
 							const card = (
 								<>
 									<div className={cx('image')}>
@@ -97,7 +79,7 @@ export default function PortfolioGrid({ works }) {
 											<img className={cx('fallback')} src={image} alt={title} loading="lazy" />
 										)}
 									</div>
-									<div className={cx('caption')} style={{ backgroundColor: color }}>
+									<div className={cx('caption')}>
 										<p className={cx('client')}>{t({ es: 'Cliente', en: 'Client' })}</p>
 										<h3 className={cx('title')}>{title}</h3>
 										<p className={cx('excerpt')}>{excerpt}</p>
