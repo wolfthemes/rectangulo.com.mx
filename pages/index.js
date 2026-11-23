@@ -14,7 +14,6 @@ import {
 	HomeHero,
 	HomeExplore,
 	HomeFeaturedWork,
-	HomeCTA,
 	VideoModal,
 } from '../components';
 
@@ -78,7 +77,6 @@ export default function HomePage() {
 			/>
 				<HomeExplore />
 				<HomeFeaturedWork works={works} />
-				<HomeCTA />
 			</Main>
 			<VideoModal open={showreelOpen} onClose={() => setShowreelOpen(false)} src={SHOWREEL_URL} title="Showreel" />
 			<Footer title={siteTitle} menuItems={footerMenu} />
