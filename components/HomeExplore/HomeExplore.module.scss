@@ -116,7 +116,7 @@
 .label {
 	position: relative;
 	z-index: 2;
-	font-family: var(--wpe--font-family--heading, inherit);
+	font-family: var(--wpe--font-family--display);
 	font-size: clamp(3rem, 12vw, 9rem);
 	line-height: 0.9;
 	text-transform: uppercase;
