@@ -39,6 +39,19 @@
 	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent);
 }
 
+// Unlike .topFade (scoped to .pinned, scrolls away with the hero), the
+// wordmark/social/nav stay position: fixed for the rest of the page (see
+// .wordmark) — this fade has to be fixed too, or it stops covering them the
+// moment .pinned itself scrolls past.
+.stickyFade {
+	position: fixed;
+	inset: 0 0 auto;
+	z-index: 19;
+	height: 6rem;
+	pointer-events: none;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent);
+}
+
 // Load-in intro: red curtain at rest, lifted (yPercent, set from JS) to
 // reveal .pinned's own dark backdrop underneath. pointer-events: none since
 // everything it covers is itself hidden/invisible for the same duration —
@@ -108,6 +121,7 @@
 	font-size: clamp(3.5rem, 14vw, 11rem);
 	line-height: 0.9;
 	text-transform: uppercase;
+	text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
 
 	// Centered on desktop (brief: HOME - Initial Layout) — the logo is the
 	// focal point both full-screen and shrunk. Mobile: left-anchored instead,
@@ -176,6 +190,7 @@
 	font-size: fs(sm);
 	letter-spacing: 0.08em;
 	align-items: center;
+	text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 
 	a {
 		color: inherit;

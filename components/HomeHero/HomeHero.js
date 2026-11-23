@@ -326,6 +326,12 @@ export default function HomeHero({ demoreelUrl, statement, onViewShowreel, menuI
 				<div className={cx('lines')} aria-hidden="true" />
 				<div ref={curtainRef} className={cx('curtain')} aria-hidden="true" />
 
+				{/* Wordmark/social/nav stay position:fixed past the pin release (see
+				    .wordmark's own comment) and keep sitting over whatever page
+				    content scrolls underneath — a plain dark fade so light section
+				    backgrounds don't collide with their white text. */}
+				<div className={cx('stickyFade')} aria-hidden="true" />
+
 				{/* The page's real h1 — Header's own logo is hidden on HOME (see
 				    pages/index.js), so this is the only brand mark left. Built by
 				    hand instead of SplitType (see WORDMARK_UNITS above for why) and
