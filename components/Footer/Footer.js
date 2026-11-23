@@ -20,7 +20,9 @@ export default function Footer({ title, menuItems }) {
 			<div className={cx('band')}>
 				<Container>
 					<Heading level="h2" className={cx('bandHeading')}>
-						{t({ es: <>Trabajemos<br />juntos</>, en: <>Let&rsquo;s work<br />together</> })}
+						<a href={`mailto:${CONTACT_EMAIL}`}>
+							{t({ es: <>Trabajemos<br />juntos</>, en: <>Let&rsquo;s work<br />together</> })}
+						</a>
 					</Heading>
 					{/* Wordmark, doubled letters per the StretchPro brand trick. */}
 					<p className={cx('bandWordmark')}>Reectanguloo</p>

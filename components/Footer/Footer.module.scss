@@ -28,6 +28,11 @@
 	line-height: 0.95;
 	font-size: clamp(2.5rem, 9vw, 6rem);
 	letter-spacing: -0.02em;
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
 }
 
 .bandWordmark {
