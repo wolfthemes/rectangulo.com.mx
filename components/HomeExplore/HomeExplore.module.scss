@@ -96,7 +96,7 @@
 	font-size: clamp(2rem, 8vw, 6rem);
 	font-weight: fw(bold);
 	opacity: 0.15;
-	animation: marquee 28s linear infinite;
+	animation: marquee 90s linear infinite;
 
 	@media (prefers-reduced-motion: reduce) {
 		animation: none;
