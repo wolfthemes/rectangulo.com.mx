@@ -129,6 +129,7 @@ $panel-width: min(85vw, 22rem);
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 0.5rem;
+		padding-left: 0;
 	}
 
 	:global(li) {
@@ -141,6 +142,24 @@ $panel-width: min(85vw, 22rem);
 		padding: 0.6rem 0;
 		font-size: fs(lg);
 	}
+}
+
+.social {
+	display: flex;
+	gap: 1rem;
+	margin-top: 2rem;
+	font-size: fs(sm);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+}
+
+.lang {
+	margin-top: 1.5rem;
 }
 
 @media (min-width: $breakpoint-small) {

@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames/bind';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
+import { LanguageSwitcher } from '../LanguageSwitcher';
 import { getLenis } from '../../lib/scroll';
 import { useT } from '../../lib/i18n';
+import { SOCIAL_LINKS } from '../../constants/contact';
 import styles from './MobileNav.module.scss';
 
 let cx = classNames.bind(styles);
@@ -80,6 +82,14 @@ export default function MobileNav({ menuItems, className }) {
 									&times;
 								</button>
 								<NavigationMenu className={cx('menu')} menuItems={menuItems} onItemClick={close} />
+
+								<div className={cx('social')}>
+									{SOCIAL_LINKS.map(({ short, label, href }) => (
+										<a key={short} href={href} target="_blank" rel="noreferrer" aria-label={label}>{short}</a>
+									))}
+								</div>
+
+								<LanguageSwitcher className={cx('lang')} />
 							</div>
 						</div>
 					</>,
